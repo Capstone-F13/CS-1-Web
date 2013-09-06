@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/courses/cs49901-trac/svn/!svn/ver/2270/S2013/Web/instructor
+END
+sendNotif.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/courses/cs49901-trac/svn/!svn/ver/2271/S2013/Web/instructor/sendNotif.php
+END
+create_assignment.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/courses/cs49901-trac/svn/!svn/ver/2231/S2013/Web/instructor/create_assignment.php
+END
+finishedCourses.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/courses/cs49901-trac/svn/!svn/ver/2261/S2013/Web/instructor/finishedCourses.php
+END
+addStudent.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/courses/cs49901-trac/svn/!svn/ver/2261/S2013/Web/instructor/addStudent.php
+END
+testcourse.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/courses/cs49901-trac/svn/!svn/ver/1929/S2013/Web/instructor/testcourse.php
+END
+courselog.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/courses/cs49901-trac/svn/!svn/ver/1929/S2013/Web/instructor/courselog.php
+END
+grades.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/courses/cs49901-trac/svn/!svn/ver/2107/S2013/Web/instructor/grades.php
+END
+studentAdded.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/courses/cs49901-trac/svn/!svn/ver/2252/S2013/Web/instructor/studentAdded.php
+END
+addCourse.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/courses/cs49901-trac/svn/!svn/ver/2261/S2013/Web/instructor/addCourse.php
+END
+courseadmin.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/courses/cs49901-trac/svn/!svn/ver/2242/S2013/Web/instructor/courseadmin.php
+END
+deleteStudent.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/courses/cs49901-trac/svn/!svn/ver/1929/S2013/Web/instructor/deleteStudent.php
+END
+reopenCourse.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/courses/cs49901-trac/svn/!svn/ver/2247/S2013/Web/instructor/reopenCourse.php
+END
+list_of_assignments.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/courses/cs49901-trac/svn/!svn/ver/2171/S2013/Web/instructor/list_of_assignments.php
+END
+courseAdded.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/courses/cs49901-trac/svn/!svn/ver/2127/S2013/Web/instructor/courseAdded.php
+END
+acourses.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/courses/cs49901-trac/svn/!svn/ver/2261/S2013/Web/instructor/acourses.php
+END
+closeCourse.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/courses/cs49901-trac/svn/!svn/ver/2261/S2013/Web/instructor/closeCourse.php
+END
+list_of_students.php
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/courses/cs49901-trac/svn/!svn/ver/2270/S2013/Web/instructor/list_of_students.php
+END
