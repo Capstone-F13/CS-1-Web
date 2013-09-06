@@ -80,7 +80,7 @@ pid_t launch_debugger(char * argv[],int pipefd[2]){
 }
 
 void make_args(char * id,char * argv[]){
-  argv[0]="/usr/bin/python";
+  argv[0]="/usr/bin/python"; //flag needed for python debugger
   argv[1]="-i";
   argv[2]="-c";
   argv[3]="\"print 'Starting'\"";
