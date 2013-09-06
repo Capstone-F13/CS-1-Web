@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/courses/cs49901-trac/svn/!svn/ver/1926/S2013/Web/codeSamples
+END
+test_py1.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/courses/cs49901-trac/svn/!svn/ver/1926/S2013/Web/codeSamples/test_py1.py
+END
+test.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/courses/cs49901-trac/svn/!svn/ver/1926/S2013/Web/codeSamples/test.cpp
+END
+test_py2.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/courses/cs49901-trac/svn/!svn/ver/1926/S2013/Web/codeSamples/test_py2.py
+END
+test2.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/courses/cs49901-trac/svn/!svn/ver/1926/S2013/Web/codeSamples/test2.cpp
+END
