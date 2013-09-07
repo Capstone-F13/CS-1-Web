@@ -1,0 +1,1 @@
+2013-09-06 10:08:37 - INFO --> dirname(__FILE__)=; '/var/www/html/Project2'

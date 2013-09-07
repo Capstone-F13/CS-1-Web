@@ -1,0 +1,32 @@
+2013-09-06 9:29:57 - INFO --> dirname(__FILE__)=; '/var/www/html/Web'
+2013-09-06 9:30:47 - INFO --> in submissions
+2013-09-06 9:30:47 - INFO --> ../files/compiledDatabaseProgram47.py
+2013-09-06 9:31:01 - INFO --> In results.php
+2013-09-06 9:31:06 - INFO --> in submissions
+2013-09-06 9:31:06 - INFO --> ../files/compiledDatabaseProgram47.py
+2013-09-06 9:31:10 - INFO --> In results.php
+2013-09-06 9:31:12 - INFO --> in submissions
+2013-09-06 9:31:12 - INFO --> ../files/compiledDatabaseProgram47.py
+2013-09-06 9:31:27 - INFO --> In results.php
+2013-09-06 9:31:28 - INFO --> in submissions
+2013-09-06 9:31:28 - INFO --> ../files/compiledDatabaseProgram47.py
+2013-09-06 9:31:31 - INFO --> in submissions
+2013-09-06 9:31:31 - INFO --> ../files/compiledDatabaseProgram48.py
+2013-09-06 9:31:35 - INFO --> In results.php
+2013-09-06 9:31:55 - INFO --> in submissions
+2013-09-06 9:31:55 - INFO --> ../files/compiledDatabaseProgram48.py
+2013-09-06 9:32:01 - INFO --> In results.php
+2013-09-06 9:32:04 - INFO --> in submissions
+2013-09-06 9:32:04 - INFO --> ../files/compiledDatabaseProgram48.py
+2013-09-06 9:32:08 - INFO --> In results.php
+2013-09-06 9:32:14 - INFO --> in submissions
+2013-09-06 9:32:14 - INFO --> ../files/compiledDatabaseProgram48.py
+2013-09-06 9:32:17 - INFO --> In results.php
+2013-09-06 9:32:26 - INFO --> in submissions
+2013-09-06 9:32:26 - INFO --> ../files/compiledDatabaseProgram48.py
+2013-09-06 9:32:35 - INFO --> In results.php
+2013-09-06 9:32:37 - INFO --> in submissions
+2013-09-06 9:32:37 - INFO --> ../files/compiledDatabaseProgram48.py
+2013-09-06 9:32:47 - INFO --> In results.php
+2013-09-06 9:33:17 - INFO --> in submissions
+2013-09-06 9:33:17 - INFO --> ../files/compiledDatabaseProgram51.py

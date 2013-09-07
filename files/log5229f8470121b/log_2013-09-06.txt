@@ -1,0 +1,6 @@
+2013-09-06 11:44:07 - INFO --> dirname(__FILE__)=; '/var/www/html/Project2'
+2013-09-06 11:44:18 - INFO --> in submissions
+2013-09-06 11:44:18 - INFO --> ../files/compiledDatabaseProgram51.py
+2013-09-06 11:44:27 - INFO --> In results.php
+2013-09-06 11:44:49 - INFO --> in submissions
+2013-09-06 11:44:49 - INFO --> ../files/compiledDatabaseProgram51.py

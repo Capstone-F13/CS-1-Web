@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/courses/cs49901-trac/svn/!svn/ver/2267/S2013/Web/shared_php
+END
+logout.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/courses/cs49901-trac/svn/!svn/ver/2172/S2013/Web/shared_php/logout.php
+END
+practice.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/courses/cs49901-trac/svn/!svn/ver/2255/S2013/Web/shared_php/practice.php
+END
+viewNotif.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/courses/cs49901-trac/svn/!svn/ver/2271/S2013/Web/shared_php/viewNotif.php
+END
+changePass.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/courses/cs49901-trac/svn/!svn/ver/2261/S2013/Web/shared_php/changePass.php
+END
+forget_pass.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/courses/cs49901-trac/svn/!svn/ver/2137/S2013/Web/shared_php/forget_pass.php
+END
+databaseConnect.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/courses/cs49901-trac/svn/!svn/ver/1926/S2013/Web/shared_php/databaseConnect.php
+END
+footer.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/courses/cs49901-trac/svn/!svn/ver/1969/S2013/Web/shared_php/footer.php
+END
+passChanged.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/courses/cs49901-trac/svn/!svn/ver/1929/S2013/Web/shared_php/passChanged.php
+END
+myAccount.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/courses/cs49901-trac/svn/!svn/ver/2235/S2013/Web/shared_php/myAccount.php
+END
+saveForm.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/courses/cs49901-trac/svn/!svn/ver/1929/S2013/Web/shared_php/saveForm.php
+END
+session_expired.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/courses/cs49901-trac/svn/!svn/ver/2172/S2013/Web/shared_php/session_expired.php
+END
+saveForm_conf.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/courses/cs49901-trac/svn/!svn/ver/1926/S2013/Web/shared_php/saveForm_conf.php
+END
+header.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/courses/cs49901-trac/svn/!svn/ver/2271/S2013/Web/shared_php/header.php
+END

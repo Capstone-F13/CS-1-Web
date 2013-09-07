@@ -1,0 +1,4 @@
+  File "../files/finalOutput.py", line 5
+    print "0,2"
+        ^
+IndentationError: expected an indented block
