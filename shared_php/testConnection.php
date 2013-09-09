@@ -1,16 +1,16 @@
 <?php
    
-	$host = "localhos";   // database server host domain name
-	$uid = "admin";                  // needs to be secured
+	$host = "localhost";   // database server host domain name
+	$uid = "root";                  // needs to be secured
 	$pass = "";
 	$dbname = "capstone";
-	$db_obj = mysql_connect("localhost", $uid, $pass, $dbname);  // connection object
+	$mysqli = new mysqli($host, $uid, $pass, $dbname);  // connection object
 
-	if (!$db_obj) {  // connection failed
-		printf("Can't connect to $host $dbname. %s:%s\n", mysqli_connect_errno(), mysqli_connect_error());
-		exit();
+    /* check connection */
+	if ($mysqli->connect_errno) 
+	{
+	    printf("Connect failed: %s\n", $mysqli->connect_error);
+	    exit();
 	}
 
-	mysql_select_db($dbname, $db_obj);
-      
 ?>

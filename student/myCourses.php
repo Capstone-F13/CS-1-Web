@@ -14,8 +14,8 @@ if ($_SESSION['stayLoggedIn'] == true) {
 
 //list courses student is in
 $rosterQueryString = "SELECT * FROM Roster WHERE StudentId=" . $_SESSION['idmember'];
-$rosterQuery = mysql_query($rosterQueryString);
-while ($rosterQueryRow = mysql_fetch_array($rosterQuery)) {
+$rosterQuery = mysqli_query($rosterQueryString);
+while ($rosterQueryRow = mysqli_fetch_array($rosterQuery)) {
     //echo classname
     $classnameQueryString = "SELECT * FROM Classes WHERE idClass=" . $rosterQueryRow['ClassId'];
     $classnameQuery = mysql_query($classnameQueryString);
