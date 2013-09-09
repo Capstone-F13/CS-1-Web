@@ -1,5 +1,5 @@
 <?php
-require_once("shared_php/databaseConnect.php");
+require_once("shared_php/testConnection.php");
 require dirname(__FILE__) . '/files/KLogger.php';
 session_start();
 
@@ -28,10 +28,15 @@ $_SESSION['lastActivity'] = time(); // update last activity time stamp
 }
 
 $email = $_POST["username"];
-$passwordHash = md5($_POST["password"]);
-$query = "SELECT idMember, FirstName, LastName, IsInstructor, MemberBanner FROM Member WHERE MemberEmail='$email' AND MemberPassword='$passwordHash'";
+$passwordHash = $_POST["password"];
+
+echo $email." ".$passwordHash;  
+ /*$query = "SELECT idMember, FirstName, LastName, IsInstructor, MemberBanner FROM Member WHERE MemberEmail='$email' AND MemberPassword='$passwordHash'";*/
 $result = mysql_query($query);
 
+$row = mysql_fetch_array($result);
+echo $row[3]. " ". $row[6];
+/*
 if (mysql_num_rows($result) == 1) {
     //create all session variables required for user
 
@@ -67,7 +72,7 @@ else {
     //redirect to login and (in red text) state "username or password incorrect"
     echo "Either there is no user with that login combination, or there is more than one user with that combination";
 }
- $_SESSION['log']->LogInfo("after login");
+ @$_SESSION['log']->LogInfo("after login");
  echo "after login";
-
+*/
 ?>
