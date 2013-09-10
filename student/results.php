@@ -2,7 +2,6 @@
 require dirname(__FILE__) . '/../files/KLogger.php';
 $title = "Results"; //enter title into the quotation marks
 include("../shared_php/header.php");
-session_start();
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
 $log->LogInfo("In results.php");
 
@@ -10,9 +9,10 @@ $log->LogInfo("In results.php");
 $studentAnswer = trim($_POST['studentAnswer']);
 echo "Your answer: " . $studentAnswer . "<br />";
 
+//Queries everything from assignment table
 $query = "SELECT * FROM Assignment WHERE idAssignment=" . $_SESSION['currentAssignmentID'];
-$result = mysql_query($query);
-$array = mysql_fetch_array($result);
+$result = $mysqli->query($query);
+$array = mysqli_fetch_array($result);
 
 //create file to store program from database
 $firstOutput = $_SESSION['firstOutput'];
@@ -35,15 +35,22 @@ else if ($array['AssignmentType'] == 1) {
     system("python " . $filePath . $fileName . " >& " . $filePath . "finalOutput.txt");
 }
 
+//Takes correct answer from files directory 
 $correctOutput = trim(file_get_contents($filePath . "finalOutput.txt"));
 echo "The correct output is: " . $correctOutput . "<br />";
 
-if ($studentAnswer == $correctOutput) {
+//If answer is correct, puts in submission table
+if ($studentAnswer == $correctOutput) 
+{
     echo "You were correct!";
     $queryString = "INSERT INTO Submission (SubmissionMemberId,SubmissionAssignmentId,SubmissionSuccess) 
         VALUES (" . $_SESSION['idmember'] . "," . $_SESSION['currentAssignmentID'] . ",1)";
     $query = mysql_query($queryString);
-} else {
+} 
+
+//If answer is wrong, puts in submission table along with a link to debugger to see steps 
+else 
+{
     echo "Your answer was not correct. ";
     echo "Would you like to step through the program one line at a time in the debugger? <br />";
     echo "<a href='../shared_php/practice.php'>Yes, take me and the program to the debugger<a>";
