@@ -1,0 +1,19 @@
+2013-09-09 11:33:26 - INFO --> dirname(__FILE__)=; '/var/www/html/Web'
+2013-09-09 11:33:53 - INFO --> in submissions
+2013-09-09 11:33:53 - INFO --> ../files/compiledDatabaseProgram51.py
+2013-09-09 11:43:59 - INFO --> In results.php
+2013-09-09 11:44:42 - INFO --> in submissions
+2013-09-09 11:44:42 - INFO --> ../files/compiledDatabaseProgram51.py
+2013-09-09 11:44:53 - INFO --> In results.php
+2013-09-09 11:45:02 - INFO --> in submissions
+2013-09-09 11:45:02 - INFO --> ../files/compiledDatabaseProgram51.py
+2013-09-09 11:45:08 - INFO --> In results.php
+2013-09-09 11:45:48 - INFO --> in submissions
+2013-09-09 11:45:48 - INFO --> ../files/compiledDatabaseProgram51.py
+2013-09-09 11:45:51 - INFO --> in submissions
+2013-09-09 11:45:51 - INFO --> ../files/compiledDatabaseProgram51.py
+2013-09-09 11:45:54 - INFO --> in submissions
+2013-09-09 11:45:54 - INFO --> ../files/compiledDatabaseProgram50.py
+2013-09-09 11:45:58 - INFO --> In results.php
+2013-09-09 11:46:01 - INFO --> in submissions
+2013-09-09 11:46:01 - INFO --> ../files/compiledDatabaseProgram50.py
