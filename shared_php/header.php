@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("testConnection.php");
+include("databaseConnect.php");
 
 
 

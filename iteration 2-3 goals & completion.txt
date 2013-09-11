@@ -1,0 +1,39 @@
+what has been completed:
+active courses page in instructor interface (lots of stuff done)
+add courses page in instructor interface
+my account page is now shared between interfaces and populates based on whether user is student or instructor
+more session variables (login, logout, keep track of user info, session expiration date)
+my courses page populates with user courses (not pretty)
+practice page now has save form
+forget password finished
+change password changes password
+file reorganization + header/footer addition
+
+percentage completed (toward final goal): 55%
+
+percentage completed (for this iteration): 80% (lack of submission pages)
+
+what needs done in next iteration:
+students will be able to submit for code tracing problems (major)
+instructors will be able to create code tracing assignments (major)
+grades (in my account) needs to populate (after submissions) (random grades for demo)
+implement API (with line highlighting)
+
+what needs done by end:
+my courses needs to look better
+my account needs to have drop downs for change password, view grades (for student).
+my account needs
+create new assignment (in active courses in instructor directory) needs to redirect to aa new page to create an assignment
+same thing for student ^^
+closed courses needs to populate from database
+add course needs to include session variable idmember
+auto send notifications for new assignments (once completed, notification area can properly populate)
+copy course should copy a course and give the option to rename it, change dates, copy over assignments (all assignments copied over are automatically hidden)
+cancel, delete, and hide an assignment (with auto send notifications where appropriate)
+close course needs to close a course
+move add/remove student from course administration to active courses page at top of list of students table
+check all pages in multiple browsers
+
+notes for mitch:
+session needs to reset itself if under the 30 minute mark and page is reloaded/new one loaded
+session needs to check for instructor accessing student page or vice versa

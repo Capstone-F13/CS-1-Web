@@ -7,7 +7,7 @@ include("../shared_php/header.php");
 
 
 $memberSubmissionQueryString = "SELECT DISTINCT SubmissionAssignmentId FROM Submission WHERE SubmissionMemberId=" . $_SESSION['idmember'];
-$memberSubmissionQuery = $mysqli->query($memberSubmissionQueryString);
+$memberSubmissionQuery = mysql_query($memberSubmissionQueryString);
 echo "<table>";
 echo "<tr>
         <td><b>Assignment Name&nbsp;&nbsp;&nbsp;</b></td>
@@ -15,7 +15,7 @@ echo "<tr>
         <td><b>Number Of Successes&nbsp;&nbsp;&nbsp;</b></td>
         <td><b>Number of Successes In A Row&nbsp;&nbsp;&nbsp;</b></td>
       </tr>";
-while ($memberSubmissionRow = mysqli_fetch_array($memberSubmissionQuery)) {
+while ($memberSubmissionRow = mysql_fetch_array($memberSubmissionQuery)) {
     //get assignment name
     $assignmentNameQueryString = "SELECT AssignmentName FROM Assignment WHERE idAssignment=" . $memberSubmissionRow['SubmissionAssignmentId'];
     $assignmentNameQuery = mysql_query($assignmentNameQueryString);
