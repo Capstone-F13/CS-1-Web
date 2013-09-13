@@ -76,6 +76,43 @@
 
 <p>The animatedcollapse.js file is a seperate add-on that uses the jQuery library. Dynamic Drive provides some documentation below.
 <a href="http://www.dynamicdrive.com/dynamicindex17/animatedcollapse.htm">http://www.dynamicdrive.com/dynamicindex17/animatedcollapse.htm</a></p>
+
+<hr><h1>
+<a name="travis" class="anchor" href="#travis"><span class="octicon octicon-link"></span></a>Travis</h1>
+
+<h2>
+<a name="student-directory" class="anchor" href="#student-directory"><span class="octicon octicon-link"></span></a>Student Directory</h2>
+
+<h3>
+<a name="mycoursesphp" class="anchor" href="#mycoursesphp"><span class="octicon octicon-link"></span></a>mycourses.php</h3>
+
+<p>Home page for the student when he/she logs on.  It first queries for classes from the classes table that the current student has and is put in an outer loop that displays the classes the student is in.  Then there is a query for an inner loop that displays each assignment within that class from the assignment table.  Finally a link is displayed for each assignment to be able to perform the assignment</p>
+
+<h3>
+<a name="submissionphp" class="anchor" href="#submissionphp"><span class="octicon octicon-link"></span></a>submission.php</h3>
+
+<p>First thing that happens is a query is run to gather every column of the assignment table which is displayed to give details of the assignment.  </p>
+
+<p>** At this point, this is where I want to change the logic of how to compile the c++ program **</p>
+
+<p>The assignment code is displayed from the assignment table info queried earlier.  Below that the input is given for the student to predict what the answer will be.  the form is then sent to results.php</p>
+
+<h3>
+<a name="resultsphp" class="anchor" href="#resultsphp"><span class="octicon octicon-link"></span></a>results.php</h3>
+
+<p>First a query is ran to get the current assignment id info from the assignment table.  It is then compared to see if the program is c++ or python and then executes it and saves it to a text file.</p>
+
+<p><strong>Again I have a different way of doing this</strong></p>
+
+<p>They then compare it to the correct answer.  If it's right they insert it into submit table.  If not, it displays that it's not correct and asks if we wish to go to the debugger and then submits wrong answer to submission table.</p>
+
+<h3>
+<a name="viewsubmissionsphp" class="anchor" href="#viewsubmissionsphp"><span class="octicon octicon-link"></span></a>viewsubmissions.php</h3>
+
+<p>It first queries for certain submission id for certain student and displays info.  It then cycles through all the submissions, with number of attempts, including success and failures </p>
+
+<h2>
+<a name="instructor-directory" class="anchor" href="#instructor-directory"><span class="octicon octicon-link"></span></a>Instructor Directory</h2>
       </section>
     </div>
 
