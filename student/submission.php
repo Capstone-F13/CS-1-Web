@@ -2,8 +2,10 @@
 
 $title = "Submission: Assignment " . $_GET['idAssignment']; //enter title into the quotation marks
 include("../shared_php/header.php");
+/*
 require dirname(__FILE__) . '/../files/KLogger.php';
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
+*/
 
 //have to set current assignment ID into a session variable
 $_SESSION['currentAssignmentID'] = $_GET['idAssignment'];
