@@ -1,0 +1,2 @@
+2013-09-12 0:29:36 - INFO --> dirname(__FILE__)=; 'C:\\wamp\\www\\CS-1-Web'
+2013-09-12 0:29:53 - INFO --> In Practice page; '52314330eabcd'
