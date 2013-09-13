@@ -1,6 +1,0 @@
-2013-09-11 17:19:17 - INFO --> dirname(__FILE__)=; 'C:\\wamp\\www\\CS-1-Web'
-2013-09-11 17:19:34 - INFO --> In results.php
-2013-09-11 17:24:29 - INFO --> In Practice page; '5230de554c530'
-2013-09-11 17:25:27 - INFO --> In Practice page; '5230de554c530'
-2013-09-11 17:25:40 - INFO --> In Practice page; '5230de554c530'
-2013-09-11 17:26:22 - INFO --> In Practice page; '5230de554c530'
