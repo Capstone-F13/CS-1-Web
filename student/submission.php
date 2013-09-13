@@ -11,11 +11,11 @@ $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['unique
 $_SESSION['currentAssignmentID'] = $_GET['idAssignment'];
 
 echo ("  <br><br> <h3> <u> Submissions: </u> </h3> <br> ");
-
 //Query selects everything from the assignment table 
 $query = "SELECT * FROM Assignment WHERE idAssignment=" . $_SESSION['currentAssignmentID'];
 $result = $mysqli->query($query);
 $array = mysqli_fetch_array($result);
+
 
 //Displays the query from the assignment table 
 echo "<b>Assignment Name:</b> " . $array['AssignmentName'] . "<br />";
@@ -52,7 +52,8 @@ $_SESSION['firstOutput'] = file_get_contents($filePath . "test.txt");
     <code>
         <pre>
             <?//php echo $_SESSION['firstOutput']; ?>
-            <?php echo $array['AssignmentCode'] ?>
+<?php $escape = htmlspecialchars($array['AssignmentCode']);
+echo $escape; ?>
         </pre>
     </code>
 </div>
