@@ -1,4 +1,4 @@
-<?php
+<script language="php">
 session_start();
 //check for last activity, and kill session as needed
 if (isset($_SESSION['lastActivity'])) {
@@ -16,7 +16,7 @@ if (isset($_SESSION['lastActivity'])) {
 } else {
     $_SESSION['lastActivity'] = time(); // update last activity time stamp
 }
-?>
+</script>
 
 <!DOCTYPE HTML>
 <html>
