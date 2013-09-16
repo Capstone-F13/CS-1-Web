@@ -47,11 +47,11 @@ if (mysqli_num_rows($result) == 1)
     $_SESSION['idmember'] = $memberData['idMember'];
     $_SESSION['isinstructor'] = $memberData['IsInstructor'];
 	$_SESSION['uniqueID']=uniqid ();
-   
+   /*
     $log   = KLogger::instance(dirname(__FILE__) . '/files/log'.$_SESSION['uniqueID'], KLogger::INFO);
     $log->logInfo('dirname(__FILE__)=',dirname(__FILE__) );
     //redirect to instructor interface (active courses)
-		 
+	*/	 
     if ($_SESSION['isinstructor'] == 1) {
         header("Location:instructor/acourses.php");
     }
