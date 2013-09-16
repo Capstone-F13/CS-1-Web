@@ -1,0 +1,1 @@
+2013-09-15 19:11:21 - INFO --> dirname(__FILE__)=; 'C:\\wamp\\www\\CS-1-Web'

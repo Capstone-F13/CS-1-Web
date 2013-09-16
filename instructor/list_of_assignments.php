@@ -59,8 +59,8 @@ function ValidateForm()
 	
 	<?php
 		$selectSQL="SELECT * FROM Classes where idClass = " . $_REQUEST['AssignmentClass'];
-		$result=mysql_query($selectSQL);
-		$row = mysql_fetch_assoc($result);			
+		$result=$mysqli->query($selectSQL);
+		$row = mysqli_fetch_assoc($result);			
 	?>
 	<strong>Course : <?php echo $row['ClassName']; 	?> </strong> <br />
 	<strong><a href="create_assignment.php?AssignmentClass=<?php echo $_REQUEST['AssignmentClass']; ?>">Create New Assignment</a></strong>
@@ -77,12 +77,12 @@ function ValidateForm()
 		<td width="0"></thead>
 		<?php
 		$selectSQL="SELECT * FROM Assignment where AssignmentClass=" . $_REQUEST['AssignmentClass'];
-		$result=mysql_query($selectSQL);
+		$result=$mysqli->query($selectSQL);
 
-		if(mysql_num_rows($result)>0)
+		if(mysqli_num_rows($result)>0)
 		{
 		
-			while ($row = mysql_fetch_assoc($result)) 
+			while ($row = mysqli_fetch_assoc($result)) 
 			{
 		?>
 			<tr>
