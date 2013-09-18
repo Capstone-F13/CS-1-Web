@@ -1,0 +1,2 @@
+2013-09-16 13:30:24 - INFO --> dirname(__FILE__)=; 'C:\\cygwin\\home\\Brian\\CS-1-Web'
+2013-09-16 13:33:33 - INFO --> In results.php

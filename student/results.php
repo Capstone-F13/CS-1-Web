@@ -1,8 +1,7 @@
-<?php
+<script language="php">
 require dirname(__FILE__) . '/../files/KLogger.php';
 $title = "Results"; //enter title into the quotation marks
 include("../shared_php/header.php");
-session_start();
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
 $log->LogInfo("In results.php");
 
@@ -15,7 +14,12 @@ $result = mysql_query($query);
 $array = mysql_fetch_array($result);
 
 //create file to store program from database
-$firstOutput = $_SESSION['firstOutput'];
+if (isset($_SESSION['firstOutput'])) {
+    $firstOutput = $_SESSION['firstOutput'];
+}
+else {
+    $firstOutput = NULL;
+}
 $filePath = "../files/";
 
 //if assignment type is 0 (for c++) compile using gcc and run and pipe output to text file.
@@ -40,7 +44,7 @@ echo "The correct output is: " . $correctOutput . "<br />";
 
 if ($studentAnswer == $correctOutput) {
     echo "You were correct!";
-    $queryString = "INSERT INTO Submission (SubmissionMemberId,SubmissionAssignmentId,SubmissionSuccess) 
+    $queryString = "INSERT INTO Submission (SubmissionMemberId,SubmissionAssignmentId,SubmissionSuccess)
         VALUES (" . $_SESSION['idmember'] . "," . $_SESSION['currentAssignmentID'] . ",1)";
     $query = mysql_query($queryString);
 } else {
@@ -55,4 +59,4 @@ if ($studentAnswer == $correctOutput) {
 }
 
 include("../shared_php/footer.php");
-?>
+</script>

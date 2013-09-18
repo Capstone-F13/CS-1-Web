@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <?php
 	$title = "View Notification"; //enter title into the quotation marks
 	include("../shared_php/header.php");
