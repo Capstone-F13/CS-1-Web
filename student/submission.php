@@ -24,7 +24,8 @@ $array2 = mysql_fetch_array($result2);
 echo "<b>Assignment Name:</b> " . $array['AssignmentName'] . "<br />";
 echo "<b>Instructions:</b> " . $array['AssignmentInstructions'] . "<br />";
 echo "<b>Due Date:</b> " . $array['AssignmentDueDate'] . "<br />";
-echo "<b>Max Attempts:</b> " . $array['AssignmentMaxAttempts'] . "<br />";
+if ($array['AssignmentMaxAttempts'] != NULL) {
+echo "<b>Max Attempts:</b> " . $array['AssignmentMaxAttempts'] . "<br />"; }
 echo "<br />";
 /*
 $log->LogInfo("in submissions");
