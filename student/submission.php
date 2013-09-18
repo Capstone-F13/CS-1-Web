@@ -48,7 +48,7 @@ $_SESSION['firstOutput'] = file_get_contents($filePath . "test.txt");
 ?>
 
 <script language="php">
-if( $array2['COUNT(idSubmission)'] < $array['AssignmentMaxAttempts']) {
+if( $array2['COUNT(idSubmission)'] < $array['AssignmentMaxAttempts'] || $array['AssignmentMaxAttempts'] == NULL) {
 </script>
 
 <div class="codebox">
