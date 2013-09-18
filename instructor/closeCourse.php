@@ -41,10 +41,10 @@ while($rows=mysql_fetch_array($query)){
 
 <tr>
 <td align="center" bgcolor="#FFFFFF"><input name="radio_button" type="radio" id="radio_button" value="<?php echo $rows['idClass']; ?>"></td>
-<td bgcolor="#FFFFFF"><? echo $rows['ClassName']; ?></td>
-<td bgcolor="#FFFFFF"><? echo $rows['ClassCRN']; ?></td>
-<td bgcolor="#FFFFFF"><? echo $rows['ClassStartDate']; ?></td>
-<td bgcolor="#FFFFFF"><? echo $rows['ClassEndDate']; ?></td>
+<td bgcolor="#FFFFFF"><?php echo $rows['ClassName']; ?></td>
+<td bgcolor="#FFFFFF"><?php echo $rows['ClassCRN']; ?></td>
+<td bgcolor="#FFFFFF"><?php echo $rows['ClassStartDate']; ?></td>
+<td bgcolor="#FFFFFF"><?php echo $rows['ClassEndDate']; ?></td>
 </tr>
 
 <?php
