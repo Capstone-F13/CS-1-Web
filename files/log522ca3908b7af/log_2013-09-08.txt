@@ -1,3 +1,0 @@
-2013-09-08 12:19:28 - INFO --> dirname(__FILE__)=; '/var/www/html/Web'
-2013-09-08 12:19:35 - INFO --> in submissions
-2013-09-08 12:19:35 - INFO --> ../files/compiledDatabaseProgram47.py

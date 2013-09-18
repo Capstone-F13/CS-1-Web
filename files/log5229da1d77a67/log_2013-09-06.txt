@@ -1,1 +1,0 @@
-2013-09-06 9:35:25 - INFO --> dirname(__FILE__)=; '/var/www/html/Web'

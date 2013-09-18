@@ -1,6 +1,6 @@
 <?php
    
-	$host = "capstone-s13.cs.kent.edu";   // database server host domain name
+	$host = "localhost";   // database server host domain name
 	$uid = "ckerstin";                  // needs to be secured
 	$pass = "capstones13";
 	$dbname = "capstones13";
