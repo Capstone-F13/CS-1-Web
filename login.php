@@ -1,7 +1,7 @@
 <?php
-require_once("shared_php/testConnection.php");
+require_once("shared_php/databaseConnect.php");
 require dirname(__FILE__) . '/files/KLogger.php';
-session_start();
+
 
 //set "Keep Me Logged In" session variable
 if(isset($_POST['remember'])) {
