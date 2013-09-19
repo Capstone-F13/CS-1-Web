@@ -50,7 +50,7 @@ session_start();
 				<input type="submit" name="Add_to_Course" id="Add_to_Course" value="Add to Course"> 
 			</form>
 			<?php
-				if($_POST['Add_to_Course']){
+				if(isset($_POST['Add_to_Course'])){
 					$student_id = $_POST['students'];
 					$sql = "INSERT INTO Roster VALUES (NULL, " . $_REQUEST['ClassId'] . ", " . $student_id .")" ;
 					$result = $mysqli->query($sql);
