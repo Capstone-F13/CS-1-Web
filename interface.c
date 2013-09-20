@@ -9,7 +9,7 @@
 #include <string.h>
 #define BUFFSIZE 8192
 #define MaxPipeName 100
-#define logdir "/home/ruttan/classes/capstone/debugger/"
+#define logdir "/debugger/"
 #define numDbgArgs 5
 #define ArgSize 30
 

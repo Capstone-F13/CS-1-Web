@@ -1,0 +1,14 @@
+2013-09-14 18:38:11 - INFO --> dirname(__FILE__)=; 'C:\\cygwin\\home\\Brian\\CS-1-Web'
+2013-09-14 18:38:19 - INFO --> in submissions
+2013-09-14 18:38:19 - INFO --> ../files/compiledDatabaseProgram1.py
+2013-09-14 18:38:26 - INFO --> In results.php
+2013-09-14 18:38:47 - INFO --> in submissions
+2013-09-14 18:38:47 - INFO --> ../files/compiledDatabaseProgram1.py
+2013-09-14 18:38:51 - INFO --> in submissions
+2013-09-14 18:38:51 - INFO --> ../files/compiledDatabaseProgram2.py
+2013-09-14 18:38:52 - INFO --> In results.php
+2013-09-14 18:38:54 - INFO --> in submissions
+2013-09-14 18:38:54 - INFO --> ../files/compiledDatabaseProgram2.py
+2013-09-14 18:38:57 - INFO --> In results.php
+2013-09-14 18:40:35 - INFO --> in submissions
+2013-09-14 18:40:35 - INFO --> ../files/compiledDatabaseProgram2.py
