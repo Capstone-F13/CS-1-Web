@@ -93,8 +93,8 @@ function ValidateForm()
 			<td><?php echo $row['AssignmentClass'] ; ?> </td>
 			<td><?php echo $row['AssignmentType'] ; ?> </td>
 			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
-			<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td>
 			</tr>
+			<!-- <td><a href="upload/<?php //echo $row['FileName'] ; ?>"><?php //echo $row['FileName'] ; ?></a></td> -->
 		<?php
 			}
 		}
