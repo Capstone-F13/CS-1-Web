@@ -9,36 +9,31 @@ $result1 = $mysqli->query($query);
 if (isset($_REQUEST['edit_assignment'])) {
 	
 	
-	 $r_assignmentName = $mysqli->real_escape_string($_REQUEST['assignmentName']);
+	 $r_assignmentName = $mysqli->real_escape_string($_REQUEST['txtAssignmentName']);
 	 $r_txtDueDate = $mysqli->real_escape_string($_REQUEST['txtDueDate']);
 	 $r_txtInstructions = $mysqli->real_escape_string($_REQUEST['txtInstructions']);
 	 $r_txtCode = $mysqli->real_escape_string($_REQUEST['txtCode']);
 	 $r_cmbType = $mysqli->real_escape_string($_REQUEST['cmbType']);
 	 $r_cmbNoOfAttempts = $mysqli->real_escape_string($_REQUEST['cmbNoOfAttempts']);
 	
-	$originalSQL = "SELECT * FROM Assignment WHERE AssignmentName='$r_assignmentName'";
-	$result2 = $mysqli->query($originalSQL);
-	$row = $result2->fetch_array();
-	
-	 $d_assignmentName = $mysqli->real_escape_string($row['AssignmentName']);
-	 $d_txtDueDate = $mysqli->real_escape_string($row['AssignmentDueDate']);
-	 $d_txtInstructions = $mysqli->real_escape_string($row['AssignmentInstructions']);
-	 $d_txtCode = $mysqli->real_escape_string($row['AssignmentCode']);
-	 $d_cmbType = $mysqli->real_escape_string($row['AssignmentType']);
-	 $d_cmbNoOfAttempts = $mysqli->real_escape_string($row['AssignmentMaxAttempts']);
+	 $originalSQL = "SELECT * FROM Assignment WHERE AssignmentName='$r_assignmentName'";
+	 $result2 = $mysqli->query($originalSQL);
+	 $row = $result2->fetch_array();
+	 
+	 $d_assignmentid = $mysqli->real_escape_string($row['idAssignment']);
+
 
     $editSQL = "UPDATE Assignment   
     
     SET AssignmentName ='$r_assignmentName',  AssignmentDueDate ='$r_txtDueDate', AssignmentInstructions ='$r_txtInstructions', 
     AssignmentCode ='$r_txtCode',  AssignmentType='$r_cmbType', AssignmentMaxAttempts='$r_cmbNoOfAttempts' 
     
-    WHERE AssignmentName ='$d_assignmentName',  AssignmentDueDate ='$d_txtDueDate', AssignmentInstructions ='$d_txtInstructions',
-    AssignmentCode ='$d_txtCode',AssignmentType='$d_cmbType', AssignmentMaxAttempts='$d_cmbNoOfAttempts'";
+    WHERE idAssignment = '$d_assignmentid'";
 
     if(!$mysqli->query($editSQL))
 		printf("Errormessage: %s\n", $mysqli->error);
 	
-    //header("Location:list_of_assignments.php?AssignmentClass=" . $_REQUEST['AssignmentClass']);
+    header("Location:list_of_assignments.php?AssignmentClass=" . $_REQUEST['AssignmentClass']);
 }
 ?>
 
@@ -52,7 +47,45 @@ if (isset($_REQUEST['edit_assignment'])) {
         <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/acourses.css" />
         <link rel="stylesheet" href="../css/layout.css">
-        <script language="JavaScript1.1" src="../js/createAssignment.js" type="text/javascript"></script>
+        <script>
+        function ValidateForm2()
+{
+    var x = document.forms["edit_assignment"]["txtAssignmentName"].value;
+    if (x == null || x == "")
+    {
+        alert("Please enter Assignment Name.");
+        document.forms["edit_assignment"]["txtAssignmentName"].focus();
+        return;
+    }
+    var x = document.forms["edit_assignment"]["txtDueDate"].value;
+    if (x == null || x == "")
+    {
+        alert("Please enter Due Date.");
+        document.forms["edit_assignment"]["txtDueDate"].focus();
+        return;
+    }
+    var x = document.forms["edit_assignment"]["txtInstructions"].value;
+    if (x == null || x == "")
+    {
+        alert("Please enter Instruction.");
+        document.forms["edit_assignment"]["txtInstructions"].focus();
+        return;
+    }
+    var x = document.forms["edit_assignment"]["cmbNoOfAttempts"].value;
+    if (x == null || x == "0")
+    {
+        alert("Please select No of Attempts.");
+        return;
+    }
+    var x = document.forms["edit_assignment"]["cmbType"].value;
+    if (x == null || x == "-1")
+    {
+        alert("Please select Assignment Type.");
+        return;
+    }
+    document.forms["edit_assignment"].submit();
+}
+</script>
     </head>
     <body>
         <form action="edit_assignment.php?edit_assignment=true&AssignmentClass=<?php echo $_SESSION['AssignmentClass']; ?>" id="edit_assignment" method="post" enctype="multipart/form-data">
@@ -62,7 +95,7 @@ if (isset($_REQUEST['edit_assignment'])) {
                     <td>
                         <strong>Assignment Name</strong></td>
                     <td>
-                        <select name="assignmentName">
+                        <select name="txtAssignmentName">
                         	<option value="" selected="selected" disabled="disabled">Select an Assignment</option>
                         	<?php
                         	while($row = $result1->fetch_row())
@@ -115,7 +148,7 @@ if (isset($_REQUEST['edit_assignment'])) {
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="submit" onclick="ValidateForm();" value="Submit"></td>
+                        <button type="button" onclick="ValidateForm2();">Submit</button></td>
                 </tr>
             </table>
         </form>
