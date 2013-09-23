@@ -28,15 +28,16 @@ $_SESSION['lastActivity'] = time(); // update last activity time stamp
 }
 
 $email = $_POST["username"];
-$passwordHash = md5($_POST["password"]);
+$passwordHash = $_POST["password"];
 $query = "SELECT idMember, FirstName, LastName, IsInstructor, MemberBanner FROM Member WHERE MemberEmail='$email' AND MemberPassword='$passwordHash'";
-$result = mysql_query($query);
+$result = $mysqli->query($query);
 
-if (mysql_num_rows($result) == 1) {
+if (mysqli_num_rows($result) == 1) 
+{
     //create all session variables required for user
 
     
-    $memberData = mysql_fetch_array($result);
+    $memberData = mysqli_fetch_array($result);
     $_SESSION['start'] = time(); // get current time
     $_SESSION['expire'] = $_SESSION['start'] + (30 * 60) ; // ends the session in 30 minutes from starting time
     $_SESSION['email'] = $email;
@@ -45,10 +46,12 @@ if (mysql_num_rows($result) == 1) {
     $_SESSION['memberbanner'] = $memberData['MemberBanner'];
     $_SESSION['idmember'] = $memberData['idMember'];
     $_SESSION['isinstructor'] = $memberData['IsInstructor'];
-$_SESSION['uniqueID']=uniqid ();
+	$_SESSION['uniqueID']=uniqid ();
+   /*
     $log   = KLogger::instance(dirname(__FILE__) . '/files/log'.$_SESSION['uniqueID'], KLogger::INFO);
     $log->logInfo('dirname(__FILE__)=',dirname(__FILE__) );
     //redirect to instructor interface (active courses)
+	*/	 
     if ($_SESSION['isinstructor'] == 1) {
         header("Location:instructor/acourses.php");
     }
@@ -67,7 +70,7 @@ else {
     //redirect to login and (in red text) state "username or password incorrect"
     echo "Either there is no user with that login combination, or there is more than one user with that combination";
 }
- $_SESSION['log']->LogInfo("after login");
+ @$_SESSION['log']->LogInfo("after login");
  echo "after login";
 
 ?>

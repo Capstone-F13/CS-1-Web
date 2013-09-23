@@ -4,9 +4,9 @@
 	
 	$pass = md5($_POST['banner']); 
 	$allStudents="SELECT * FROM Member WHERE MemberEmail='$_POST[email]'";
-	$result = mysql_query($allStudents);		
+	$result = $mysqli->query($allStudents);		
 	
-	if(mysql_num_rows($result)!= 0)
+	if(mysqli_num_rows($result)!= 0)
 	{
 		echo 'Student Exists';
 	}
@@ -14,9 +14,9 @@
 	{
 		$students="INSERT INTO Member (FirstName, LastName, MemberEmail, MemberBanner, MemberPassword ,IsInstructor)
 		VALUES('$_POST[firstName]','$_POST[lastName]','$_POST[email]','$_POST[banner]', '$pass', '0')";
-		mysql_query($students);
-		$result = mysql_query($allStudents);		
-		if(mysql_num_rows($result)!=0)
+		$mysqli->query($students);
+		$result = $mysqli->query($allStudents);		
+		if(mysqli_num_rows($result)!=0)
 			{
 				echo "Student has been added!";
 			} 
