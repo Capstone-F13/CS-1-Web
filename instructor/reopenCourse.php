@@ -11,7 +11,7 @@ if($_POST['Open']){
 
 $open_id = $_POST['radio_button'];
 $sql = "UPDATE Classes SET isFinished = 0 WHERE idClass =" . $open_id ;
-$result = mysql_query($sql);
+$result = $mysqli->query($sql);
 unset($_POST['Open']);
 
 // if successful redirect to delete_multiple.php
@@ -22,7 +22,7 @@ unset($_POST['Open']);
 
 //pull all courses where idMember = classinstructorid and isfinished = 0
 $title = "SELECT * FROM Classes WHERE ClassInstructorId = " . $_SESSION['idmember'] . " AND isFinished = 1";
-$query = mysql_query($title);
+$query = $mysqli->query($title);
 ?>
 <table width="400" border="0" cellspacing="1" cellpadding="0">
 <tr>
@@ -37,7 +37,7 @@ $query = mysql_query($title);
 </tr>
 
 <?php
-while($rows=mysql_fetch_array($query)){
+while($rows=mysqli_fetch_array($query)){
 ?>
 
 <tr>

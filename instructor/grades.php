@@ -16,8 +16,8 @@ require_once("../shared_php/databaseConnect.php");
 <body leftmargin="0px" topmargin="0px">
 	<?php
 		$selectSQL="SELECT * FROM member where idMember = " . $_REQUEST['idMember'];
-		$result=mysql_query($selectSQL);
-		$row = mysql_fetch_assoc($result);			
+		$result=$mysqli->query($selectSQL);
+		$row = mysqli_fetch_assoc($result);			
 	?>
 	<table>
 		<tr>
@@ -33,12 +33,12 @@ require_once("../shared_php/databaseConnect.php");
 		</thead>
 		<?php
 		$selectSQL="SELECT * FROM grades inner join assignment on AssignmentID = idAssignment WHERE StudentId=" . $_REQUEST['idMember'];
-		$result=mysql_query($selectSQL);
+		$result=$mysqli->query($selectSQL);
 
-		if(mysql_num_rows($result)>0)
+		if(mysqli_num_rows($result)>0)
 		{
 		
-			while ($row = mysql_fetch_assoc($result)) 
+			while ($row = mysqli_fetch_assoc($result)) 
 			{
 		?>
 			<tr>

@@ -18,8 +18,8 @@ session_start();
 	<?php
 
 		$selectSQL="SELECT * FROM Classes where idClass = " . $_REQUEST['ClassId'];
-		$result=mysql_query($selectSQL);
-		$row = mysql_fetch_assoc($result);			
+		$result=$mysqli->query($selectSQL);
+		$row = mysqli_fetch_assoc($result);			
 	?>
 	<table>
 		<tr>
@@ -37,8 +37,8 @@ session_start();
 
 					<?php
 						$selectSQL="SELECT * FROM Member where isInstructor = 0";
-						$result=mysql_query($selectSQL);
-						while ($row = mysql_fetch_assoc($result)) 
+						$result=$mysqli->query($selectSQL);
+						while ($row = mysqli_fetch_assoc($result)) 
 						{
 						
 						
@@ -50,10 +50,10 @@ session_start();
 				<input type="submit" name="Add_to_Course" id="Add_to_Course" value="Add to Course"> 
 			</form>
 			<?php
-				if($_POST['Add_to_Course']){
+				if(isset($_POST['Add_to_Course'])){
 					$student_id = $_POST['students'];
 					$sql = "INSERT INTO Roster VALUES (NULL, " . $_REQUEST['ClassId'] . ", " . $student_id .")" ;
-					$result = mysql_query($sql);
+					$result = $mysqli->query($sql);
 				}
 			?>
 
@@ -71,12 +71,12 @@ session_start();
 		</thead>
 		<?php
 		$selectSQL="SELECT * FROM Roster inner join Member on StudentId = idMember WHERE ClassId=" . $_REQUEST['ClassId'];
-		$result=mysql_query($selectSQL);
+		$result=$mysqli->query($selectSQL);
 
-		if(mysql_num_rows($result)>0)
+		if(mysqli_num_rows($result)>0)
 		{
 		
-			while ($row = mysql_fetch_assoc($result)) 
+			while ($row = mysqli_fetch_assoc($result)) 
 			{
 		?>
 			<tr>

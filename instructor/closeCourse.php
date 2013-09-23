@@ -10,7 +10,7 @@ include("../shared_php/header.php");
 if($_POST['Close']){
 $close_id = $_POST['radio_button'];
 $sql = "UPDATE Classes SET isFinished = 1 WHERE idClass =" . $close_id ;
-$result = mysql_query($sql);
+$result = $mysqli->query($sql);
 
 // if successful redirect to delete_multiple.php 
 if($result){
@@ -20,12 +20,16 @@ echo "Course is closed!!";
 
 //pull all courses where idMember = classinstructorid and isfinished = 0
 $title = "SELECT * FROM Classes WHERE ClassInstructorId = " . $_SESSION['idmember'] . " AND isFinished = 0";
-$query = mysql_query($title);
+$result = $mysqli->query($title);
+$count = $result->field_count;
 
 ?>
+
+
 <table width="400" border="0" cellspacing="1" cellpadding="0">
 <tr>
 <td><form name="form1" method="post" action="">
+
 <table width="400" border="0" cellpadding="3" cellspacing="1" bgcolor="#CCCCCC">
 <tr>
 <td align="center" bgcolor="#FFFFFF">#</td>
@@ -36,7 +40,8 @@ $query = mysql_query($title);
 </tr>
 
 <?php
-while($rows=mysql_fetch_array($query)){
+while($rows=$result->fetch_array()){
+
 ?>
 
 <tr>
@@ -62,4 +67,4 @@ while($rows=mysql_fetch_array($query)){
 </table>
 <?php
 include("../shared_php/footer.php");
-?>
+?> 
