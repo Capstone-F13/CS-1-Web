@@ -5,7 +5,7 @@
 	$classes="INSERT INTO Classes (ClassCRN, ClassName, ClassInstructorId, ClassStartDate, ClassEndDate, isFinished)
 	VALUES('$_POST[CRN]','$_POST[coursename]','$_SESSION[idmember]','$_POST[startDate]', '$_POST[endDate]', '0')";
 	
-	$result = mysql_query($classes);		
+	$result = $mysqli->query($classes);		
 ?>	
 
 	<script>

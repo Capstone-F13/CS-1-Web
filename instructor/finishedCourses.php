@@ -12,9 +12,9 @@ include("../shared_php/header.php");
                 <ul class="top-level">
                     <?php
                     $selectSQL = "SELECT * FROM Classes WHERE ClassInstructorId = " . $_SESSION['idmember'] . " AND isFinished = 1";
-                    $result = mysql_query($selectSQL);
+                    $result = $mysqli->query($selectSQL);
 
-                    while ($row = mysql_fetch_array($result)) {
+                    while ($row = mysqli_fetch_array($result)) {
                         ?>
                         <li><a href="#"><?php echo $row['ClassName']; ?></a>
                             <ul class="sub-level">

@@ -1,4 +1,0 @@
-2013-09-06 11:51:12 - INFO --> dirname(__FILE__)=; '/var/www/html/Project1'
-2013-09-06 11:51:18 - INFO --> in submissions
-2013-09-06 11:51:18 - INFO --> ../files/compiledDatabaseProgram49.py
-2013-09-06 11:51:22 - INFO --> In results.php

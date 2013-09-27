@@ -1,5 +1,7 @@
 <?php
 require_once("../shared_php/databaseConnect.php");
+session_start();
+$_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
 ?>
 
 
@@ -57,13 +59,14 @@ function ValidateForm()
 </head>
 <body leftmargin="0px" topmargin="0px">
 	
-	<?php
+	<?php		
 		$selectSQL="SELECT * FROM Classes where idClass = " . $_REQUEST['AssignmentClass'];
-		$result=mysql_query($selectSQL);
-		$row = mysql_fetch_assoc($result);			
+		$result=$mysqli->query($selectSQL);
+		$row = mysqli_fetch_assoc($result);			
 	?>
 	<strong>Course : <?php echo $row['ClassName']; 	?> </strong> <br />
 	<strong><a href="create_assignment.php?AssignmentClass=<?php echo $_REQUEST['AssignmentClass']; ?>">Create New Assignment</a></strong>
+	<strong><a href="edit_assignment.php">Edit Assignment</a></strong>
 	<table id="listOfStudent" cellpadding="5px" cellspacing="0px">
 		<thead>
 	  		<td width="76">Assignment ID</td>
@@ -77,12 +80,12 @@ function ValidateForm()
 		<td width="0"></thead>
 		<?php
 		$selectSQL="SELECT * FROM Assignment where AssignmentClass=" . $_REQUEST['AssignmentClass'];
-		$result=mysql_query($selectSQL);
+		$result=$mysqli->query($selectSQL);
 
-		if(mysql_num_rows($result)>0)
+		if(mysqli_num_rows($result)>0)
 		{
 		
-			while ($row = mysql_fetch_assoc($result)) 
+			while ($row = mysqli_fetch_assoc($result)) 
 			{
 		?>
 			<tr>
@@ -93,7 +96,7 @@ function ValidateForm()
 			<td><?php echo $row['AssignmentClass'] ; ?> </td>
 			<td><?php echo $row['AssignmentType'] ; ?> </td>
 			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
-			<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td>
+			<!--<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td> -->
 			</tr>
 		<?php
 			}

@@ -144,6 +144,8 @@ if (isset($_SESSION['lastActivity'])) {
                 <li><a href='../instructor/courselog.php'>Copy Course</a></li>
                 <li><a href='../instructor/closeCourse.php'>Close Course</a></li>
                 <li><a href='../instructor/reopenCourse.php'>Reopen Course</a></li>
+             
+                
 
             </ul>
         </li>
