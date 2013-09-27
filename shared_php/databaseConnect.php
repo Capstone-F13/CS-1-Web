@@ -18,5 +18,7 @@
 	    printf("Connect failed: %s\n", $mysqli->connect_error);
 	    exit();
 	}
+
+	mysql_select_db($dbname, $db_obj);
       
 ?>
