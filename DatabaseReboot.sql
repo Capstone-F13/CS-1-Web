@@ -102,7 +102,11 @@ CREATE  TABLE IF NOT EXISTS `Submission` (
   `idSubmission` INT NOT NULL AUTO_INCREMENT ,
   `SubmissionMemberId` INT NOT NULL ,
   `SubmissionAssignmentId` INT NOT NULL ,
-  `SubmissionSuccess` BINARY NULL COMMENT 'Should be 0 for fail, 1 for success, null when created.' ,
+  `NoOfAttempts` INT NOT NULL DEFAULT '0' ,  
+  `NoOfSuccesses` INT NOT NULL DEFAULT '0' ,
+  `SuccessInRow` INT NOT NULL DEFAULT '0' ,
+  `OverallPerformance` TEXT,
+  `Index` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`idSubmission`) ,
   INDEX `AssignmentId_idx` (`SubmissionAssignmentId` ASC) ,
   UNIQUE INDEX `idSubmission_UNIQUE` (`idSubmission` ASC) ,
@@ -205,9 +209,11 @@ CREATE  TABLE IF NOT EXISTS `Grades` (
   `GradeID` INT NOT NULL AUTO_INCREMENT ,
   `StudentID` INT NOT NULL ,
   `AssignmentID` INT NOT NULL ,
-  `NoOfAttempts` INT ,
+  `NoOfAttempts` INT ,  
   `NoOfSuccesses` INT ,
   `SuccessInRow` INT ,
+  `TotalAttempts` INT,
+  `Index` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`GradeID`) ,
   UNIQUE INDEX `GradeID_UNIQUE` (`GradeID` ASC) ,
   CONSTRAINT `StudentID` 
@@ -224,8 +230,8 @@ ENGINE = InnoDB;
 
 
 
-INSERT INTO Member VALUES (1, 'Instruct', 'Lastname', 'instructor@email.gov', 812345678, md5('instructorpass'), 1);
-INSERT INTO Member VALUES (2, 'Student', 'Last2', 'student@email.gov', 810000001, md5('studentpass'), 0);
+INSERT INTO Member VALUES (1, 'Instruct', 'Lastname', 'instructor@email.gov', 812345678, md5('password'), 1);
+INSERT INTO Member VALUES (2, 'Student', 'Last2', 'student@email.gov', 810000001, md5('password'), 0);
 INSERT INTO Member VALUES (3, 'Instructor2', 'Last3', 'instructor2@email.gov', 812345679, md5('instructorpass'), 1);
 INSERT INTO Member VALUES (4, 'Student2', 'Last4', 'student2@email.gov', 810000002, md5('studentpass'), 0);
 INSERT INTO Classes VALUES (1, 1234567, 'Computer Science 1', 0001, '2013-10-10', '2014-07-10', 0);
@@ -236,7 +242,6 @@ INSERT INTO Roster VALUES (3, 0001, 0004);
 INSERT INTO Roster VALUES (4, 0002, 0004);
 INSERT INTO Assignment VALUES (1, 'Practice Test', NULL, 'Print Out Hello World', '//This Is Code', 1, 0, NULL);
 INSERT INTO Assignment VALUES (2, 'Sample Test', NULL, 'Print Out Goodbye World', '//This Is Code', 1, 0, 5);
-INSERT INTO Submission VALUES (0001, 0001, 0001, 1);
 INSERT INTO Template VALUES (0001, 'Hello World', '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
 INSERT INTO UnitTest VALUES (0001, 'Hello Test', 0001, 'TRUE');
 INSERT INTO Practice VALUES (0001, 'Hello World', 0002, '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
@@ -386,42 +391,3 @@ INSERT INTO Assignment VALUES (11, 'Practice Test 8', NULL, 'Print Out Hello Wor
 INSERT INTO Assignment VALUES (12, 'Sample Test 8', NULL, 'Print Out Goodbye World', '//This Is Code', 12, 0, 5);
 INSERT INTO Assignment VALUES (20, 'Sample Test 9', NULL, 'Print Out Goodbye World', '//This Is Code', 17, 1, 5);
 INSERT INTO Assignment VALUES (21, 'Practice Test 9', NULL, 'Print Out Hello World', '//This Is Code', 18, 1, NULL);
-
--- -------------------------------------
--- Submission Population (idSubmission,SubMemberId,SubAssignmentId,SubSuccess)
--- -------------------------------------
-INSERT INTO Submission VALUES (0002, 0006, 0004, 1);
-INSERT INTO Submission VALUES (0003, 0010, 0004, 1);
-INSERT INTO Submission VALUES (0004, 0012, 0004, 1);
-INSERT INTO Submission VALUES (0005, 0014, 0004, 1);
-
-INSERT INTO Submission VALUES (0006, 0006, 0019, 1);
-INSERT INTO Submission VALUES (0007, 0010, 0019, 1);
-INSERT INTO Submission VALUES (0008, 0012, 0019, 1);
-INSERT INTO Submission VALUES (0009, 0014, 0019, 1);
-INSERT INTO Submission VALUES (0010, 0014, 0019, 1);
-
-INSERT INTO Submission VALUES (0011, 0006, 0006, 0);
-INSERT INTO Submission VALUES (0012, 0006, 0006, 1);
-INSERT INTO Submission VALUES (0013, 0008, 0006, 1);
-INSERT INTO Submission VALUES (0014, 0014, 0006, 1);
-
-INSERT INTO Submission VALUES (0015, 0006, 0008, 1);
-INSERT INTO Submission VALUES (0016, 0008, 0008, 1);
-INSERT INTO Submission VALUES (0017, 0008, 0008, 1);
-INSERT INTO Submission VALUES (0018, 0014, 0008, 1);
-
-INSERT INTO Submission VALUES (0019, 0006, 0013, 1);
-INSERT INTO Submission VALUES (0020, 0012, 0013, 1);
-INSERT INTO Submission VALUES (0021, 0014, 0013, 1);
-INSERT INTO Submission VALUES (0022, 0014, 0013, 1);
-
-INSERT INTO Submission VALUES (0023, 0006, 0018, 1);
-INSERT INTO Submission VALUES (0024, 0008, 0018, 1);
-INSERT INTO Submission VALUES (0025, 0012, 0018, 0);
-INSERT INTO Submission VALUES (0026, 0014, 0018, 0);
-
-INSERT INTO Submission VALUES (0027, 0006, 0011, 1);
-INSERT INTO Submission VALUES (0028, 0008, 0011, 1);
-INSERT INTO Submission VALUES (0029, 0010, 0011, 1);
-INSERT INTO Submission VALUES (0030, 0010, 0011, 0);

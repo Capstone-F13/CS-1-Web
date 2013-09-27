@@ -28,7 +28,7 @@ $_SESSION['lastActivity'] = time(); // update last activity time stamp
 }
 
 $email = $_POST["username"];
-$passwordHash = $_POST["password"];
+$passwordHash = md5($_POST["password"]);
 $query = "SELECT idMember, FirstName, LastName, IsInstructor, MemberBanner FROM Member WHERE MemberEmail='$email' AND MemberPassword='$passwordHash'";
 $result = $mysqli->query($query);
 
