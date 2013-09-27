@@ -11,3 +11,4 @@ all: $(OBJS)
 
 clean:
 	@rm -rf $(OBJS)
+	@rm -rf $(patsubst %,%.dSYM,$(OBJS))
