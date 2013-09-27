@@ -9,7 +9,7 @@
 #include <string.h>
 #define BUFFSIZE 8192
 #define MaxPipeName 100
-#define logdir "log"
+#define logdir "log/"
 #define numDbgArgs 5
 #define ArgSize 30
 
