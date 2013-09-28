@@ -49,7 +49,8 @@ else if ($array1['AssignmentType'] == 1) {
 }
 
 //Takes correct answer from files directory 
-$correctOutput = trim(file_get_contents($filePath . "finalOutput.txt"));
+//$correctOutput = trim(file_get_contents($filePath . "finalOutput.txt"));
+$correctOutput = 5;
 echo "The correct output is: " . $correctOutput . "<br />";
 
 
@@ -61,51 +62,133 @@ echo "The correct output is: " . $correctOutput . "<br />";
 	$submissionResult = $mysqli->query($submissionQuery);
 	$submissionArray = $submissionResult->fetch_array(); 
 	
-	$NoOfAttempts = $submissionArray['NoOfAttempts'] + 1;
+	$NoOfAttempts = $submissionArray['NoOfAttempts'];
 	$OverallPerformance = $submissionArray['OverallPerformance'];
-	$Performance = explode(",", $OverallPerformance); 
 	$index = $submissionArray['Index'];
+	
+	$NoOfSuccesses = $submissionArray['NoOfSuccesses'];
+	$SuccessInRow = $submissionArray['SuccessInRow'];
+	
 	
 //If answer is correct, puts in submission table
 if ($studentAnswer == $correctOutput) 
 {
-	$NoOfSuccesses = $submissionArray['NoOfSuccesses'] + 1;
-	$SuccessInRow = $submissionArray['SuccessInRow'] + 1;
+	$NoOfSuccesses += 1;
+	$SuccessInRow += 1;	
+	echo $NoOfSuccesses. " ". $SuccessInRow;
 	
-	if($index > 15)
-		$index = 0;
+	$length = strlen($OverallPerformance);
+	
+	echo "Level1";
+	if($length < 15)
+	{
+		echo "level2";
+		if($submissionArray != NULL)
+		{
+			echo "level3A";
+	    	$queryString = "UPDATE Submission
+		        			SET NoOfAttempts = '$NoOfAttempts', NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow',
+		        			
+							WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
+			$query = $mysqli->query($queryString);
+		}
 		
-    echo "You were correct!";
-    $queryString = "UPDATE Submission
-        			SET SubmissionAssignmentId = '$currentAssignmentID', NoOfAttempts = '$NoOfAttempts', 
-        			NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow', OverallPerformance = CONCAT('$Performance[$index]', 'S,' ), Index = '$index' 
-					WHERE SubmissionMemberId = '$idmember'";
+		else 
+		{
+			echo "level3B";
+			$queryString = "INSERT INTO Submission
+							VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses', '$SuccessInRow', 'S;', '0')";
+			$query = $mysqli->query($queryString);
+		}
+		
+	}
+
+
+	else
+	{
+		if($index > 15)
+			$index = 0;
+		
+		$Performance = explode(";", $OverallPerformance); 
+		$Performance[$index] = "S;";
+		$queryString = "UPDATE Submission
+	        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow',
+	        			OverallPerformance = '$Performance[$index]'
+						WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
+		$query = $mysqli->query($queryString);
+		
+		$index += 1;
 	
-	$index += 1;
-	
-	$indexquery = "UPDATE Submission
-				   SET Index = '$index'
-				   WHERE SubmissionMemberId = '$idmember'";
-	
-    $query = mysql_query($queryString);
-	$indexresult = $mysqli->query($indexquery);
+		$indexquery = "UPDATE Submission
+					   SET Index = '$index'
+					   WHERE SubmissionMemberId = '$idmember'";
+					  
+		$indexresult = $mysqli->query($indexquery);
+	}
 	
 	
+	 echo "You were correct!";
 } 
 
 //If answer is wrong, puts in submission table along with a link to debugger to see steps 
 else 
 {
-	$SuccessInRow = 0;	
+	$SuccessInRow = 0;		
+	$length = strlen($OverallPerformance);
+	echo "Level1";
+	if($length < 5)
+	{
+		echo "Level2";
+		if($submissionArray != NULL)
+		{
+			echo "Level3";
+	    	$queryString = "UPDATE Submission
+		        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow',
+		        			OverallPerformance = CONCAT('$OverallPerformance', 'F;' )
+							WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
+			$query = $mysqli->query($queryString);
+		}
+		
+		else 
+		{
+			echo "Level 3 part 2";
+			$queryString = "INSERT INTO Submission
+							VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses', '$SuccessInRow', 'F;', '0')";
+			$query = $mysqli->query($queryString);
+		}
+		
+	}
+
+
+	else
+	{
+		if($index > 5)
+			$index = 0;
+		
+		$Performance = explode(";", $OverallPerformance); 
+		$Performance[$index] = "F;";
+		$queryString = "UPDATE Submission
+	        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow',
+	        			OverallPerformance = '$Performance[$index]'
+						WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
+		$query = $mysqli->query($queryString);
+		
+		$index += 1;
+	
+		$indexquery = "UPDATE Submission
+					   SET Index = '$index'
+					   WHERE SubmissionMemberId = '$idmember'";
+					  
+		$indexresult = $mysqli->query($indexquery);
+	}
+	
+	
     echo "Your answer was not correct. ";
     echo "Would you like to step through the program one line at a time in the debugger? <br />";
     echo "<a href='../shared_php/practice.php'>Yes, take me and the program to the debugger<a>";
     echo "<br />";
     echo "<a href='../student/myCourses.php'>No, I would like to go back to the assignments list<a>";
-    $queryString = "UPDATE Submission
-        			SET SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID', NoOfAttempts = '$NoOfAttempts', 
-        		    SuccessInRow = '$SuccessInRow', OverallPerformance = '$OverallPerformance'";
-    $query = mysql_query($queryString);
+    
 }
 
 include("../shared_php/footer.php");
