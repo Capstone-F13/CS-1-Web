@@ -57,48 +57,54 @@ echo "The correct output is: " . $correctOutput . "<br />";
 
 	$idmember = $_SESSION['idmember'];
 	$currentAssignmentID = $_SESSION['currentAssignmentID'];
+	
 		
     $submissionQuery = "SELECT * FROM Submission WHERE SubmissionMemberId ='$idmember'";
 	$submissionResult = $mysqli->query($submissionQuery);
 	$submissionArray = $submissionResult->fetch_array(); 
 	
-	$NoOfAttempts = $submissionArray['NoOfAttempts'];
+	$NoOfAttempts = $submissionArray['NoOfAttempts'] + 1;
 	$OverallPerformance = $submissionArray['OverallPerformance'];
 	$index = $submissionArray['Index'];
 	
 	$NoOfSuccesses = $submissionArray['NoOfSuccesses'];
 	$SuccessInRow = $submissionArray['SuccessInRow'];
+	$submissionAssignmentid = $submissionArray['SubmissionAssignmentId'];
+	
+	echo "SubmissionAssignmentId = ".$submissionAssignmentid. "<br />";
+	echo "currentAssignmentID = ".$currentAssignmentID. "<br />";
 	
 	
 //If answer is correct, puts in submission table
 if ($studentAnswer == $correctOutput) 
 {
 	$NoOfSuccesses += 1;
-	$SuccessInRow += 1;	
-	echo $NoOfSuccesses. " ". $SuccessInRow;
+	$SuccessInRow += 1;
 	
 	$length = strlen($OverallPerformance);
 	
-	echo "Level1";
+	echo "Level1 <br />";
 	if($length < 15)
 	{
-		echo "level2";
+		echo "level2 <br />";
 		if($submissionArray != NULL)
 		{
-			echo "level3A";
-	    	$queryString = "UPDATE Submission
-		        			SET NoOfAttempts = '$NoOfAttempts', NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow',
-		        			
-							WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
-			$query = $mysqli->query($queryString);
+			echo "level3A <br />";
+
+			$s_updateQuery = "UPDATE Submission
+		        			  SET NoOfAttempts = '$NoOfAttempts', NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow'
+							  WHERE SubmissionMemberId = '$idmember'";
+			
+			$query = $mysqli->query($s_updateQuery);
+			 									
 		}
 		
 		else 
 		{
 			echo "level3B";
-			$queryString = "INSERT INTO Submission
-							VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses', '$SuccessInRow', 'S;', '0')";
-			$query = $mysqli->query($queryString);
+			$s_insertQuery = "INSERT INTO Submission
+							VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses', '$SuccessInRow')";
+			$query = $mysqli->query($s_insertQuery);
 		}
 		
 	}
@@ -111,9 +117,8 @@ if ($studentAnswer == $correctOutput)
 		
 		$Performance = explode(";", $OverallPerformance); 
 		$Performance[$index] = "S;";
-		$queryString = "UPDATE Submission
-	        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow',
-	        			OverallPerformance = '$Performance[$index]'
+		$s_updateQuery = "UPDATE Submission
+	        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow'
 						WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
 		$query = $mysqli->query($queryString);
 		
@@ -143,8 +148,7 @@ else
 		{
 			echo "Level3";
 	    	$queryString = "UPDATE Submission
-		        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow',
-		        			OverallPerformance = CONCAT('$OverallPerformance', 'F;' )
+		        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow'       			
 							WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
 			$query = $mysqli->query($queryString);
 		}
@@ -153,7 +157,7 @@ else
 		{
 			echo "Level 3 part 2";
 			$queryString = "INSERT INTO Submission
-							VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses', '$SuccessInRow', 'F;', '0')";
+							VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses', '$SuccessInRow')";
 			$query = $mysqli->query($queryString);
 		}
 		
@@ -168,8 +172,7 @@ else
 		$Performance = explode(";", $OverallPerformance); 
 		$Performance[$index] = "F;";
 		$queryString = "UPDATE Submission
-	        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow',
-	        			OverallPerformance = '$Performance[$index]'
+	        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow'
 						WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
 		$query = $mysqli->query($queryString);
 		
