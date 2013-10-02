@@ -91,8 +91,9 @@ if ($studentAnswer == $correctOutput)
 		{
 			echo "level3A <br />";
 
-			$s_updateQuery = "UPDATE Submission
-		        			  SET NoOfAttempts = '$NoOfAttempts', NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow'
+			$s_updateQuery = "UPDATE Submission, Grade
+		        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses', Submission.SuccessInRow = '$SuccessInRow',
+		        			  
 							  WHERE SubmissionMemberId = '$idmember'";
 			
 			$query = $mysqli->query($s_updateQuery);
