@@ -59,7 +59,7 @@ echo "The correct output is: " . $correctOutput . "<br />";
 	$currentAssignmentID = $_SESSION['currentAssignmentID'];
 	
 		
-    $submissionQuery = "SELECT * FROM Submission WHERE SubmissionMemberId ='$idmember'";
+    $submissionQuery = "SELECT * FROM Submission WHERE SubmissionMemberId ='$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
 	$submissionResult = $mysqli->query($submissionQuery);
 	$submissionArray = $submissionResult->fetch_array(); 
 	
@@ -70,9 +70,6 @@ echo "The correct output is: " . $correctOutput . "<br />";
 	$NoOfSuccesses = $submissionArray['NoOfSuccesses'];
 	$SuccessInRow = $submissionArray['SuccessInRow'];
 	$submissionAssignmentid = $submissionArray['SubmissionAssignmentId'];
-	
-	echo "SubmissionAssignmentId = ".$submissionAssignmentid. "<br />";
-	echo "currentAssignmentID = ".$currentAssignmentID. "<br />";
 	
 	
 //If answer is correct, puts in submission table
@@ -90,10 +87,12 @@ if ($studentAnswer == $correctOutput)
 		if($submissionArray != NULL)
 		{
 			echo "level3A <br />";
+			
+			if($NoOfSuccesses)
 
-			$s_updateQuery = "UPDATE Submission, Grade
+			$s_updateQuery = "UPDATE Submission, Grades
 		        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses', Submission.SuccessInRow = '$SuccessInRow',
-		        			  
+		        			  Grades.grade = '$grade', Grades.OverallPerformance = CONCAT('$OverallPerformance', 'S ')
 							  WHERE SubmissionMemberId = '$idmember'";
 			
 			$query = $mysqli->query($s_updateQuery);
@@ -103,9 +102,13 @@ if ($studentAnswer == $correctOutput)
 		else 
 		{
 			echo "level3B";
-			$s_insertQuery = "INSERT INTO Submission
-							VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses', '$SuccessInRow')";
-			$query = $mysqli->query($s_insertQuery);
+			$s_insertSubmission = "INSERT INTO Submission
+								   VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses', '$SuccessInRow')";
+			$query = $mysqli->query($s_insertSubmission);
+			
+			$s_insertGrades = "INSERT INTO Grades
+							   VALUES ('', '$idmember', '$currentAssignmentID', '','S ')";
+			$gradeQuery = $mysqli->query($s_insertGrades);
 		}
 		
 	}
@@ -116,10 +119,12 @@ if ($studentAnswer == $correctOutput)
 		if($index > 15)
 			$index = 0;
 		
-		$Performance = explode(";", $OverallPerformance); 
-		$Performance[$index] = "S;";
-		$s_updateQuery = "UPDATE Submission
-	        			SET NoOfAttempts = '$NoOfAttempts',NoOfSuccesses = '$NoOfSuccesses', SuccessInRow = '$SuccessInRow'
+		$performanceArray = explode(" ", $OverallPerformance);
+		array_shift($performanceArray);
+		$performance = $performanceArray[14] = 'S ';		 
+		$s_updateQuery = "UPDATE Submission, Grades
+	        			SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses', Submission.SuccessInRow = '$SuccessInRow',
+	        			Grades.grade = '$grade', Grades.OverallPerformance = '$performance'
 						WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
 		$query = $mysqli->query($queryString);
 		

@@ -77,6 +77,7 @@ function ValidateForm()
 			<td width="81">Assignment Class</td>
 			<td width="85">Assignment Type</td>
 			<td width="93">Maximum Attempts</td>
+			<td width="115">Successes to Pass</td>
 			<td width="68">Download File</td>
 		<td width="0"></thead>
 		<?php
@@ -97,6 +98,7 @@ function ValidateForm()
 			<td><?php echo $row['AssignmentClass'] ; ?> </td>
 			<td><?php echo $row['AssignmentType'] ; ?> </td>
 			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
+			<td><?php echo $row['SuccessesToPass'] ; ?></td>
 			<!--<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td> -->
 			</tr>
 		<?php

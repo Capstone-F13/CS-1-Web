@@ -3,17 +3,21 @@ require_once("../shared_php/databaseConnect.php");
 
 if (isset($_REQUEST['insert_assignment'])) {
 
+	$assignmentName = $_REQUEST['txtAssignmentName'];
+	$dueDate = $_REQUEST['txtDueDate'];
+	$instructions =  $_REQUEST['txtInstructions'];
+	$code = $_REQUEST['txtCode'];
+	$assignmentClass = $_REQUEST['AssignmentClass'];
+	$type =  $_REQUEST['cmbType'];
+	$noOfAttempts = $_REQUEST['cmbNoOfAttempts'];
+	$successesToPass = $_REQUEST['NoOfSuccessfulAttempts'];
+	
     $insertSQL = "INSERT INTO Assignment (AssignmentName,AssignmentDueDate,
         AssignmentInstructions,AssignmentCode,AssignmentClass,
-        AssignmentType,AssignmentMaxAttempts) VALUES ('"
-            . $_REQUEST['txtAssignmentName'] . "','"
-            . $_REQUEST['txtDueDate'] . "','"
-            . $_REQUEST['txtInstructions'] . "','"
-            . $_REQUEST['txtCode'] . "',"
-            . $_REQUEST['AssignmentClass'] . ","
-            . $_REQUEST['cmbType'] . ","
-            . $_REQUEST['cmbNoOfAttempts'] . ")";
-
+        AssignmentType,AssignmentMaxAttempts, SuccessesToPass) 
+                 VALUES ('$assignmentName', '$dueDate', '$instructions', '$code', 
+                         '$assignmentClass', '$type', '$noOfAttempts', '$successesToPass')";
+       
     $mysqli->query($insertSQL);
 
     header("Location:list_of_assignments.php?AssignmentClass=" . $_REQUEST['AssignmentClass']);
@@ -73,6 +77,22 @@ if (isset($_REQUEST['insert_assignment'])) {
                         </select></td>
                 </tr>
                 <tr>
+                <tr>
+                	<td><strong>Successful Attempts to Pass</strong></td>
+                    <td><select name="NoOfSuccessfulAttempts">
+                            <option value="0" selected="selected"> Select</option>
+                            <option value="1"> 1</option>
+                            <option value="2"> 2</option>
+                            <option value="3"> 3</option>
+                            <option value="4"> 4</option>
+                            <option value="5"> 5</option>
+                            <option value="6"> 6</option>
+                            <option value="7"> 7</option>
+                            <option value="8"> 8</option>
+                            <option value="9"> 9</option>
+                            <option value="10"> 10</option>
+                        </select></td>
+                </tr>
                     <td><strong>Assignment Type</strong> </td>
                     <td><select name="cmbType">
                             <option value="-1" selected="selected"> Select</option>

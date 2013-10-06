@@ -15,6 +15,7 @@ if (isset($_REQUEST['edit_assignment'])) {
 	 $r_txtCode = $mysqli->real_escape_string($_REQUEST['txtCode']);
 	 $r_cmbType = $mysqli->real_escape_string($_REQUEST['cmbType']);
 	 $r_cmbNoOfAttempts = $mysqli->real_escape_string($_REQUEST['cmbNoOfAttempts']);
+	 $r_successfulAttempts = $_REQUEST['NoOfSuccessfulAttempts'];
 	
 	 $originalSQL = "SELECT * FROM Assignment WHERE AssignmentName='$r_assignmentName'";
 	 $result2 = $mysqli->query($originalSQL);
@@ -26,7 +27,7 @@ if (isset($_REQUEST['edit_assignment'])) {
     $editSQL = "UPDATE Assignment   
     
     SET AssignmentName ='$r_assignmentName',  AssignmentDueDate ='$r_txtDueDate', AssignmentInstructions ='$r_txtInstructions', 
-    AssignmentCode ='$r_txtCode',  AssignmentType='$r_cmbType', AssignmentMaxAttempts='$r_cmbNoOfAttempts' 
+    AssignmentCode ='$r_txtCode',  AssignmentType='$r_cmbType', AssignmentMaxAttempts='$r_cmbNoOfAttempts', SuccessesToPass = '$r_successfulAttempts' 
     
     WHERE idAssignment = '$d_assignmentid'";
 
@@ -125,6 +126,22 @@ if (isset($_REQUEST['edit_assignment'])) {
                 <tr>
                     <td><strong>Attempts</strong></td>
                     <td><select name="cmbNoOfAttempts">
+                            <option value="0" selected="selected"> Select</option>
+                            <option value="1"> 1</option>
+                            <option value="2"> 2</option>
+                            <option value="3"> 3</option>
+                            <option value="4"> 4</option>
+                            <option value="5"> 5</option>
+                            <option value="6"> 6</option>
+                            <option value="7"> 7</option>
+                            <option value="8"> 8</option>
+                            <option value="9"> 9</option>
+                            <option value="10"> 10</option>
+                        </select></td>
+                </tr>
+                <tr>
+                	<td><strong>Successful Attempts to Pass</strong></td>
+                    <td><select name="NoOfSuccessfulAttempts">
                             <option value="0" selected="selected"> Select</option>
                             <option value="1"> 1</option>
                             <option value="2"> 2</option>

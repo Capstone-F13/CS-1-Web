@@ -83,6 +83,7 @@ CREATE  TABLE IF NOT EXISTS `Assignment` (
   `AssignmentClass` INT NOT NULL ,
   `AssignmentType` BINARY NOT NULL COMMENT 'AssignmentType is 0 for C++ and 1 for Python' ,
   `AssignmentMaxAttempts` INT NULL ,
+  `SuccessesToPass` INT, 
   PRIMARY KEY (`idAssignment`) ,
   INDEX `ForClass_idx` (`AssignmentClass` ASC) ,
   UNIQUE INDEX `idAssignment_UNIQUE` (`idAssignment` ASC) ,
@@ -209,7 +210,6 @@ CREATE  TABLE IF NOT EXISTS `Grades` (
   `AssignmentID` INT NOT NULL,
   `Grade` CHAR,
   `OverallPerformance` TEXT,
-  `Index` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`GradeID`) ,
   UNIQUE INDEX `GradeID_UNIQUE` (`GradeID` ASC) ,
   CONSTRAINT `StudentID` 
@@ -236,8 +236,8 @@ INSERT INTO Roster VALUES (1, 0001, 0002);
 INSERT INTO Roster VALUES (2, 0002, 0002);
 INSERT INTO Roster VALUES (3, 0001, 0004);
 INSERT INTO Roster VALUES (4, 0002, 0004);
-INSERT INTO Assignment VALUES (1, 'Practice Test', NULL, 'Print Out Hello World', '//This Is Code', 1, 0, NULL);
-INSERT INTO Assignment VALUES (2, 'Sample Test', NULL, 'Print Out Goodbye World', '//This Is Code', 1, 0, 5);
+INSERT INTO Assignment VALUES (1, 'Practice Test', NULL, 'Print Out Hello World', '//This Is Code', 1, 0, NULL,3);
+INSERT INTO Assignment VALUES (2, 'Sample Test', NULL, 'Print Out Goodbye World', '//This Is Code', 1, 0, 5,3);
 INSERT INTO Template VALUES (0001, 'Hello World', '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
 INSERT INTO UnitTest VALUES (0001, 'Hello Test', 0001, 'TRUE');
 INSERT INTO Practice VALUES (0001, 'Hello World', 0002, '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
@@ -367,23 +367,23 @@ INSERT INTO Roster VALUES (NULL, 0010, 0016);
 
 
 -- -------------------------------------
--- Assignment Population(idAssignment,AssignmentName,AssignmentDueDate,AssignmentInstructions,AssignmentCode,AssignmentClass,AssignmentType,AssignmentMaxAttempts)
+-- Assignment Population(idAssignment,AssignmentName,AssignmentDueDate,AssignmentInstructions,AssignmentCode,AssignmentClass,AssignmentType,AssignmentMaxAttempts, SuccessestoPass)
 -- -------------------------------------
-INSERT INTO Assignment VALUES (19, 'Practice Test 1', NULL, 'Print Out Hello World', '//This Is Code', 10, 0, NULL);
-INSERT INTO Assignment VALUES (4, 'Sample Test 1', NULL, 'Print Out Goodbye World', '//This Is Code', 3, 0, 5);
-INSERT INTO Assignment VALUES (5, 'Practice Test 2', NULL, 'Print Out Hello World', '//This Is Code', 4, 1, NULL);
-INSERT INTO Assignment VALUES (6, 'Sample Test 2', NULL, 'Print Out Goodbye World', '//This Is Code', 5, 0, 5);
-INSERT INTO Assignment VALUES (7, 'Practice Test 3', NULL, 'Print Out Hello World', '//This Is Code', 6, 1, NULL);
-INSERT INTO Assignment VALUES (8, 'Sample Test 3', NULL, 'Print Out Goodbye World', '//This Is Code', 7, 0, 5);
-INSERT INTO Assignment VALUES (9, 'Practice Test 4', NULL, 'Print Out Hello World', '//This Is Code', 8, 1, NULL);
-INSERT INTO Assignment VALUES (10, 'Sample Test 4', NULL, 'Print Out Goodbye World', '//This Is Code', 9, 0, 5);
-INSERT INTO Assignment VALUES (13, 'Practice Test 5', NULL, 'Print Out Hello World', '//This Is Code', 11, 0, NULL);
-INSERT INTO Assignment VALUES (14, 'Sample Test 5', NULL, 'Print Out Goodbye World', '//This Is Code', 13, 0, 5);
-INSERT INTO Assignment VALUES (15, 'Practice Test 6', NULL, 'Print Out Hello World', '//This Is Code', 14, 1, NULL);
-INSERT INTO Assignment VALUES (16, 'Sample Test 6', NULL, 'Print Out Goodbye World', '//This Is Code', 15, 0, 5);
-INSERT INTO Assignment VALUES (17, 'Practice Test 7', NULL, 'Print Out Hello World', '//This Is Code', 16, 0, NULL);
-INSERT INTO Assignment VALUES (18, 'Sample Test 7', NULL, 'Print Out Goodbye World', '//This Is Code', 17, 1, 5);
-INSERT INTO Assignment VALUES (11, 'Practice Test 8', NULL, 'Print Out Hello World', '//This Is Code', 18, 1, NULL);
-INSERT INTO Assignment VALUES (12, 'Sample Test 8', NULL, 'Print Out Goodbye World', '//This Is Code', 12, 0, 5);
-INSERT INTO Assignment VALUES (20, 'Sample Test 9', NULL, 'Print Out Goodbye World', '//This Is Code', 17, 1, 5);
-INSERT INTO Assignment VALUES (21, 'Practice Test 9', NULL, 'Print Out Hello World', '//This Is Code', 18, 1, NULL);
+INSERT INTO Assignment VALUES (19, 'Practice Test 1', NULL, 'Print Out Hello World', '//This Is Code', 10, 0, NULL,3);
+INSERT INTO Assignment VALUES (4, 'Sample Test 1', NULL, 'Print Out Goodbye World', '//This Is Code', 3, 0, 5,3);
+INSERT INTO Assignment VALUES (5, 'Practice Test 2', NULL, 'Print Out Hello World', '//This Is Code', 4, 1, NULL,3);
+INSERT INTO Assignment VALUES (6, 'Sample Test 2', NULL, 'Print Out Goodbye World', '//This Is Code', 5, 0, 5,3);
+INSERT INTO Assignment VALUES (7, 'Practice Test 3', NULL, 'Print Out Hello World', '//This Is Code', 6, 1, NULL,3);
+INSERT INTO Assignment VALUES (8, 'Sample Test 3', NULL, 'Print Out Goodbye World', '//This Is Code', 7, 0, 5,3);
+INSERT INTO Assignment VALUES (9, 'Practice Test 4', NULL, 'Print Out Hello World', '//This Is Code', 8, 1, NULL,3);
+INSERT INTO Assignment VALUES (10, 'Sample Test 4', NULL, 'Print Out Goodbye World', '//This Is Code', 9, 0, 5,3);
+INSERT INTO Assignment VALUES (13, 'Practice Test 5', NULL, 'Print Out Hello World', '//This Is Code', 11, 0, NULL,3);
+INSERT INTO Assignment VALUES (14, 'Sample Test 5', NULL, 'Print Out Goodbye World', '//This Is Code', 13, 0, 5,3);
+INSERT INTO Assignment VALUES (15, 'Practice Test 6', NULL, 'Print Out Hello World', '//This Is Code', 14, 1, NULL,3);
+INSERT INTO Assignment VALUES (16, 'Sample Test 6', NULL, 'Print Out Goodbye World', '//This Is Code', 15, 0, 5,3);
+INSERT INTO Assignment VALUES (17, 'Practice Test 7', NULL, 'Print Out Hello World', '//This Is Code', 16, 0, NULL,3);
+INSERT INTO Assignment VALUES (18, 'Sample Test 7', NULL, 'Print Out Goodbye World', '//This Is Code', 17, 1, 5,3);
+INSERT INTO Assignment VALUES (11, 'Practice Test 8', NULL, 'Print Out Hello World', '//This Is Code', 18, 1, NULL,3);
+INSERT INTO Assignment VALUES (12, 'Sample Test 8', NULL, 'Print Out Goodbye World', '//This Is Code', 12, 0, 5,3);
+INSERT INTO Assignment VALUES (20, 'Sample Test 9', NULL, 'Print Out Goodbye World', '//This Is Code', 17, 1, 5,3);
+INSERT INTO Assignment VALUES (21, 'Practice Test 9', NULL, 'Print Out Hello World', '//This Is Code', 18, 1, NULL,3);
