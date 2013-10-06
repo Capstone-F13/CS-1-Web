@@ -9,13 +9,13 @@
 #include <string.h>
 #define BUFFSIZE 8192
 #define MaxPipeName 100
-#define logdir "/var/www/html/Web/debugger/"
+#define logdir "/home/ruttan/classes/capstone/debugger/"
 #define numDbgArgs 5
 #define ArgSize 30
-#define prompt ">>>"
-//#define prompt "(gdb)"
+#define prompt "(gdb)"
+
 pid_t child_pid;
-char buf[BUFFSIZE],work_file[MaxPipeName];
+char buf[BUFFSIZE];
 FILE * fdtoFILE;
 
 void catch_sigpipe(int sig_num)
@@ -30,7 +30,7 @@ void catch_sigint(int sig_num)
     /* re-set the signal handler again to catch_int, for next time */
     signal(SIGINT, catch_sigint);
     kill(child_pid,1); 
-    fprintf(fdtoFILE,"Interface:got a sigint signal\n");
+    fprintf(fdtoFILE,"got a sigint signal\n");
     fflush(fdtoFILE);
     sleep(1);
     exit(1);
@@ -81,17 +81,11 @@ pid_t launch_debugger(char * argv[],int pipefd[2]){
 }
 
 void make_args(char * id,char * argv[]){
- 
-  //pthon flags
-  argv[0]="/usr/bin/python";
-  argv[1]="-i";
-  argv[2]=0; //"-m";
-  argv[3]=0; //work_file;argv[4]=0; 
-  /*
-  //gdb flags
   argv[0]="/usr/bin/gdb";
-  argv[1]=0;  
-  */
+  argv[1]=0; //"-i";
+  argv[2]=0; //"-c";
+  argv[3]=0;//"\"print 'Starting'\"";
+  argv[4]=0;  
 }
 
 int main (int argc, char ** argv) {
@@ -99,12 +93,10 @@ int main (int argc, char ** argv) {
   char * nargv[numDbgArgs];
   int fdtoWeb,fdfrmWeb,fdtoDbg,fdfrmDgb,pipefd[2];
   char line[BUFFSIZE],toServer[MaxPipeName],fromServer[MaxPipeName];
-    sprintf(buf,"%s%s%s",logdir,"LOG",argv[1]);
+    sprintf(buf,"%s%s%s",logdir,"FILE",argv[1]);
     unlink(buf);
     fdtoFILE=fopen(buf,"w");
     fprintf(fdtoFILE,"testing file output\n");
-    sprintf(work_file,"%s%s%s",logdir,"FILE",argv[1]);
-    unlink(work_file);
 
     signal(SIGPIPE, catch_sigpipe);
     signal(SIGINT, catch_sigint);
@@ -112,7 +104,6 @@ int main (int argc, char ** argv) {
       perror("usage: debugger idcode");
       exit(1);
     }
-
     //create input pipe from webserver
     sprintf(fromServer,"%s%s%s",logdir,"OUT",argv[1]);
     unlink(fromServer);
@@ -145,26 +136,18 @@ int main (int argc, char ** argv) {
   
     int i;
     char c;
-    int sid;
-    sid=setsid();
-    if (sid < 0){
-      fprintf(fdtoFILE,"failed to change sid\n");
-      fflush(fdtoFILE);
-    }
       make_args(argv[1],nargv);
       child_pid=launch_debugger(nargv,pipefd);
-      fprintf(fdtoFILE,"session id=%d\n",sid);
-      fflush(fdtoFILE);
       fprintf(fdtoFILE,"child_pid=%d\n",child_pid);
       fflush(fdtoFILE);
-      
+       setpgid(0, 0);
       fprintf(fdtoFILE,"---starting---\n");
       fflush(fdtoFILE);
         
 
       while(1){
         line[0]=0;
-        while (!strstr(line,prompt) && !strstr(line,"...")){
+        while (!strstr(line,prompt)){
           if ((n=read(pipefd[0],line,BUFFSIZE))){
             if (!n) {
               fprintf(fdtoFILE,"pipe fd[0] closed");
@@ -175,7 +158,7 @@ int main (int argc, char ** argv) {
             line[n]=0;
 	    //if n=BUFFSIZE...
            }       
-          fprintf(fdtoFILE,";  p->%s",line);
+          fprintf(fdtoFILE,"p-%s",line);
           fflush(fdtoFILE);
           if (write(fdtoWeb,line,n) != n) {
              perror("fdtoWeb write error");

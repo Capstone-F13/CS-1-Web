@@ -10,7 +10,7 @@
 #include <signal.h>
 #define BUFFSIZE 8192
 #define MaxPipeName 100
-#define logdir "/debugger/"
+#define logdir "/home/ruttan/classes/capstone/debugger/"
 #define interface "interface"
 #define numDbgArgs 5
 

@@ -10,8 +10,9 @@
 #include <signal.h>
 #define BUFFSIZE 8192
 #define MaxPipeName 100
-#define logdir "/var/www/html/Web/debugger/"
-#define interface "interface"
+#define logdir "/home/ruttan/classes/capstone/debugger/"
+#define interface "interfaceg"
+#define prompt "(gdb)"
 #define numDbgArgs 5
 
 pid_t child_pid;
@@ -125,10 +126,10 @@ main (int argc,char** argv ) {
 	
     while(1) {
       line[0]=0;
-      while (!strstr(line,">>>")&& !strstr(line,"...")  ){
+      while (!strstr(line,prompt)  ){
         if ((n=read(fdfrmDbg,line,BUFFSIZE))){
            line[n]=0;
-           printf(":%d-web:%s",n,line);
+           printf("%d-web:%s",n,line);
            fflush(stdout);
         }
         else{
@@ -140,15 +141,14 @@ main (int argc,char** argv ) {
       i=0;
       while ((c=getchar())!='\n'){
 	line[i++]=c;
-        if (c == '#')
-          exit(0);
+      if  (c=='#'){
+        printf("webserver2g exiting\n");
+        fflush(stdout);
+        exit(0);    
+      } 
+
       }
       line[i]=c;
-      if  (strstr(line,"#123")){
-        printf("webserver2 exiting\n");
-        fflush(stdout);
-        break;    
-      } 
       write(fdtoDbg,line,i+1);
     }  
     exit(0);
