@@ -93,7 +93,7 @@ function ValidateForm()
 			<td><?php echo $row['AssignmentClass'] ; ?> </td>
 			<td><?php echo $row['AssignmentType'] ; ?> </td>
 			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
-			<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td>
+			<td><a href="../shared_php/downloadFile.php?id=<?php echo $row['idAssignment'] . "&cid=" . $_REQUEST['AssignmentClass']; ?>">Download <?php echo $row['AssignmentName']; ?></a></td>
 			</tr>
 		<?php
 			}
