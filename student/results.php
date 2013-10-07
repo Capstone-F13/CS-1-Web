@@ -48,22 +48,15 @@ else if ($array1['AssignmentType'] == 1) {
     //system("python " . $filePath . $fileName . " >& " . $filePath . "finalOutput.txt");
 }
 
-//Takes correct answer from files directory 
 $correctOutput = trim(file_get_contents($filePath . "finalOutput.txt"));
 echo "The correct output is: " . $correctOutput . "<br />";
 
-//If answer is correct, puts in submission table
-if ($studentAnswer == $correctOutput) 
-{
+if ($studentAnswer == $correctOutput) {
     echo "You were correct!";
     $queryString = "INSERT INTO Submission (SubmissionMemberId,SubmissionAssignmentId,SubmissionSuccess) 
         VALUES (" . $_SESSION['idmember'] . "," . $_SESSION['currentAssignmentID'] . ",1)";
     $query = mysql_query($queryString);
-} 
-
-//If answer is wrong, puts in submission table along with a link to debugger to see steps 
-else 
-{
+} else {
     echo "Your answer was not correct. ";
     echo "Would you like to step through the program one line at a time in the debugger? <br />";
     echo "<a href='../shared_php/practice.php'>Yes, take me and the program to the debugger<a>";

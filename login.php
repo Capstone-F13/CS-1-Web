@@ -28,16 +28,15 @@ $_SESSION['lastActivity'] = time(); // update last activity time stamp
 }
 
 $email = $_POST["username"];
-$passwordHash = $_POST["password"];
+$passwordHash = md5($_POST["password"]);
 $query = "SELECT idMember, FirstName, LastName, IsInstructor, MemberBanner FROM Member WHERE MemberEmail='$email' AND MemberPassword='$passwordHash'";
-$result = $mysqli->query($query);
+$result = mysql_query($query);
 
-if (mysqli_num_rows($result) == 1) 
-{
+if (mysql_num_rows($result) == 1) {
     //create all session variables required for user
 
     
-    $memberData = mysqli_fetch_array($result);
+    $memberData = mysql_fetch_array($result);
     $_SESSION['start'] = time(); // get current time
     $_SESSION['expire'] = $_SESSION['start'] + (30 * 60) ; // ends the session in 30 minutes from starting time
     $_SESSION['email'] = $email;
@@ -70,7 +69,7 @@ else {
     //redirect to login and (in red text) state "username or password incorrect"
     echo "Either there is no user with that login combination, or there is more than one user with that combination";
 }
- @$_SESSION['log']->LogInfo("after login");
+ $_SESSION['log']->LogInfo("after login");
  echo "after login";
 
 ?>
