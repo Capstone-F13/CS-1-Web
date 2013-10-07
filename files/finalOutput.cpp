@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 
 #include <iostream>
 #include <fstream>
@@ -15,3 +17,4 @@ main(){
   cout << recursive(6)<<'\n';
 }
 
+>>>>>>> master

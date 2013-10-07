@@ -9,12 +9,12 @@
 #include <string.h>
 #define BUFFSIZE 8192
 #define MaxPipeName 100
-#define logdir "/var/www/html/Web/debugger"
+#define logdir "/home/ruttan/classes/capstone/debugger/"
 #define numDbgArgs 5
 #define ArgSize 30
 
 pid_t child_pid;
-char buf[BUFFSIZE];
+char buf[BUFFSIZE],work_file[MaxPipeName];
 FILE * fdtoFILE;
 
 void catch_sigpipe(int sig_num)
@@ -80,10 +80,10 @@ pid_t launch_debugger(char * argv[],int pipefd[2]){
 }
 
 void make_args(char * id,char * argv[]){
-  argv[0]="/usr/bin/python";
+  argv[0]="/usr/bin/python3";
   argv[1]="-i";
-  argv[2]="-c";
-  argv[3]="\"print 'Starting'\"";
+  argv[2]="-m";
+  argv[3]=work_file;
   argv[4]=0;  
 }
 
@@ -92,12 +92,13 @@ int main (int argc, char ** argv) {
   char * nargv[numDbgArgs];
   int fdtoWeb,fdfrmWeb,fdtoDbg,fdfrmDgb,pipefd[2];
   char line[BUFFSIZE],toServer[MaxPipeName],fromServer[MaxPipeName];
-    sprintf(buf,"%s%s%s",logdir,"FILE",argv[1]);
-printf("starting interface\n"); fflush(stdout);
+    sprintf(buf,"%s%s%s",logdir,"LOG",argv[1]);
     unlink(buf);
     fdtoFILE=fopen(buf,"w");
     fprintf(fdtoFILE,"testing file output\n");
-printf("starting interface\n");
+    sprintf(work_file,"%s%s%s",logdir,"FILE",argv[1]);
+    unlink(work_file);
+
     signal(SIGPIPE, catch_sigpipe);
     signal(SIGINT, catch_sigint);
     if ((argc < 2 )|| (argc >=3)){
@@ -107,7 +108,7 @@ printf("starting interface\n");
     //create input pipe from webserver
     sprintf(fromServer,"%s%s%s",logdir,"OUT",argv[1]);
     unlink(fromServer);
-printf("making fifo");fflush(stdout);    
+    
     if (-1 == mkfifo(fromServer,S_IRWXU)) {
        perror("Error, could not make fifo\n");
     }
@@ -128,7 +129,7 @@ printf("making fifo");fflush(stdout);
       exit(1);
     }
     //create pipes to debugger
-printf("creating pipes\n"); fflush(stdout);  
+   
     if(pipe(pipefd) == -1) { //perhaps pipe(pipefd,O_NONBLOCK)
         perror("Pipe 1 creation failed");
         exit(1);
@@ -137,7 +138,6 @@ printf("creating pipes\n"); fflush(stdout);
     int i;
     char c;
       make_args(argv[1],nargv);
-printf("launch debugger\n");fflush(stdout);
       child_pid=launch_debugger(nargv,pipefd);
       fprintf(fdtoFILE,"child_pid=%d\n",child_pid);
       fflush(fdtoFILE);
@@ -145,7 +145,7 @@ printf("launch debugger\n");fflush(stdout);
       fprintf(fdtoFILE,"---starting---\n");
       fflush(fdtoFILE);
         
-printf("starting main loop\n");fflush(stdout);
+
       while(1){
         line[0]=0;
         while (!strstr(line,">>>") && !strstr(line,"...")){

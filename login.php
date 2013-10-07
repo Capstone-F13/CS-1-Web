@@ -1,4 +1,4 @@
-<?php
+<script language="php">
 require_once("shared_php/databaseConnect.php");
 require dirname(__FILE__) . '/files/KLogger.php';
 session_start();
@@ -72,4 +72,4 @@ else {
  $_SESSION['log']->LogInfo("after login");
  echo "after login";
 
-?>
+</script>

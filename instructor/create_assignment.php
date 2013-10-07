@@ -60,6 +60,7 @@ if (isset($_REQUEST['insert_assignment'])) {
                     <td><strong>Attempts</strong></td>
                     <td><select name="cmbNoOfAttempts">
                             <option value="0" selected="selected"> Select</option>
+                            <option value=NULL> Infinite</option>
                             <option value="1"> 1</option>
                             <option value="2"> 2</option>
                             <option value="3"> 3</option>

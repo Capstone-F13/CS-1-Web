@@ -1,8 +1,12 @@
-<?php
+<script language="php">
 require_once("../shared_php/databaseConnect.php");
+<<<<<<< HEAD
+</script>
+=======
 session_start();
 $_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
 ?>
+>>>>>>> master
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -96,8 +100,12 @@ function ValidateForm()
 			<td><?php echo $row['AssignmentClass'] ; ?> </td>
 			<td><?php echo $row['AssignmentType'] ; ?> </td>
 			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
+<<<<<<< HEAD
+=======
 			<!--<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td> -->
+>>>>>>> master
 			</tr>
+			<!-- <td><a href="upload/<?php //echo $row['FileName'] ; ?>"><?php //echo $row['FileName'] ; ?></a></td> -->
 		<?php
 			}
 		}
