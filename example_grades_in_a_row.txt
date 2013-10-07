@@ -1,0 +1,16 @@
+SELECT * from Submission WHERE SubmissionMemberId=$_SESSION['userid'] AND SubmissionAssingmentId=$_SESSION('thisassignment')
+$result=
+$maxinrow=0;
+$currentinrow=0;
+while($row=mysql_fetch_array($result))
+{
+	if ($row['SubmissionSuccess']==1)	
+	{	
+		$currentinrow++;
+		if ($currentinrow > $maxinrow) $maxinrow=$currentinrow;
+	}
+	else
+	{	
+		$currentinrow=0;
+	}
+}

@@ -7,7 +7,6 @@ require dirname(__FILE__) . '/../files/KLogger.php';
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
 $log->logInfo('In Practice page',$_SESSION['uniqueID']);
 ?>
-?>
 <header id="top_header">
   <h1 style="text-align: center">Practice Page</h1>
 </header>

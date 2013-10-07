@@ -14,7 +14,7 @@ if (isset($_REQUEST['insert_assignment'])) {
             . $_REQUEST['cmbType'] . ","
             . $_REQUEST['cmbNoOfAttempts'] . ")";
 
-    mysql_query($insertSQL);
+    $mysqli->query($insertSQL);
 
     header("Location:list_of_assignments.php?AssignmentClass=" . $_REQUEST['AssignmentClass']);
 }

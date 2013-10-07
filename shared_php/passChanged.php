@@ -8,11 +8,11 @@
 		$email = $_SESSION['email'];
 		$newPass = $_POST['newPass'];
 		$q1 = "UPDATE Member SET MemberPassword=md5('$newPass') WHERE MemberEmail='$email' AND MemberPassword=md5('$pass')";
-		mysql_query($q1);	
+		$mysqli->query($q1);	
 	}
 	$q2 = "SELECT * FROM Member WHERE MemberEmail = '$email' and MemberPassword=md5('$newPass')";
 	$result = mysql_query($q2);
-	if (mysql_num_rows($result) > 0) 
+	if (mysqli_num_rows($result) > 0) 
 	{ 
 		echo "Password Changed.\n";
 	}

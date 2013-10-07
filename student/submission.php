@@ -2,13 +2,16 @@
 
 $title = "Submission: Assignment " . $_GET['idAssignment']; //enter title into the quotation marks
 include("../shared_php/header.php");
+/*
 require dirname(__FILE__) . '/../files/KLogger.php';
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
+*/
+
 //have to set current assignment ID into a session variable
 $_SESSION['currentAssignmentID'] = $_GET['idAssignment'];
 
 echo ("  <br><br> <h3> <u> Submissions: </u> </h3> <br> ");
-
+//Query selects everything from the assignment table 
 $query = "SELECT * FROM Assignment WHERE idAssignment=" . $_SESSION['currentAssignmentID'];
 $result = mysql_query($query);
 //array is of Assignment table
@@ -21,6 +24,8 @@ $array2 = mysql_fetch_array($result2);
 //Think need a 2nd set of query variables and array variables for Submission table, in order to track number of submits for the assignment
 
 
+
+//Displays the query from the assignment table 
 echo "<b>Assignment Name:</b> " . $array['AssignmentName'] . "<br />";
 echo "<b>Instructions:</b> " . $array['AssignmentInstructions'] . "<br />";
 echo "<b>Due Date:</b> " . $array['AssignmentDueDate'] . "<br />";
@@ -55,9 +60,15 @@ if( $array2['COUNT(idSubmission)'] < $array['AssignmentMaxAttempts'] || $array['
 <div class="codebox">
     <code>
         <pre>
+<<<<<<< HEAD
             <//?php echo $_SESSION['firstOutput']; ?>
 <?php$escape = htmlspecialchars($array['AssignmentCode']);
 echo $escape;?>
+=======
+            <?//php echo $_SESSION['firstOutput']; ?>
+<?php $escape = htmlspecialchars($array['AssignmentCode']);
+echo $escape; ?>
+>>>>>>> master
         </pre>
     </code>
 </div>

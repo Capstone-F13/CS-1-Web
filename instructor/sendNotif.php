@@ -27,9 +27,9 @@
 
 	$q="SELECT ClassName,idClass FROM Classes WHERE  ClassInstructorId='". $result1 ."' AND isFinished = 0 ";		
 	$options = '';
-	$result2=mysql_query($q);
+	$result2=$mysqli->query($q);
 	
-	while($row = mysql_fetch_array($result2)) {
+	while($row = mysqli_fetch_array($result2)) {
     
     $options .="<option value=".$row['idClass'].">" . $row['ClassName'] . "</option>";
 
@@ -86,7 +86,7 @@ $menu="<form id='classes' name='classes' method='post' action=''>
 		$q1 = "INSERT INTO Notification VALUES (null, '$subject', '$idClass', '$message')";
 
 	
-		$result = mysql_query($q1);
+		$result = $mysqli->query($q1);
 		if ($result) 
 		{ 
 			echo "Message Sent.\n";

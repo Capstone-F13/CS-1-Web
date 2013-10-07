@@ -9,8 +9,7 @@
 #include <string.h>
 #define BUFFSIZE 8192
 #define MaxPipeName 100
-#define logdir "/var/www/html/Web/debugger/"
-#define numDbgArgs 5
+#define logdir "/var/www/html/Web/debugger"#define numDbgArgs 5
 #define ArgSize 30
 #define prompt ">>>"
 //#define prompt "(gdb)"
@@ -157,6 +156,7 @@ int main (int argc, char ** argv) {
       fflush(fdtoFILE);
       fprintf(fdtoFILE,"child_pid=%d\n",child_pid);
       fflush(fdtoFILE);
+       setpgid(0, 0);
       
       fprintf(fdtoFILE,"---starting---\n");
       fflush(fdtoFILE);
