@@ -1,1 +1,0 @@
-2013-09-14 18:22:14 - INFO --> dirname(__FILE__)=; 'C:\\cygwin\\home\\Brian\\CS-1-Web'
