@@ -83,7 +83,7 @@ CREATE  TABLE IF NOT EXISTS `Assignment` (
   `AssignmentClass` INT NOT NULL ,
   `AssignmentType` BINARY NOT NULL COMMENT 'AssignmentType is 0 for C++ and 1 for Python' ,
   `AssignmentMaxAttempts` INT NULL ,
-  `SuccessesToPass` INT, 
+  `SuccessesToPass` INT NOT NULL DEFAULT '0', 
   PRIMARY KEY (`idAssignment`) ,
   INDEX `ForClass_idx` (`AssignmentClass` ASC) ,
   UNIQUE INDEX `idAssignment_UNIQUE` (`idAssignment` ASC) ,
@@ -105,7 +105,6 @@ CREATE  TABLE IF NOT EXISTS `Submission` (
   `SubmissionAssignmentId` INT NOT NULL ,
   `NoOfAttempts` INT NOT NULL DEFAULT '0' ,  
   `NoOfSuccesses` INT NOT NULL DEFAULT '0' ,
-  `SuccessInRow` INT NOT NULL DEFAULT '0' ,
   PRIMARY KEY (`idSubmission`) ,
   INDEX `AssignmentId_idx` (`SubmissionAssignmentId` ASC) ,
   UNIQUE INDEX `idSubmission_UNIQUE` (`idSubmission` ASC) ,
@@ -120,6 +119,7 @@ CREATE  TABLE IF NOT EXISTS `Submission` (
     REFERENCES `Assignment` (`idAssignment` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+    
 ENGINE = InnoDB;
 
 
@@ -208,7 +208,7 @@ CREATE  TABLE IF NOT EXISTS `Grades` (
   `GradeID` INT NOT NULL AUTO_INCREMENT ,
   `StudentID` INT NOT NULL ,
   `AssignmentID` INT NOT NULL,
-  `Grade` CHAR,
+  `Grade` CHAR NULL,
   `OverallPerformance` TEXT,
   PRIMARY KEY (`GradeID`) ,
   UNIQUE INDEX `GradeID_UNIQUE` (`GradeID` ASC) ,

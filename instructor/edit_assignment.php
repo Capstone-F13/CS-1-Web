@@ -72,6 +72,7 @@ if (isset($_REQUEST['edit_assignment'])) {
         document.forms["edit_assignment"]["txtInstructions"].focus();
         return;
     }
+    
     var x = document.forms["edit_assignment"]["cmbNoOfAttempts"].value;
     if (x == null || x == "0")
     {

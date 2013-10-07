@@ -27,16 +27,20 @@ function ValidateForm()
     if (x == null || x == "0")
     {
         alert("Please select No of Attempts.");
+        document.forms["create_assignment"]["cmbNoOfAttempts"].focus();
         return;
     }
     if (y == null || x == "0")
     {
         alert("Please select No of Successful Attempts.");
+        document.forms["create_assignment"]["NoOfSuccessfulAttempts"].focus();
         return;
     }
     if (x < y)
     {
     	alert("Number of attempts can't be less than successful attempts.");
+    	document.forms["create_assignment"]["NoOfSuccessfulAttempts"].focus();
+    	return;
     }
     var x = document.forms["create_assignment"]["cmbType"].value;
     if (x == null || x == "-1")
