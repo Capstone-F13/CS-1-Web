@@ -65,6 +65,8 @@ echo "The correct output is: " . $correctOutput . "<br />";
 	
 	$NoOfAttempts = $submissionArray['NoOfAttempts'] + 1;	
 	$NoOfSuccesses = $submissionArray['NoOfSuccesses'];
+	
+	$gradeQuery = "SELECT SuccessToPass, "
 
 	
 	
@@ -72,7 +74,6 @@ echo "The correct output is: " . $correctOutput . "<br />";
 if ($studentAnswer == $correctOutput) 
 {
 	$NoOfSuccesses += 1;
-	$SuccessInRow += 1;
 	
 	$length = strlen($OverallPerformance);
 	
