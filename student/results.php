@@ -55,18 +55,25 @@ echo "The correct output is: " . $correctOutput . "<br />";
 
 
 
-	$idmember = $_SESSION['idmember'];
-	$currentAssignmentID = $_SESSION['currentAssignmentID'];
+$idmember = $_SESSION['idmember'];
+$currentAssignmentID = $_SESSION['currentAssignmentID'];
 	
-		
-    $submissionQuery = "SELECT NoOfAttempts, NoOfSuccesses FROM Submission WHERE SubmissionMemberId ='$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
-	$submissionResult = $mysqli->query($submissionQuery);
-	$submissionArray = $submissionResult->fetch_array(); 
-	
-	$NoOfAttempts = $submissionArray['NoOfAttempts'] + 1;	
-	$NoOfSuccesses = $submissionArray['NoOfSuccesses'];
-	
-	$gradeQuery = "SELECT SuccessToPass, "
+$submissionQuery = "SELECT NoOfAttempts, NoOfSuccesses FROM Submission WHERE SubmissionMemberId ='$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
+$submissionResult = $mysqli->query($submissionQuery);
+$submissionArray = $submissionResult->fetch_array(); 
+
+$NoOfAttempts = $submissionArray['NoOfAttempts'] + 1;	
+$NoOfSuccesses = $submissionArray['NoOfSuccesses'];
+
+$assignmentQuery = "SELECT AssignmentMaxAttempts, SuccessesToPass FROM Assignment WHERE idAssignment = '$currentAssignmentID'";
+$assignmentResult = $mysqli->query($assignmentQuery);
+$assignmentArray = $assignmentResult->fetch_array();
+
+$memberQuery = "SELECT OverallPerformance FROM Member WHERE idMember = '$idmember'";
+$memberResult = $mysqli->query($memberQuery);
+$memberArray = $memberResult->fetch_array();
+
+$OverallPerformance = $memberArray['OverallPerformance'];
 
 	
 	
@@ -74,40 +81,34 @@ echo "The correct output is: " . $correctOutput . "<br />";
 if ($studentAnswer == $correctOutput) 
 {
 	$NoOfSuccesses += 1;
+	$successToPass = $assignmentArray['SuccessesToPass'];
 	
 	$length = strlen($OverallPerformance);
 	
-	echo "Level1 <br />";
-	if($length < 15)
+	if($length <= 5)
 	{
-		echo "level2 <br />";
 		if($submissionArray != NULL)
 		{
-			echo "level3A <br />";
-			
-			$successesQuery = "SELECT SuccessesToPass FROM Assignment WHERE idAssignment ='$currentAssignmentID'";
-			$successResult = $mysqli->query($successesQuery);
-			$successArray = $successResult->fetch_array();
-			$successToPass = $successArray['SuccessesToPass']; 
 						
 			if($NoOfSuccesses >= $successToPass)
 			{
 				$grade = 'P';
 				
-				$s_updateQuery = "UPDATE Submission, Grades
+				$s_updateQuery = "UPDATE Submission, Grades, Member
 			        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
-			        			  Grades.grade = '$grade', Grades.OverallPerformance = CONCAT('$OverallPerformance', 'S')
-								  WHERE SubmissionMemberId = '$idmember'";
+			        			  Grades.grade = '$grade', 
+			        			  Member.OverallPerformance = CONCAT('$OverallPerformance', 'S')
+								  WHERE Submission.SubmissionMemberId = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
 				
 				$query = $mysqli->query($s_updateQuery);
 			}
 			
 			else 
 			{
-				$s_updateQuery = "UPDATE Submission, Grades
+				$s_updateQuery = "UPDATE Submission, Member
 			        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
-			        			  Grades.OverallPerformance = CONCAT('$OverallPerformance', 'S')
-								  WHERE SubmissionMemberId = '$idmember'";
+			        			  Member.OverallPerformance = CONCAT('$OverallPerformance', 'S')
+								  WHERE Member.idMember = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
 				
 				$query = $mysqli->query($s_updateQuery);
 			}
@@ -118,14 +119,24 @@ if ($studentAnswer == $correctOutput)
 		//Submission array is null
 		else 
 		{
-			echo "level3B";
 			$s_insertSubmission = "INSERT INTO Submission
 								   VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses')";
-			$query = $mysqli->query($s_insertSubmission);
+			$s_submissionQuery = $mysqli->query($s_insertSubmission);
 			
-			$s_insertGrades = "INSERT INTO Grades
-							   VALUES ('', '$idmember', '$currentAssignmentID', '','S')";
-			$gradeQuery = $mysqli->query($s_insertGrades);
+			if($NoOfSuccesses >= $successToPass)
+			{
+				$s_insertGrade = "INSERT INTO Grades
+								  VALUES ('', '$idmember', '$currentAssignmentID', 'P')";
+				$s_gradeQuery = $mysqli->query($s_insertGrade);
+								
+			}
+			
+			$s_updateMember = "UPDATE Member
+							   SET OverallPerformance = 'S'
+							   WHERE idMember = '$idmember'";
+			$s_memberQuery = $mysqli->query($s_updateMember);
+			 
+			
 		}
 		
 	}
@@ -136,20 +147,30 @@ if ($studentAnswer == $correctOutput)
 	    $performanceArray = str_split($OverallPerformance);
 		$performanceShift = array_shift($performanceArray);
 		$performance = array_push($performanceShift, 'S');		 
-		$s_updateQuery = "UPDATE Submission, Grades
-	        			SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses', Submission.SuccessInRow = '$SuccessInRow',
-	        			Grades.grade = '$grade', Grades.OverallPerformance = '$performance'
-						WHERE SubmissionMemberId = '$idmember', SubmissionAssignmentId = '$currentAssignmentID'";
-		$query = $mysqli->query($queryString);
 		
-		$index += 1;
-	
-		$indexquery = "UPDATE Submission
-					   SET Index = '$index'
-					   WHERE SubmissionMemberId = '$idmember'";
-					  
-		$indexresult = $mysqli->query($indexquery);
-	}
+		if($NoOfSuccesses >= $successToPass)
+		{
+			$grade = 'P';
+			
+			$s_updateQuery = "UPDATE Submission, Grades, Member
+		        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
+		        			  Grades.grade = '$grade', 
+		        			  Member.OverallPerformance = '$performance'
+							  WHERE Submission.SubmissionMemberId = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
+			
+			$query = $mysqli->query($s_updateQuery);
+		}
+		
+		else 
+		{
+			$s_updateQuery = "UPDATE Submission, Member
+		        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
+		        			  Member.OverallPerformance = CONCAT('$OverallPerformance', 'S')
+							  WHERE Member.idMember = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
+			
+			$query = $mysqli->query($s_updateQuery);
+		}
+		
 	
 	
 	 echo "You were correct!";
