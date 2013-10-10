@@ -58,124 +58,159 @@ echo "The correct output is: " . $correctOutput . "<br />";
 $idmember = $_SESSION['idmember'];
 $currentAssignmentID = $_SESSION['currentAssignmentID'];
 	
-$submissionQuery = "SELECT NoOfAttempts, NoOfSuccesses FROM Submission WHERE SubmissionMemberId ='$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
+$submissionQuery = "SELECT Attempts, Performance, Grade, FROM Submission WHERE SubmissionMemberId ='$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
 $submissionResult = $mysqli->query($submissionQuery);
-$submissionArray = $submissionResult->fetch_array(); 
-
-$NoOfAttempts = $submissionArray['NoOfAttempts'] + 1;	
-$NoOfSuccesses = $submissionArray['NoOfSuccesses'];
 
 $assignmentQuery = "SELECT AssignmentMaxAttempts, SuccessesToPass FROM Assignment WHERE idAssignment = '$currentAssignmentID'";
 $assignmentResult = $mysqli->query($assignmentQuery);
 $assignmentArray = $assignmentResult->fetch_array();
 
-$memberQuery = "SELECT OverallPerformance FROM Member WHERE idMember = '$idmember'";
-$memberResult = $mysqli->query($memberQuery);
-$memberArray = $memberResult->fetch_array();
+$maxAttempts = $assignmentArray['AssignmentMaxAttempts'];
+$successesToPass = $assignmentArray['SuccessesToPass'];
 
-$OverallPerformance = $memberArray['OverallPerformance'];
-
-	
-	
+		
 //If answer is correct, puts in submission table
 if ($studentAnswer == $correctOutput) 
 {
-	$NoOfSuccesses += 1;
-	$successToPass = $assignmentArray['SuccessesToPass'];
-	
-	$length = strlen($OverallPerformance);
-	
-	if($length <= 5)
+	//Checks to see if student has submitted before
+	if($submissionResult != FALSE)
 	{
-		if($submissionArray != NULL)
-		{
-						
-			if($NoOfSuccesses >= $successToPass)
-			{
-				$grade = 'P';
+        //Student has submitted something, so now we can fetch contents
+        $submissionArray = $submissionResult->fetch_array();
+        
+        $overallPerformance = $submissionArray['Performance'];
+        $submissionAttempts = $submissionArray['Attempts'] + 1;
+        $submissiongrade = $submissionArray['Grade']; 
+        
+        //The length of performance is checked to see if we need to start deleting old submission P/F
+        $length = strlen($overallPerformance);
+         
+        if($length <= 5)
+        {
+            //Checks to see if student has recieved grade for assignment.  Do this so student can continue doing assignment even once graded 
+            if($submissiongrade != NULL)
+            {
+                $s_updateQuery = "UPDATE Submission
+			        			  SET Attempts = '$submissionAttempts', DateSubmit = 'now()', Performance = CONCAT('$overallPerformance', 'S')			        			       
+								  WHERE SubmissionMemberId = '$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
 				
-				$s_updateQuery = "UPDATE Submission, Grades, Member
-			        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
-			        			  Grades.grade = '$grade', 
-			        			  Member.OverallPerformance = CONCAT('$OverallPerformance', 'S')
-								  WHERE Submission.SubmissionMemberId = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
+			    $query = $mysqli->query($s_updateQuery);
+            }
+           			
+		    if($submissionAttempts < $maxAttempts && $submissiongrade == NULL)
+		    {
+                $mystring = "";
+                
+                for($i = 0; $i < $successesToPass; $i++)
+                    $mystring += "S";
+                
+                $pos = strpos($overallPerformance, $mystring);
+                
+                if($pos === TRUE)
+                {			
+			        $s_updateQuery = "UPDATE Submission
+			        			      SET Attempts = '$submissionAttempts', DateSubmit = 'now()', Performance = CONCAT('$overallPerformance', 'S'), Grade = 'P'			        			       
+								      WHERE SubmissionMemberId = '$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
 				
-				$query = $mysqli->query($s_updateQuery);
-			}
+			        $query = $mysqli->query($s_updateQuery);
+		        }
 			
-			else 
-			{
-				$s_updateQuery = "UPDATE Submission, Member
-			        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
-			        			  Member.OverallPerformance = CONCAT('$OverallPerformance', 'S')
-								  WHERE Member.idMember = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
+		        else 
+		        {
+			        $s_updateQuery = "UPDATE Submission
+			        			      SET Attempts = '$submissionAttempts', DateSubmit = 'now()', Performance = CONCAT('$overallPerformance', 'S')		        			       
+								      WHERE SubmissionMemberId = '$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
 				
-				$query = $mysqli->query($s_updateQuery);
-			}
+			        $query = $mysqli->query($s_updateQuery);
+		        }
 			
-			 									
-		}
+	        }
+            
+            else
+            {
+                $mystring = "";
+                
+                for($i = 0; $i < $successesToPass; $i++)
+                    $mystring += "S";
+                
+                $pos = strpos($overallPerformance, $mystring);
+                
+                if($pos === FALSE)
+                {
+                    $s_updateQuery = "UPDATE Submission
+			        			      SET Attempts = '$submissionAttempts', DateSubmit = 'now()', Performance = CONCAT('$overallPerformance', 'S'), Grade = 'F'			        			       
+								      WHERE SubmissionMemberId = '$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
+				
+			        $query = $mysqli->query($s_updateQuery);
+                    
+                    echo "Even though you were correct, you have reached your max attempts without enough successes in a row, which results in a F";
+                }
+            }
+        }
+           		
+        
+        //Length else
+	    else
+	    {
+	        $performanceArray = str_split($OverallPerformance);
+		    $performanceShift = array_shift($performanceArray);
+		    $performance = array_push($performanceShift, 'S');		 
 		
-		//Submission array is null
-		else 
-		{
-			$s_insertSubmission = "INSERT INTO Submission
-								   VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses')";
-			$s_submissionQuery = $mysqli->query($s_insertSubmission);
+		    if($NoOfSuccesses >= $successToPass)
+		    {
+			    $grade = 'P';
 			
-			if($NoOfSuccesses >= $successToPass)
-			{
-				$s_insertGrade = "INSERT INTO Grades
-								  VALUES ('', '$idmember', '$currentAssignmentID', 'P')";
-				$s_gradeQuery = $mysqli->query($s_insertGrade);
-								
-			}
+			    $s_updateQuery = "UPDATE Submission, Grades, Member
+		        			      SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
+		        			      Grades.grade = '$grade', 
+		        			      Member.OverallPerformance = '$performance'
+							      WHERE Submission.SubmissionMemberId = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
 			
-			$s_updateMember = "UPDATE Member
-							   SET OverallPerformance = 'S'
-							   WHERE idMember = '$idmember'";
-			$s_memberQuery = $mysqli->query($s_updateMember);
-			 
-			
-		}
+			    $query = $mysqli->query($s_updateQuery);
+		    }
 		
-	}
-
-	//Length else
-	else
+		    else 
+		    {
+			    $s_updateQuery = "UPDATE Submission, Member
+		        			      SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
+		        			      Member.OverallPerformance = CONCAT('$OverallPerformance', 'S')
+							      WHERE Member.idMember = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
+			
+			    $query = $mysqli->query($s_updateQuery);
+		    }
+		
+	
+	
+	        echo "You were correct!";
+        } 
+    }
+	
+    //Submission result is null
+	else 
 	{
-	    $performanceArray = str_split($OverallPerformance);
-		$performanceShift = array_shift($performanceArray);
-		$performance = array_push($performanceShift, 'S');		 
-		
+		$s_insertSubmission = "INSERT INTO Submission
+								VALUES ('', '$idmember', '$currentAssignmentID', '$NoOfAttempts', '$NoOfSuccesses')";
+		$s_submissionQuery = $mysqli->query($s_insertSubmission);
+			
 		if($NoOfSuccesses >= $successToPass)
 		{
-			$grade = 'P';
-			
-			$s_updateQuery = "UPDATE Submission, Grades, Member
-		        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
-		        			  Grades.grade = '$grade', 
-		        			  Member.OverallPerformance = '$performance'
-							  WHERE Submission.SubmissionMemberId = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
-			
-			$query = $mysqli->query($s_updateQuery);
+			$s_insertGrade = "INSERT INTO Grades
+								VALUES ('', '$idmember', '$currentAssignmentID', 'P')";
+			$s_gradeQuery = $mysqli->query($s_insertGrade);
+								
 		}
-		
-		else 
-		{
-			$s_updateQuery = "UPDATE Submission, Member
-		        			  SET Submission.NoOfAttempts = '$NoOfAttempts', Submission.NoOfSuccesses = '$NoOfSuccesses',
-		        			  Member.OverallPerformance = CONCAT('$OverallPerformance', 'S')
-							  WHERE Member.idMember = '$idmember' AND Submission.SubmissionAssignmentId = '$currentAssignmentID'";
 			
-			$query = $mysqli->query($s_updateQuery);
-		}
+		$s_updateMember = "UPDATE Member
+							SET OverallPerformance = 'S'
+							WHERE idMember = '$idmember'";
+		$s_memberQuery = $mysqli->query($s_updateMember);
+			 
+			
+	}
 		
-	
-	
-	 echo "You were correct!";
-} 
+}
 
+	
 //If answer is wrong, puts in submission table along with a link to debugger to see steps 
 else 
 {
