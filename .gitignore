@@ -40,3 +40,7 @@ Thumbs.db
 ######################
 .*.sw*?
 *.project
+
+*.phpproj
+*.sln
+*.suo
