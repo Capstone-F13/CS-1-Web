@@ -23,7 +23,6 @@ CREATE  TABLE IF NOT EXISTS `Member` (
   `MemberBanner` VARCHAR(45) NOT NULL ,
   `MemberPassword` VARCHAR(50) NOT NULL ,
   `IsInstructor` BINARY NOT NULL ,
-  `OverallPerformance` varChar(15),
   PRIMARY KEY (`idMember`) ,
   UNIQUE INDEX `idMember_UNIQUE` (`idMember` ASC) )
 ENGINE = InnoDB;
@@ -104,8 +103,10 @@ CREATE  TABLE IF NOT EXISTS `Submission` (
   `idSubmission` INT NOT NULL AUTO_INCREMENT ,
   `SubmissionMemberId` INT NOT NULL ,
   `SubmissionAssignmentId` INT NOT NULL ,
-  `NoOfAttempts` INT NOT NULL DEFAULT '0' ,  
-  `NoOfSuccesses` INT NOT NULL DEFAULT '0' ,
+  `Attempts` INT,
+  `DateSubmit` DATETIME,
+  `Performance` varchar(10),
+  `Grade` char,
   PRIMARY KEY (`idSubmission`) ,
   INDEX `AssignmentId_idx` (`SubmissionAssignmentId` ASC) ,
   UNIQUE INDEX `idSubmission_UNIQUE` (`idSubmission` ASC) ,
@@ -226,10 +227,10 @@ ENGINE = InnoDB;
 
 
 
-INSERT INTO Member VALUES (1, 'Instruct', 'Lastname', 'instructor@email.gov', 812345678, md5('password'), 1, '');
-INSERT INTO Member VALUES (2, 'Student', 'Last2', 'student@email.gov', 810000001, md5('password'), 0, '');
-INSERT INTO Member VALUES (3, 'Instructor2', 'Last3', 'instructor2@email.gov', 812345679, md5('instructorpass'), 1, '');
-INSERT INTO Member VALUES (4, 'Student2', 'Last4', 'student2@email.gov', 810000002, md5('studentpass'), 0, '');
+INSERT INTO Member VALUES (1, 'Instruct', 'Lastname', 'instructor@email.gov', 812345678, md5('password'), 1);
+INSERT INTO Member VALUES (2, 'Student', 'Last2', 'student@email.gov', 810000001, md5('password'), 0);
+INSERT INTO Member VALUES (3, 'Instructor2', 'Last3', 'instructor2@email.gov', 812345679, md5('instructorpass'), 1);
+INSERT INTO Member VALUES (4, 'Student2', 'Last4', 'student2@email.gov', 810000002, md5('studentpass'), 0);
 INSERT INTO Classes VALUES (1, 1234567, 'Computer Science 1', 0001, '2013-10-10', '2014-07-10', 0);
 INSERT INTO Classes VALUES (2, 1234568, 'Computer Science 2', 0002, '2013-10-10', '2014-07-10', 0);
 INSERT INTO Roster VALUES (1, 0001, 0002);
@@ -246,18 +247,18 @@ INSERT INTO Notification VALUES (1, 'Testing Notifications', 1, "Hi Class, this 
 -- -------------------------------------
 -- Member Population
 -- -------------------------------------
-INSERT INTO Member VALUES (5, 'Thamer', 'Instructor', 'italrefai@kent.edu', 81000009, md5('studentpass'), 1, '');
-INSERT INTO Member VALUES (6, 'Thamer', 'Student', 'stalrefai@kent.edu', 810000003, md5('studentpass'), 0, '');
-INSERT INTO Member VALUES (7, 'Ovunc', 'Instructor', 'ioasikogl@kent.edu', 8100000010, md5('12345'), 1, '');
-INSERT INTO Member VALUES (8, 'Ovunc', 'Student', 'soasikogl@kent.edu', 810000004, md5('12345'), 0, '');
-INSERT INTO Member VALUES (9, 'Abdul', 'Instructor', 'iaalahai@kent.edu', 810000013, md5('studentpass'), 1, '');
-INSERT INTO Member VALUES (10, 'Abdul', 'Student', 'saalmahai@kent.edu', 810000005, md5('studentpass'), 0, '');
-INSERT INTO Member VALUES (11, 'Rafia', 'Instructor', 'irqureshi@kent.edu', 810000023, md5('rafiaq88'), 1, '');
-INSERT INTO Member VALUES (12, 'Rafia', 'Student', 'srqureshi@kent.edu', 810000006, md5('rafiaq88'), 0, '');
-INSERT INTO Member VALUES (13, 'Cody', 'Instructor', 'ickerstin@kent.edu', 810000033, md5('12345'), 1, '');
-INSERT INTO Member VALUES (14, 'Cody', 'Student', 'sckerstin@kent.edu', 810000007, md5('12345'), 0, '');
-INSERT INTO Member VALUES (15, 'Mich', 'Instructor', 'ipedwards@kent.edu', 810000043, md5('12345'), 1, '');
-INSERT INTO Member VALUES (16, 'Mich', 'Student', 'spedwards@kent.edu', 810000008, md5('12345'), 0, '');
+INSERT INTO Member VALUES (5, 'Thamer', 'Instructor', 'italrefai@kent.edu', 81000009, md5('studentpass'), 1);
+INSERT INTO Member VALUES (6, 'Thamer', 'Student', 'stalrefai@kent.edu', 810000003, md5('studentpass'), 0);
+INSERT INTO Member VALUES (7, 'Ovunc', 'Instructor', 'ioasikogl@kent.edu', 8100000010, md5('12345'), 1);
+INSERT INTO Member VALUES (8, 'Ovunc', 'Student', 'soasikogl@kent.edu', 810000004, md5('12345'), 0);
+INSERT INTO Member VALUES (9, 'Abdul', 'Instructor', 'iaalahai@kent.edu', 810000013, md5('studentpass'), 1);
+INSERT INTO Member VALUES (10, 'Abdul', 'Student', 'saalmahai@kent.edu', 810000005, md5('studentpass'), 0);
+INSERT INTO Member VALUES (11, 'Rafia', 'Instructor', 'irqureshi@kent.edu', 810000023, md5('rafiaq88'), 1);
+INSERT INTO Member VALUES (12, 'Rafia', 'Student', 'srqureshi@kent.edu', 810000006, md5('rafiaq88'), 0);
+INSERT INTO Member VALUES (13, 'Cody', 'Instructor', 'ickerstin@kent.edu', 810000033, md5('12345'), 1);
+INSERT INTO Member VALUES (14, 'Cody', 'Student', 'sckerstin@kent.edu', 810000007, md5('12345'), 0);
+INSERT INTO Member VALUES (15, 'Mich', 'Instructor', 'ipedwards@kent.edu', 810000043, md5('12345'), 1);
+INSERT INTO Member VALUES (16, 'Mich', 'Student', 'spedwards@kent.edu', 810000008, md5('12345'), 0);
 
 -- -------------------------------------
 -- Classes Population (idClass, ClassCRN, ClassName, ClassInstructorId,ClassStartDate,ClassEndDate)
