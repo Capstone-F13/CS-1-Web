@@ -61,7 +61,7 @@ if (isset($_REQUEST['insert_assignment'])) {
                     <td><textarea name="txtCode" rows="5" cols="40"></textarea></td>
                 </tr>
                 <tr>
-                    <td><strong>Attempts</strong></td>
+                    <td><strong>Max Attempts</strong></td>
                     <td><select name="cmbNoOfAttempts">
                             <option value="0" selected="selected"> Select</option>
                             <option value="1"> 1</option>
@@ -78,7 +78,7 @@ if (isset($_REQUEST['insert_assignment'])) {
                 </tr>
                 <tr>
                 <tr>
-                	<td><strong>Successful Attempts to Pass</strong></td>
+                	<td><strong>Successes in a Row</strong></td>
                     <td><select name="NoOfSuccessfulAttempts">
                             <option value="0" selected="selected"> Select</option>
                             <option value="1"> 1</option>
