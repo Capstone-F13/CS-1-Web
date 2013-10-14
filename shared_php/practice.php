@@ -9,6 +9,10 @@ $log->logInfo('In Practice page',$_SESSION['uniqueID']);
 ?>
 <header id="top_header">
   <h1 style="text-align: center">Practice Page</h1>
+  <style>
+   <?php //Line below allows multiple submit buttons on same line ?>
+    form { display: inline; }
+  </style>
 </header>
 
 <div id="new_div">
@@ -71,33 +75,16 @@ $log->logInfo('In Practice page',$_SESSION['uniqueID']);
   <!--Main Section where show code, upload and save -->
   <section id="main_section" >
   <h1>Code:</h1>
-  <?php /*
-  <form enctype="multipart/form-data" action="" method="POST">
-  <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-  <pre>Choose a file to upload (C++ or Python): </pre>
-  <input name="uploadedfile" accept=".cpp, .h, .py" type="file" /><br>
-  */ ?>
   <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js">
-filepicker.setKey('ANXgRAtRSvutC6rHIAY4Az');
-
-   
-/*      url: 'https://...',
-        data: {
-        filename: 'filename.txt',
-        size: 100,
-        type: 'text/plain'*/
-</script>
+  filepicker.setKey('ANXgRAtRSvutC6rHIAY4Az');
+  </script>
 
   
 <form>
 <!-- Note data-fp-extensions must be separated by comma and NO space -->
-<input id="_url" onchange="updateCode();" data-fp-button-text="Upload File" data-fp-services="COMPUTER,DROPBOX,GMAIL,FTP,GITHUB,GOOGLE_DRIVE,URL" data-fp-container="modal" data-fp-extensions=".cpp,.h,.py" data-fp-apikey="ANXgRAtRSvutC6rHIAY4Az" type="filepicker"> 
+<input id="uploadedfile" onchange="updateCode();" data-fp-button-class="button" data-fp-button-text="Upload File" data-fp-services="COMPUTER,DROPBOX,GMAIL,FTP,GITHUB,GOOGLE_DRIVE,URL" data-fp-container="modal" data-fp-extensions=".cpp,.h,.py" data-fp-apikey="ANXgRAtRSvutC6rHIAY4Az" type="filepicker"> 
 </form>
 
-  <?php //$body = http_parse_message(http_get($url))->body; ?>
-
-  <?php //<input type="submit" value="Upload File" class="button" /> ?>
-  </form>
   <form enctype="multipart/form-data" name="SaveForm" action="saveForm.php" method="POST" target="win1" onsubmit="window.open('', 'win1', 'width=400, height=200, left=200, top=50,status=yes,resizable=yes,scrollbars=yes')">
   <input name="submit" type="submit" class="button" Value="Save Changes">
 
@@ -110,11 +97,16 @@ filepicker.setKey('ANXgRAtRSvutC6rHIAY4Az');
 
             <br>
 
-  <textarea name="txtname" id="txtname"><?php
-  /*if (!empty($_FILES['uploadedfile']) && file_exists($_FILES['uploadedfile']['tmp_name'])) {
+  <?php /*if (!empty($_FILES['uploadedfile']) && file_exists($_FILES['uploadedfile']['tmp_name'])) {
     echo htmlentities(file_get_contents($_FILES['uploadedfile']['tmp_name']) , ENT_QUOTES, 'UTF-8');
-  }*/
-?></textarea>
+  }*/?>
+  <?php
+  if (isset($_SESSION['AssignmentCode'])){
+    echo '<textarea name="txtname" id="txtname">' . $_SESSION['AssignmentCode'] . '</textarea>';
+  } else {
+    echo '<textarea name="txtname" id="txtname">AssignmentCode not found</textarea>';
+  }
+  ?>
 
 <pre>The below area for input:</pre>
             <textarea id="input" name="input"></textarea>
@@ -124,20 +116,15 @@ filepicker.setKey('ANXgRAtRSvutC6rHIAY4Az');
   
   <!-- code to display link to textarea-->
  <script>
-  function display_file(f)
+function updateCode()
 {
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.open("GET", f, true);
-  httpRequest.send(null);
-  httpRequest.onreadystatechange = function()
-  {
-    if(this.readyState == 4 && this.status == 200)
-      {
-	document.getElementById("txtname").value = this.responseText;
-      }
-  }
+    filepicker.read(document.getElementById('uploadedfile').value, function(data){
+      codeEditor.replaceSelection(data, "end");
+    });
 }
+
 </script>
+
 <!--Functions for debugging-->
         <script type="text/javascript">
 
@@ -150,12 +137,11 @@ filepicker.setKey('ANXgRAtRSvutC6rHIAY4Az');
 	matchBrackets:true,
 	});
 codeEditor.setSize("40em", "20em");
-<?php /*
+
 var inputEditor = CodeMirror.fromTextArea(document.getElementById("input"), {
   smartIndent: false
       });
 inputEditor.setSize("40em", "5em");
-*/ ?>
             
 var showresponse = function(data)
 {
@@ -163,16 +149,6 @@ var showresponse = function(data)
   document.getElementById("tname").innerHTML = JSON.stringify(data);
                 
 }
-
-function updateCode()
-{
-    filepicker.read(document.getElementById('_url').value, function(data){
-      codeEditor.replaceSelection(data, "end");
-    });
-}
-
-
-
   </script>
 
   </section>

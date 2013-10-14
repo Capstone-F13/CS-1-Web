@@ -62,7 +62,7 @@ $currentAssignmentID = $_SESSION['currentAssignmentID'];
 	
 $submissionQuery = "SELECT * FROM Submission WHERE SubmissionMemberId = '$idmember' AND SubmissionAssignmentId = '$currentAssignmentID' ";
 $submissionResult = $mysqli->query($submissionQuery);
-$submissionArray = $submissionResult->fetch_array();
+$submissionArray = mysqli_fetch_array($submissionResult);
         
 $overallPerformance = $submissionArray['Performance'];
 $submissionAttempts = $submissionArray['Attempts'] + 1;
@@ -71,7 +71,7 @@ $submissiongrade = $submissionArray['Grade'];
 
 $assignmentQuery = "SELECT AssignmentMaxAttempts, SuccessesToPass FROM Assignment WHERE idAssignment = '$currentAssignmentID'";
 $assignmentResult = $mysqli->query($assignmentQuery);
-$assignmentArray = $assignmentResult->fetch_array();
+$assignmentArray = mysqli_fetch_array($assignmentResult);
 
 $maxAttempts = $assignmentArray['AssignmentMaxAttempts'];
 $successesToPass = $assignmentArray['SuccessesToPass'];

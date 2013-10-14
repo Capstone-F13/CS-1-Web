@@ -25,11 +25,13 @@ echo "<b>Due Date:</b> " . $array['AssignmentDueDate'] . "<br /><br />";
 
 //Confused on what they are trying to do here
 
-/*
-$log->LogInfo("in submissions");
 
-//create file to store program from database
-$program = $array['AssignmentCode'];  //Puts the entire code in variable
+//$log->LogInfo("in submissions");
+
+//stores program code in session variable to take to debugger
+$_SESSION['AssignmentCode'] = $array['AssignmentCode'];  //Puts the entire code in variable
+
+/*
 $filePath = "../files/";
 $fileName = "compiledDatabaseProgram" . $_GET['idAssignment'] . ".py";
 $fullFileName = $filePath . $fileName;
