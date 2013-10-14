@@ -1,0 +1,4 @@
+2013-10-14 14:25:37 - INFO --> In Practice page; NULL
+2013-10-14 14:56:09 - INFO --> In Practice page; NULL
+2013-10-14 15:29:05 - INFO --> In Practice page; NULL
+2013-10-14 16:00:52 - INFO --> In Practice page; NULL

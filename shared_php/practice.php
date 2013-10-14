@@ -68,15 +68,35 @@ $log->logInfo('In Practice page',$_SESSION['uniqueID']);
         <br>
   </aside>
 
-
   <!--Main Section where show code, upload and save -->
   <section id="main_section" >
   <h1>Code:</h1>
+  <?php /*
   <form enctype="multipart/form-data" action="" method="POST">
   <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
   <pre>Choose a file to upload (C++ or Python): </pre>
   <input name="uploadedfile" accept=".cpp, .h, .py" type="file" /><br>
-  <input type="submit" value="Upload File" class="button" />
+  */ ?>
+  <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js">
+filepicker.setKey('ANXgRAtRSvutC6rHIAY4Az');
+
+   
+/*      url: 'https://...',
+        data: {
+        filename: 'filename.txt',
+        size: 100,
+        type: 'text/plain'*/
+</script>
+
+  
+<form>
+<!-- Note data-fp-extensions must be separated by comma and NO space -->
+<input id="_url" onchange="updateCode();" data-fp-button-text="Upload File" data-fp-services="COMPUTER,DROPBOX,GMAIL,FTP,GITHUB,GOOGLE_DRIVE,URL" data-fp-container="modal" data-fp-extensions=".cpp,.h,.py" data-fp-apikey="ANXgRAtRSvutC6rHIAY4Az" type="filepicker"> 
+</form>
+
+  <?php //$body = http_parse_message(http_get($url))->body; ?>
+
+  <?php //<input type="submit" value="Upload File" class="button" /> ?>
   </form>
   <form enctype="multipart/form-data" name="SaveForm" action="saveForm.php" method="POST" target="win1" onsubmit="window.open('', 'win1', 'width=400, height=200, left=200, top=50,status=yes,resizable=yes,scrollbars=yes')">
   <input name="submit" type="submit" class="button" Value="Save Changes">
@@ -91,9 +111,9 @@ $log->logInfo('In Practice page',$_SESSION['uniqueID']);
             <br>
 
   <textarea name="txtname" id="txtname"><?php
-  if (!empty($_FILES['uploadedfile']) && file_exists($_FILES['uploadedfile']['tmp_name'])) {
+  /*if (!empty($_FILES['uploadedfile']) && file_exists($_FILES['uploadedfile']['tmp_name'])) {
     echo htmlentities(file_get_contents($_FILES['uploadedfile']['tmp_name']) , ENT_QUOTES, 'UTF-8');
-  }
+  }*/
 ?></textarea>
 
 <pre>The below area for input:</pre>
@@ -103,7 +123,7 @@ $log->logInfo('In Practice page',$_SESSION['uniqueID']);
   </form>
   
   <!-- code to display link to textarea-->
-  <script>
+ <script>
   function display_file(f)
 {
   var httpRequest = new XMLHttpRequest();
@@ -118,8 +138,6 @@ $log->logInfo('In Practice page',$_SESSION['uniqueID']);
   }
 }
 </script>
-
-
 <!--Functions for debugging-->
         <script type="text/javascript">
 
@@ -132,12 +150,12 @@ $log->logInfo('In Practice page',$_SESSION['uniqueID']);
 	matchBrackets:true,
 	});
 codeEditor.setSize("40em", "20em");
-
+<?php /*
 var inputEditor = CodeMirror.fromTextArea(document.getElementById("input"), {
   smartIndent: false
       });
 inputEditor.setSize("40em", "5em");
-
+*/ ?>
             
 var showresponse = function(data)
 {
@@ -146,7 +164,15 @@ var showresponse = function(data)
                 
 }
 
-    
+function updateCode()
+{
+    filepicker.read(document.getElementById('_url').value, function(data){
+      codeEditor.replaceSelection(data, "end");
+    });
+}
+
+
+
   </script>
 
   </section>
