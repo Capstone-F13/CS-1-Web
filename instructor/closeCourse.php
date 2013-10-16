@@ -12,7 +12,7 @@ $close_id = $_POST['radio_button'];
 $sql = "UPDATE Classes SET isFinished = 1 WHERE idClass =" . $close_id ;
 $result = $mysqli->query($sql);
 
-// if successful redirect to delete_multiple.php 
+
 if($result){
 echo "Course is closed!!";
 }
@@ -41,15 +41,14 @@ $count = $result->field_count;
 
 <?php
 while($rows=$result->fetch_array()){
-
 ?>
 
 <tr>
-<td align="center" bgcolor="#FFFFFF"><input name="radio_button" type="radio" id="radio_button" value="<?php echo $rows['idClass']; ?>"></td>
-<td bgcolor="#FFFFFF"><? echo $rows['ClassName']; ?></td>
-<td bgcolor="#FFFFFF"><? echo $rows['ClassCRN']; ?></td>
-<td bgcolor="#FFFFFF"><? echo $rows['ClassStartDate']; ?></td>
-<td bgcolor="#FFFFFF"><? echo $rows['ClassEndDate']; ?></td>
+<td align="center" bgcolor="#FFFFFF"><input name="radio_button" type="radio" id="radio_button" value="<?php echo $rows['idClass']; ?>"</td>
+<td bgcolor="#FFFFFF"><?php echo $rows['ClassName']; ?></td>
+<td bgcolor="#FFFFFF"><?php echo $rows['ClassCRN']; ?></td>
+<td bgcolor="#FFFFFF"><?php echo $rows['ClassStartDate']; ?></td>
+<td bgcolor="#FFFFFF"><?php echo $rows['ClassEndDate']; ?></td>
 </tr>
 
 <?php
@@ -67,4 +66,5 @@ while($rows=$result->fetch_array()){
 </table>
 <?php
 include("../shared_php/footer.php");
-?> 
+?>
+ 

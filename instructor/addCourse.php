@@ -1,60 +1,75 @@
 <?php
 	$title = "Add Course"; //enter title into the quotation marks
+	require_once("../shared_php/databaseConnect.php");
 	include("../shared_php/header.php");
+	
+	if (isset($_REQUEST['insert_classes']))
+	{
+		$className = $_REQUEST['ClassName'];
+		$classCRN = $_REQUEST['ClassCRN'];
+		$classInstructorID =  $_REQUEST['ClassInstructorID'];
+		$classStartDate= $_REQUEST['ClassStartDate'];
+		$classEndDate = $_REQUEST['ClassEndDate'];
+		$IsFinished =  $_REQUEST['isFinished'];
+		
+		$classes="INSERT INTO Classes (ClassCRN, ClassName, ClassInstructorId, ClassStartDate, ClassEndDate, isFinished)
+			VALUES('$className','$classCRN','$classInstructorID','$classStartDate', '$classEndDate, '0')";
+			
+		$mysqli->query($classes);
+		
+	}
 ?>
 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="generator" content="RapidWeaver" />
+        <title>Add Course</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="css/navbar.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/acourses.css" />
+        <link rel="stylesheet" href="../css/layout.css">
+        <script language="JavaScript1.1" src="../js/createCourse.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<form action ="addCourse.php?insert_classes=true" id="addCourse" method="post" enctype="multipart/form-data"
+			<table align="center">
+                <tr>
+                    <td>
+                        <strong>Course Name</strong></td>
+                    <td>
+                        <input type="text" name="ClassName" value="" >	</td>
+                </tr>
+                <br>
+                </br>
+                <tr>
+                    <td><strong>CRN</strong></td>
+                    <td><input type="text" name="ClassCRN" ></td>
+                </tr>
+                <br>
+                </br>
+                <tr>
+                    <td><strong>Class Start Date</strong></td>
+                    <td><input id="datepicker1" name="ClassStartDate" class="element text medium" type="text" value=""></td>
+                </tr>
+                <br>
+               </br>
+                <tr>
+                	<td><strong>Class End Date</strong></td>
+                	<td><input id="datepicker2" name="ClassEndDate" class="element text medium" type="text" value""></td>
+                </tr>
+                <br>
+               </br>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="button" onclick="validate();">Submit</button>	</td>
+                </tr>
+            </table>
+        </form>
+	</body>
+</html>
 
-
-<div id="form_container">
-
-     <br><br> <h3> <u> Add a Course(s): </u> </h3> <br>
-
-	<form action="courseAdded.php" method="post" onsubmit="return validate ()" >
-		<ul>
-			<li id="courseNameLi" >
-				<label class="description" for="coursename">Name of the Course </label>
-				<div>
-					<input id="coursename" name="coursename" class="element text medium" type="text" maxlength="255" value=""/> 
-				</div> 
-			
-			</li>	<li id="crnLi" >
-				<label class="description" for="CRN">CRN </label>
-				<div>
-					<input id="CRN" name="CRN" class="element text medium" type="number" max="99999" min="10000" value=""/> 
-				</div> 
-			</li>
-			<script>
-				CRN.oninput = function () {
-					if(this.value.length > 5)
-						this.value = this.value.slice(0,5);
-				}
-			</script>
-			
-			<li id="startDateLi" >
-				<label class="description" for="startDate">Date Course Starts </label>
-				<div>
-					<input id="datepicker1" name="startDate" class="element text medium" type="text" value=""/> 
-				</div>
-
-			</li>		
-			
-			<li id="endDateLi" >
-				<label class="description" for="endDate">Date Course Ends </label>
-				<div>
-					<input id="datepicker2" name="endDate" class="element text medium" type="text" value=""/> 
-				</div>
-
-			</li>		
-			
-			   <div>
-	<li class='buttons'>
-	<input id='addcourse' style='float:left;display:block;' class='button' type='submit' name='submit' value='Add' />
-	
-	</li>
-    </div>
-		</ul>
-	</form>	
-</div>
 <?php
 	include("../shared_php/footer.php");
 ?>
