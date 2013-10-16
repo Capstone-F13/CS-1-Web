@@ -33,13 +33,13 @@
         <script language="JavaScript1.1" src="../js/createCourse.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<form action ="addCourse.php?insert_classes=true" id="addCourse" method="post" enctype="multipart/form-data"
+		<form action ="addCourse.php" id="addCourse" method="post" enctype="multipart/form-data"
 			<table align="center">
                 <tr>
                     <td>
                         <strong>Course Name</strong></td>
                     <td>
-                        <input type="text" name="ClassName" value="" >	</td>
+                        <input type="text" name="ClassName" value="" ></td>
                 </tr>
                 <br>
                 </br>
@@ -63,7 +63,7 @@
                </br>
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="button" onclick="validate();">Submit</button>	</td>
+                        <input type="button" onclick="validate();">Submit</button>	</td>
                 </tr>
             </table>
         </form>
