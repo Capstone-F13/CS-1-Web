@@ -17,8 +17,9 @@ include("../shared_php/header.php");
                         ?>
                         <li><a href="#"><?php echo $row['ClassName']; ?></a>
                             <ul class="sub-level">
-                                <li><a href="#" onclick="LoadListOfStudents(<?php echo $row['idClass']; ?>);">List of students </a></li>
-                                <li><a href="#" onclick="LoadListOfAssignments(<?php echo $row['idClass']; ?>);">List of assignments</a></li>
+                                <li><a href="#" onclick="LoadListOfStudents(<?php echo $row['idClass'];?>);" >List of students </a></li>
+                                <li><a href="#" onclick="LoadListOfAssignments(<?php echo $row['idClass']; ?>);" 
+                                     onclick="<?php $_SESSION['ClassName'] = $row['ClassName']; $_SESSION['ClassId'] = $row['idClass']?>" >List of assignments</a></li>
                             </ul>
                         </li>
                         <?php

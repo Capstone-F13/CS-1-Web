@@ -229,8 +229,8 @@ ENGINE = InnoDB;
 
 INSERT INTO Member VALUES (1, 'Instruct', 'Lastname', 'instructor@email.gov', 812345678, md5('password'), 1);
 INSERT INTO Member VALUES (2, 'Student', 'Last2', 'student@email.gov', 810000001, md5('password'), 0);
-INSERT INTO Member VALUES (3, 'Instructor2', 'Last3', 'instructor2@email.gov', 812345679, md5('instructorpass'), 1);
-INSERT INTO Member VALUES (4, 'Student2', 'Last4', 'student2@email.gov', 810000002, md5('studentpass'), 0);
+INSERT INTO Member VALUES (3, 'Instructor2', 'Last3', 'instructor2@email.gov', 812345679, md5('password'), 1);
+INSERT INTO Member VALUES (4, 'Student2', 'Last4', 'student2@email.gov', 810000002, md5('password'), 0);
 INSERT INTO Classes VALUES (1, 1234567, 'Computer Science 1', 0001, '2013-10-10', '2014-07-10', 0);
 INSERT INTO Classes VALUES (2, 1234568, 'Computer Science 2', 0002, '2013-10-10', '2014-07-10', 0);
 INSERT INTO Roster VALUES (1, 0001, 0002);
