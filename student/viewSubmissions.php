@@ -5,62 +5,32 @@ include("../shared_php/header.php");
 
     echo ("  <br><br> <h3> <u> Submissions: </u> </h3> <br> ");
 
+$idmember = $_SESSION['idmember'];
 //Queries for certain submission id for certain student and displays info
-$memberSubmissionQueryString = "SELECT DISTINCT SubmissionAssignmentId FROM Submission WHERE SubmissionMemberId=" . $_SESSION['idmember'];
-$memberSubmissionQuery = $mysqli->query($memberSubmissionQueryString);
+$memberSubmissionQuery = "SELECT Assignment.AssignmentName, Submission.Attempts, Submission.Performance, Submission.Grade
+                          FROM Assignment
+                          INNER JOIN Submission ON Assignment.idAssignment = Submission.SubmissionAssignmentId
+                          WHERE Submission.SubmissionMemberId = '$idmember'";
+$memberSubmissionResults = $mysqli->query($memberSubmissionQuery);
 echo "<table>";
 echo "<tr>
         <td><b>Assignment Name&nbsp;&nbsp;&nbsp;</b></td>
         <td><b>Number Of Attempts&nbsp;&nbsp;&nbsp;</b></td>
-        <td><b>Number Of Successes&nbsp;&nbsp;&nbsp;</b></td>
-        <td><b>Number of Successes In A Row&nbsp;&nbsp;&nbsp;</b></td>
+        <td><b>Performace&nbsp;&nbsp;&nbsp;</b></td>
+        <td><b>Grade&nbsp;&nbsp;&nbsp;</b></td>
       </tr>";
-while ($memberSubmissionRow = mysqli_fetch_array($memberSubmissionQuery)) {
-    //get assignment name
-    $assignmentNameQueryString = "SELECT AssignmentName FROM Assignment WHERE idAssignment=" . $memberSubmissionRow['SubmissionAssignmentId'];
-    $assignmentNameQuery = $mysqli->query($assignmentNameQueryString);
-    $assignmentNameArray = mysqli_fetch_array($assignmentNameQuery);
-    $assignmentName = $assignmentNameArray['AssignmentName'];
+while ($row = $memberSubmissionResults->fetch_array()) 
+{
+    ?>
+    <tr>
+        <td><?php echo $row['AssignmentName']; ?></td>
+        <td><center><?php echo $row['Attempts']; ?></center></td>
+        <td><?php echo $row['Performance']; ?></td>
+        <td><?php echo $row['Grade']; ?></td>
+    </tr>
+<?php
+} 
 
-    //get number of attempts
-    $numberOfAttemptsQueryString = "SELECT SubmissionSuccess FROM Submission WHERE SubmissionAssignmentId=" . $memberSubmissionRow['SubmissionAssignmentId'] . " AND SubmissionMemberId=" . $_SESSION['idmember'];
-    $numberOfAttemptsResult = $mysqli->query($numberOfAttemptsQueryString);
-    $numberOfAttempts = mysql_num_rows($numberOfAttemptsResult);
-
-    //get number of successes
-	$counter=0;
-	$maxInARow = 0;
-    $currentInARow = 0;
-	while($result = mysqli_fetch_array($numberOfAttemptsResult)){
-		if ($result['SubmissionSuccess']==1)
-		{
-			$counter++;		//simple counter of successes
-			
-			//get number of successes in a row
-			$currentInARow++;
-            if ($currentInARow > $maxInARow) {
-                $maxInARow = $currentInARow;
-            }
-        } 
-		else {
-            $currentInARow = 0;
-        }
-	}
-	$numberOfSuccesses = $counter;
-	$numberOfSuccessesInARow = $maxInARow;
-
-    //get number of successes in a row
-
-
-    echo "
-        <tr>
-            <td>" . $assignmentName . "</td>
-            <td>" . $numberOfAttempts . "</td>
-            <td>" . $numberOfSuccesses . "</td>
-            <td>" . $numberOfSuccessesInARow . "</td>
-        </tr>
-        ";
-}
 echo "</table>";
 include("../shared_php/footer.php");
 ?>
