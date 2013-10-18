@@ -1,8 +1,4 @@
 <?php
-<<<<<<< HEAD
-
-?>
-=======
 require_once("../shared_php/databaseConnect.php");
 session_start();
 $idMember = $_SESSION['idmember'];
@@ -103,4 +99,3 @@ else
 }
 ?>
 </html>
->>>>>>> origin/tshanks
