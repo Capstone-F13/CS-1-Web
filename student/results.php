@@ -3,6 +3,34 @@ require dirname(__FILE__) . '/../files/KLogger.php';
 $title = "Results"; //enter title into the quotation marks
 include("../shared_php/header.php");
 
+$idmember = $_SESSION['idmember'];
+$currentAssignmentID = $_SESSION['currentAssignmentID'];
+
+	
+$submissionQuery = "SELECT * FROM Submission WHERE SubmissionMemberId = '$idmember' AND SubmissionAssignmentId = '$currentAssignmentID' ";
+$submissionResult = $mysqli->query($submissionQuery);
+$submissionArray = $submissionResult->fetch_array();
+        
+$overallPerformance = $submissionArray['Performance'];
+$submissionAttempts = $submissionArray['Attempts'] + 1;
+$submissiongrade = $submissionArray['Grade']; 
+
+
+$assignmentQuery = "SELECT AssignmentMaxAttempts, SuccessesToPass, AssignmentDueDate FROM Assignment WHERE idAssignment = '$currentAssignmentID'";
+$assignmentResult = $mysqli->query($assignmentQuery);
+$assignmentArray = $assignmentResult->fetch_array();
+
+$maxAttempts = $assignmentArray['AssignmentMaxAttempts'];
+$successesToPass = $assignmentArray['SuccessesToPass'];
+$dueDate = $assignmentArray['AssignmentDueDate'];
+
+$date = date('Y-m-d H:i:s');
+
+if($date > $dueDate)
+{
+	echo "Assignment is passed due date, cannot proceed.";
+	exit();
+}
 /*
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
 $log->LogInfo("In results.php");
@@ -55,32 +83,6 @@ $correctOutput = 5;
 echo "The correct output is: " . $correctOutput . "<br />";
 
 
-
-$idmember = $_SESSION['idmember'];
-$currentAssignmentID = $_SESSION['currentAssignmentID'];
-
-	
-$submissionQuery = "SELECT * FROM Submission WHERE SubmissionMemberId = '$idmember' AND SubmissionAssignmentId = '$currentAssignmentID' ";
-$submissionResult = $mysqli->query($submissionQuery);
-$submissionArray = $submissionResult->fetch_array();
-        
-$overallPerformance = $submissionArray['Performance'];
-$submissionAttempts = $submissionArray['Attempts'] + 1;
-$submissiongrade = $submissionArray['Grade']; 
-
-
-$assignmentQuery = "SELECT AssignmentMaxAttempts, SuccessesToPass FROM Assignment WHERE idAssignment = '$currentAssignmentID'";
-$assignmentResult = $mysqli->query($assignmentQuery);
-$assignmentArray = $assignmentResult->fetch_array();
-
-$maxAttempts = $assignmentArray['AssignmentMaxAttempts'];
-$successesToPass = $assignmentArray['SuccessesToPass'];
-
-//var_dump(array($submissionArray,$overallPerformance,$submissionAttempts,$submissiongrade,$assignmentArray, $maxAttempts));
-
-
-$date = date('Y-m-d H:i:s');
-		
 //If answer is correct, puts in submission table
 if ($studentAnswer == $correctOutput) 
 {
@@ -104,7 +106,10 @@ if ($studentAnswer == $correctOutput)
 				
 			    $query = $mysqli->query($s_updateQuery);
             }
-           	//Checks to see that student is still under max attempts and has yet not received a grade		
+           	
+           
+            
+       	//Checks to see that student is still under max attempts and has yet not received a grade		
 		    if($submissionAttempts <= $maxAttempts && $submissiongrade == '')
 		    {
                 echo " 4";
@@ -155,6 +160,7 @@ if ($studentAnswer == $correctOutput)
                         
                   echo "Even though you were correct, you have reached your max attempts without enough successes in a row, which results in a 'F' ";
             }
+
         }
            		
         
@@ -278,6 +284,7 @@ else
     echo "<a href='../student/myCourses.php'>No, I would like to go back to the assignments list<a>";
     
 }
+
 
 include("../shared_php/footer.php");
 ?>
