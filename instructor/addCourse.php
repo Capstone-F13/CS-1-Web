@@ -7,15 +7,16 @@
 	{
 		$className = $_REQUEST['ClassName'];
 		$classCRN = $_REQUEST['ClassCRN'];
-		$classInstructorID =  $_REQUEST['ClassInstructorID'];
+		//$classInstructorID =  $_REQUEST['ClassInstructorID'];
 		$classStartDate= $_REQUEST['ClassStartDate'];
 		$classEndDate = $_REQUEST['ClassEndDate'];
-		$IsFinished =  $_REQUEST['isFinished'];
+		//$IsFinished =  $_REQUEST['isFinished'];
 		
-		$classes="INSERT INTO Classes (ClassCRN, ClassName, ClassInstructorId, ClassStartDate, ClassEndDate, isFinished)
-			VALUES('$className','$classCRN','$classInstructorID','$classStartDate', '$classEndDate, '0')";
+		$classes="INSERT INTO classes (idClass, ClassCRN, ClassName, ClassInstructorID, ClassStartDate, ClassEndDate, isFinished)
+			VALUES('', '$classCRN','$className', '1', '$classStartDate', '$classEndDate', '')";
 			
-		$mysqli->query($classes);
+		//$lol = $mysqli->query($classes) ;
+		//var_dump($lol);
 		
 	}
 ?>
@@ -30,40 +31,41 @@
         <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/acourses.css" />
         <link rel="stylesheet" href="../css/layout.css">
-        <script language="JavaScript1.1" src="../js/createCourse.js" type="text/javascript"></script>
+		<script language="JavaScript" src="../js/createCourse.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<form action ="addCourse.php" id="addCourse" method="post" enctype="multipart/form-data"
+		<form action ="addCourse.php?insert_classes=true" id="addCourse" method="post" enctype="multipart/form-data"
 			<table align="center">
                 <tr>
+                	<br><br> <h3> <u> Add a Course: </u> </h3> <br> 
                     <td>
                         <strong>Course Name</strong></td>
                     <td>
-                        <input type="text" name="ClassName" value="" ></td>
+                        <input type="text" name="ClassName" id="ClassName" value="" ></td>
                 </tr>
                 <br>
                 </br>
                 <tr>
                     <td><strong>CRN</strong></td>
-                    <td><input type="text" name="ClassCRN" ></td>
+                    <td><input type="text" name="ClassCRN" id="ClassCRN" ></td>
                 </tr>
                 <br>
                 </br>
                 <tr>
                     <td><strong>Class Start Date</strong></td>
-                    <td><input id="datepicker1" name="ClassStartDate" class="element text medium" type="text" value=""></td>
+                    <td><input id="datepicker1" name="ClassStartDate" id="ClassStartDate" class="element text medium" type="text" value=""></td>
                 </tr>
                 <br>
-               </br>
+               	</br>
                 <tr>
                 	<td><strong>Class End Date</strong></td>
-                	<td><input id="datepicker2" name="ClassEndDate" class="element text medium" type="text" value""></td>
+                	<td><input id="datepicker2" name="ClassEndDate" id-"ClassEndDate" class="element text medium" type="text" value""></td>
                 </tr>
                 <br>
-               </br>
+               	</br>
                 <tr>
                     <td colspan="2" align="center">
-                        <input type="button" onclick="validate();">Submit</button>	</td>
+                        <input type="submit" value="Submit" onClick="checkstuff()">	</td>
                 </tr>
             </table>
         </form>

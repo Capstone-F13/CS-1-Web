@@ -1,33 +1,34 @@
 
-function validate()
+function checkstuff()
 {
-    var x = document.forms["addCourse"]["CourseName"].value;
+    var x = document.forms["addCourse"]["ClassName"].value;
     if (x == null || x == "")
     {
-        alert("Please enter Assignment Name.");
-        document.forms["addCourse"]["CourseName"].focus();
+        alert("Please enter a course name.");
+        document.forms["addCourse"]["ClassName"].focus();
         return;
     }
-    var x = document.forms["addCourse"]["CourseCRN"].value;
+    var x = document.forms["addCourse"]["ClassCRN"].value;
     if (x == null || x == "")
     {
-        alert("Please enter Due Date.");
-        document.forms["addCourse"]["CourseCRN"].focus();
+        alert("Please enter the CRN.");
+        document.forms["addCourse"]["ClassCRN"].focus();
         return;
     }
-    var x = document.forms["addCourse"]["CourseStartDate"].value;
+    var x = document.forms["addCourse"]["ClassStartDate"].value;
     if (x == null || x == "")
     {
-        alert("Please enter Instruction.");
-        document.forms["addCourse"]["CourseStartDate"].focus();
+        alert("Please enter a start date.");
+        document.forms["addCourse"]["ClassStartDate"].focus();
         return;
 	}
-	var x = document.forms["addCourse"]["CourseEndDate"].value;
+	var x = document.forms["addCourse"]["ClassEndDate"].value;
     if (x == null || x == "")
     {
-        alert("Please enter Instruction.");
-        document.forms["addCourse"]["CourseEndDate"].focus();
+        alert("Please enter the end date.");
+        document.forms["addCourse"]["ClassEndDate"].focus();
         return;
 	}
+	
     document.forms["addCourse"].submit();
 }
