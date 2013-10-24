@@ -23,6 +23,7 @@
 # Logs and databases #
 ######################
 *.log
+log*
 *.sql
 *.sqlite
 
@@ -40,3 +41,7 @@ Thumbs.db
 ######################
 .*.sw*?
 *.project
+
+*.phpproj
+*.sln
+*.suo
