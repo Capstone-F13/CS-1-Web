@@ -1,12 +1,7 @@
-<script language="php">
 require_once("../shared_php/databaseConnect.php");
-<<<<<<< HEAD
-</script>
-=======
 session_start();
 $_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
 ?>
->>>>>>> master
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -71,6 +66,8 @@ function ValidateForm()
 	<strong>Course : <?php echo $row['ClassName']; 	?> </strong> <br />
 	<strong><a href="create_assignment.php?AssignmentClass=<?php echo $_REQUEST['AssignmentClass']; ?>">Create New Assignment</a></strong>
 	<strong><a href="edit_assignment.php">Edit Assignment</a></strong>
+	<strong><a href="delete_assignment.php">Delete Assignment</a></strong>
+	<strong><a href="progression.php">Progression</a></strong>
 	<table id="listOfStudent" cellpadding="5px" cellspacing="0px">
 		<thead>
 	  		<td width="76">Assignment ID</td>
@@ -80,6 +77,7 @@ function ValidateForm()
 			<td width="81">Assignment Class</td>
 			<td width="85">Assignment Type</td>
 			<td width="93">Maximum Attempts</td>
+			<td width="115">Successes to Pass</td>
 			<td width="68">Download File</td>
 		<td width="0"></thead>
 		<?php
@@ -100,12 +98,9 @@ function ValidateForm()
 			<td><?php echo $row['AssignmentClass'] ; ?> </td>
 			<td><?php echo $row['AssignmentType'] ; ?> </td>
 			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
-<<<<<<< HEAD
-=======
+			<td><?php echo $row['SuccessesToPass'] ; ?></td>
 			<!--<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td> -->
->>>>>>> master
 			</tr>
-			<!-- <td><a href="upload/<?php //echo $row['FileName'] ; ?>"><?php //echo $row['FileName'] ; ?></a></td> -->
 		<?php
 			}
 		}

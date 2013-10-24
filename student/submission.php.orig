@@ -13,11 +13,36 @@ $_SESSION['currentAssignmentID'] = $_GET['idAssignment'];
 echo ("  <br><br> <h3> <u> Submissions: </u> </h3> <br> ");
 //Query selects everything from the assignment table 
 $query = "SELECT * FROM Assignment WHERE idAssignment=" . $_SESSION['currentAssignmentID'];
+$result = mysql_query($query);
+//array is of Assignment table
+$array = mysql_fetch_array($result);
+//Think need a 2nd set of query variables and array variables for Submission table, in order to track number of submits for the assignment
+
+$query2 = "SELECT COUNT(idSubmission) FROM Submission WHERE SubmissionMemberId=" . $_SESSION['idmember'] . " AND SubmissionAssignmentId=" . $_SESSION['currentAssignmentID']; 
+$result2 = mysql_query($query2);
+$array2 = mysql_fetch_array($result2);
+//Think need a 2nd set of query variables and array variables for Submission table, in order to track number of submits for the assignment
+
 
 
 //Displays the query from the assignment table 
 echo "<b>Assignment Name:</b> " . $array['AssignmentName'] . "<br />";
 echo "<b>Instructions:</b> " . $array['AssignmentInstructions'] . "<br />";
+<<<<<<< HEAD
+echo "<b>Due Date:</b> " . $array['AssignmentDueDate'] . "<br />";
+if ($array['AssignmentMaxAttempts'] != NULL) {
+echo "<b>Max Attempts:</b> " . $array['AssignmentMaxAttempts'] . "<br />"; }
+echo "<br />";
+/*
+$log->LogInfo("in submissions");
+//create file to store program from database
+$program = $array['AssignmentCode'];
+=======
+echo "<b>Due Date:</b> " . $array['AssignmentDueDate'] . "<br /><br />";
+
+
+//Confused on what they are trying to do here
+
 
 //$log->LogInfo("in submissions");
 
@@ -25,6 +50,7 @@ echo "<b>Instructions:</b> " . $array['AssignmentInstructions'] . "<br />";
 $_SESSION['AssignmentCode'] = $array['AssignmentCode'];  //Puts the entire code in variable
 
 /*
+>>>>>>> 3fc3ddf2d4471d7589b7f454a35a9838c3ee6b0b
 $filePath = "../files/";
 $fileName = "compiledDatabaseProgram" . $_GET['idAssignment'] . ".py";
 $fullFileName = $filePath . $fileName;
@@ -42,12 +68,22 @@ $_SESSION['firstOutput'] = file_get_contents($filePath . "test.txt");
 */
 ?>
 
+<script language="php">
+if( $array2['COUNT(idSubmission)'] < $array['AssignmentMaxAttempts'] || $array['AssignmentMaxAttempts'] == NULL) {
+</script>
+
 <div class="codebox">
     <code>
         <pre>
+<<<<<<< HEAD
+            <//?php echo $_SESSION['firstOutput']; ?>
+<?php$escape = htmlspecialchars($array['AssignmentCode']);
+echo $escape;?>
+=======
             <?//php echo $_SESSION['firstOutput']; ?>
 <?php $escape = htmlspecialchars($array['AssignmentCode']);
 echo $escape; ?>
+>>>>>>> master
         </pre>
     </code>
 </div>
@@ -60,6 +96,14 @@ echo $escape; ?>
     <br />
     <button class="button">Submit</button>
 </form>
+<script language="php">
+}
+else {
+echo "You have exceeded the maximum number of submits for this assignment.";
+}
+
+</script>
+
 <?php
 include("../shared_php/footer.php");
 ?>
