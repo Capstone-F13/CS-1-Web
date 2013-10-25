@@ -1,7 +1,6 @@
 <?php
 require_once("../shared_php/databaseConnect.php");
 session_start();
-$idMember = $_SESSION['idmember'];
 $className = $_SESSION['ClassName'];
 $classID = $_SESSION['ClassId'];
 ?>
@@ -23,12 +22,13 @@ $classID = $_SESSION['ClassId'];
 <?php
 if(isset($_REQUEST['submit']))
 {	
-	$assignmentId = $_REQUEST['AssignmentName'];
-	$rosterQuery = "SELECT Member.LastName, Submission.Performance, Submission.Grade
+	$studentId = $_REQUEST['StudentName'];
+	$rosterQuery = "SELECT Member.LastName, Assignment.AssignmentName, Submission.Performance, Submission.Grade
 					FROM Member
 					INNER JOIN Roster ON Member.idMember = Roster.StudentId
 					INNER JOIN Submission ON Roster.StudentId = Submission.SubmissionMemberId
-					WHERE Roster.ClassId = '$classID' AND Submission.SubmissionAssignmentId = '$assignmentId' 
+					INNER JOIN Assignment ON Assignment.idAssignment = Submission.SubmissionAssignmentId
+					WHERE Roster.ClassId = '$classID' AND Submission.SubmissionMemberId = '$studentId' 
 					LIMIT 0 , 50";
 	$rosterResult = $mysqli->query($rosterQuery);
 ?>
@@ -36,6 +36,7 @@ if(isset($_REQUEST['submit']))
 	  <thead>
 	    <tr>
 	      <th>Student Name</th>
+	      <th>Assignment Name</th>
 	      <th>Progression</th>
 	      <th>Grade</th>
 	    </tr>
@@ -47,6 +48,7 @@ if(isset($_REQUEST['submit']))
 	      	?>     
 	      			<tr>
 	      			<td><?php echo $row['LastName']; ?></td>
+	      			<td><?php echo $row['AssignmentName']; ?></td>
 	      			<td><?php echo $row['Performance']; ?></td>
 	      			<td><?php echo $row['Grade']; ?></td>	
 	      			</tr>	
@@ -60,25 +62,28 @@ if(isset($_REQUEST['submit']))
 
 else
 {
-	$assignmentQuery = "SELECT AssignmentName, idAssignment FROM Assignment WHERE AssignmentClass = '$classID'";
-	$assignmentResult = $mysqli->query($assignmentQuery);
+	$studentQuery = "SELECT Lastname, idMember 
+					 FROM Member
+					 INNER JOIN Roster ON Member.idMember = Roster.StudentId
+					 WHERE Roster.ClassId = '$classID'";
+	$studentResult = $mysqli->query($studentQuery);
 
 ?>
-<form action="progression.php" id="form" name="form" method="post">
+<form action="student_progression.php" id="form" name="form" method="post">
 	<table>
 	  <thead>
 	    <tr>
-	      <th>Choose assignment to see student progression</th>
+	      <th>Choose a student to see their progression</th>
 	      <th>
-	      	<select name="AssignmentName">
+	      	<select name="StudentName">
 	          	<option value="" selected="selected" disabled="disabled">Select</option>
 	        	<?php
-	        	while($row = $assignmentResult->fetch_row())
+	        	while($row = $studentResult->fetch_row())
 				{
-					$assignmentName = $row[0];
-					$assignmentId = $row[1];
+					$studentName = $row[0];
+					$studentId = $row[1];
 				?>
-				    <option value="<?php echo $assignmentId ?>"> <?php echo $assignmentName ?> </option>;
+				    <option value="<?php echo $studentId ?>"> <?php echo $studentName ?> </option>;
 				<?php
 				}
 	        	?>
