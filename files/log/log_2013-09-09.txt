@@ -1,2 +1,0 @@
-2013-09-09 20:24:28 - INFO --> in submissions
-2013-09-09 20:24:28 - INFO --> ../files/compiledDatabaseProgram1.py
