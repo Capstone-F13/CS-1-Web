@@ -106,6 +106,14 @@ if (isset($_REQUEST['insert_assignment'])) {
                 </tr>
             </table>
         </form>
+    <script src="../js/jquery-1.9.1.js"></script>
+    <script src="../js/jquery-ui.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script src="../js/DataTables.js"></script>
     </body>
+    <script>
+
+    </script>
 </html>
 

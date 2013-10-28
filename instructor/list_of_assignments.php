@@ -68,7 +68,6 @@ function ValidateForm()
 <script src="../js/DataTables.js"></script>
 	
 	<?php		
-                $test1 = "code";
 		$selectSQL="SELECT * FROM Classes where idClass = " . $_REQUEST['AssignmentClass'];
 		$result=$mysqli->query($selectSQL);
 		$row = mysqli_fetch_assoc($result);			
@@ -79,82 +78,34 @@ function ValidateForm()
 	<strong><a href="delete_assignment.php">Delete Assignment</a></strong>
 	<strong><a href="progression.php">Progression</a></strong>
         <script type="text/javascript">
-        var assignmentID = [];
-        var assignmentName = [];
-        var assignmentDueDate = [];
-        var assignmentInstructions = [];
-        var assignmentClass = [];
-        var assignmentType = [];
-        var assignmentMaxAttempts = [];
-        var SuccessesToPass = [];
+        var assignmentRows = [];
         </script>
         <table id="listofStudents" cellpadding="5px" cellspacing="0px">
                 
 
-                
-               <thead>
-                    <tr>
-	  		<th>Assignment ID</th>
-			<th>Assignment Name</th>
-			<th>Assignment Due Date</th>
-			<th>Assignment Instructions</th>
-			<th>Assignment Class</th>
-			<th>Assignment Type</th>
-			<th>Maximum Attempts</th>
-			<th>Successes to Pass</th>
-			<th>Download File</th>
-                    </tr>
-		</thead>
-                <tbody>
 		<?php
 		$selectSQL="SELECT * FROM Assignment where AssignmentClass=" . $_REQUEST['AssignmentClass'];
 		$result=$mysqli->query($selectSQL);
                 
 
-                if(mysqli_num_rows($result)>0)
+                $num_of_rows = mysqli_num_rows($result);
+                if($num_of_rows>0)
 		{
 		
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
+                        while($row = mysqli_fetch_assoc($result))
+                        {
     ?>
 
         
     <script type="text/javascript">
-    assignmentID.push("<?php echo $row['idAssignment']; ?>");
-    assignmentName.push("<?php echo $row['AssignmentName']; ?>");
-    assignmentDueDate.push("<?php echo $row['AssignmentDueDate']; ?>");
-    assignmentInstructions.push("<?php echo $row['AssignmentInstructions']; ?>");
-    assignmentClass.push("<?php echo $row['AssignmentClass']; ?>");
-    assignmentType.push("<?php echo $row['AssignmentType']; ?>");
-    assignmentMaxAttempts.push("<?php echo $row['AssignmentMaxAttempts']; ?>");
-    SuccessesToPass.push("<?php echo $row['SuccessesToPass']; ?>");
+    var assignmentRow = ["<?php echo $row['idAssignment']; ?>", "<?php echo $row['AssignmentName']; ?>", "<?php echo $row['AssignmentDueDate']; ?>", "<?php echo $row['AssignmentInstructions']; ?>","<?php echo $row['AssignmentClass']; ?>","<?php echo $row['AssignmentType']; ?>","<?php echo $row['AssignmentMaxAttempts']; ?>","<?php echo $row['SuccessesToPass']; ?>"];
+    assignmentRows.push(assignmentRow);
     </script>
 
-                   <?php  /*   echo "<tbody>"
-			."<tr>"
-                        ."<td>{$row['idAssignment']}</td>"
-			."<td>{$row['AssignmentName']}</td>"
-                        ."<td>{$row['AssignmentDueDate']}</td>"
-			."<td>{$row['AssignmentInstructions']}</td>"
-			."<td>{$row['AssignmentClass']}</td>"
-			."<td>{$row['AssignmentType']}</td>"
-			."<td>{$row['AssignmentMaxAttempts']}</td>"
-			."<td>{$row['SuccessesToPass']}</td>"
-                        ."<td></td>"
-                        ."</tr>"
-                        ."</tbody>"; */
+                   <?php
 			}
 		}
-		else
-			{
 		?>
-			<tr align="center">
-			<td colspan="8" style="color:#FF0000; font-weight:bold;">No Assignment found</td>
-			</tr>
-		<?php
-			}
-		?>
-            </tbody>
 	</table>
 </body>
 
@@ -165,23 +116,10 @@ if(document.getElementById("divAssignmentDetail")){
 </script>
 
 <script>
-/*$('document').ready(function() {
-      $('#listofStudents').dataTable();
-    } ); */
-
 $(document).ready( function () {
   $('#listofStudents').dataTable( {
-    "aaData" : [ assignmentID,
-        assignmentName,
-        assignmentDueDate,
-        assignmentInstructions,
-        assignmentClass,
-        assignmentType,
-        assignmentMaxAttempts,
-        SuccessesToPass
-    ],    
+    "aaData" : assignmentRows,    
     "aoColumns" : [
-     { "sTitle": "Assignments" },
             { "sTitle": "Assignment ID" },
             { "sTitle": "Assignment Name" },
             { "sTitle": "Assignment Due Date", "sClass": "center" },
