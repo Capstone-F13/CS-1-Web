@@ -61,8 +61,14 @@ function ValidateForm()
 </script>
 </head>
 <body leftmargin="0px" topmargin="0px">
+<script src="../js/jquery-1.9.1.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery.dataTables.min.js"></script>
+<script src="../js/DataTables.js"></script>
 	
 	<?php		
+                $test1 = "code";
 		$selectSQL="SELECT * FROM Classes where idClass = " . $_REQUEST['AssignmentClass'];
 		$result=$mysqli->query($selectSQL);
 		$row = mysqli_fetch_assoc($result);			
@@ -72,8 +78,21 @@ function ValidateForm()
 	<strong><a href="edit_assignment.php">Edit Assignment</a></strong>
 	<strong><a href="delete_assignment.php">Delete Assignment</a></strong>
 	<strong><a href="progression.php">Progression</a></strong>
-        <table id="listOfStudent" cellpadding="5px" cellspacing="0px">
-		<thead>
+        <script type="text/javascript">
+        var assignmentID = [];
+        var assignmentName = [];
+        var assignmentDueDate = [];
+        var assignmentInstructions = [];
+        var assignmentClass = [];
+        var assignmentType = [];
+        var assignmentMaxAttempts = [];
+        var SuccessesToPass = [];
+        </script>
+        <table id="listofStudents" cellpadding="5px" cellspacing="0px">
+                
+
+                
+               <thead>
                     <tr>
 	  		<th>Assignment ID</th>
 			<th>Assignment Name</th>
@@ -86,45 +105,32 @@ function ValidateForm()
 			<th>Download File</th>
                     </tr>
 		</thead>
+                <tbody>
 		<?php
 		$selectSQL="SELECT * FROM Assignment where AssignmentClass=" . $_REQUEST['AssignmentClass'];
 		$result=$mysqli->query($selectSQL);
                 
-                ?>
-                <tbody>
-                <?php /*/jQuery append to the tbody tag
-                //Create table
-                $doc = new DOMDocument();
-
-                $table = $doc->createElement('table');
-                $doc->appendChild($table);
-
-                $table->setAttribute('id', 'ax');
-                
-                
-                $tr = $doc->createElement('tr');
-                $table->appendChild($tr);
-
-                $col1 = $doc->createElement('td', $row['idAssignment']);
-                $table->appendChild($col1);
-
-                $col2 = $doc->createElement('td', $row['AssignmentName']);
-                $table->appendChild($col2);
-		*/
 
                 if(mysqli_num_rows($result)>0)
 		{
 		
 			while ($row = mysqli_fetch_assoc($result)) 
 			{
-                        ?>
+    ?>
 
-                        <script>
-                        $('#listofStudent').append('<tr><td>' + 'dogbait' + '</td></tr>');</script>
+        
+    <script type="text/javascript">
+    assignmentID.push("<?php echo $row['idAssignment']; ?>");
+    assignmentName.push("<?php echo $row['AssignmentName']; ?>");
+    assignmentDueDate.push("<?php echo $row['AssignmentDueDate']; ?>");
+    assignmentInstructions.push("<?php echo $row['AssignmentInstructions']; ?>");
+    assignmentClass.push("<?php echo $row['AssignmentClass']; ?>");
+    assignmentType.push("<?php echo $row['AssignmentType']; ?>");
+    assignmentMaxAttempts.push("<?php echo $row['AssignmentMaxAttempts']; ?>");
+    SuccessesToPass.push("<?php echo $row['SuccessesToPass']; ?>");
+    </script>
 
-                        <?
-
-                     /*   echo "<tbody>"
+                   <?php  /*   echo "<tbody>"
 			."<tr>"
                         ."<td>{$row['idAssignment']}</td>"
 			."<td>{$row['AssignmentName']}</td>"
@@ -136,7 +142,7 @@ function ValidateForm()
 			."<td>{$row['SuccessesToPass']}</td>"
                         ."<td></td>"
                         ."</tr>"
-                        ."</tbody>";*/
+                        ."</tbody>"; */
 			}
 		}
 		else
@@ -148,6 +154,7 @@ function ValidateForm()
 		<?php
 			}
 		?>
+            </tbody>
 	</table>
 </body>
 
@@ -157,17 +164,37 @@ if(document.getElementById("divAssignmentDetail")){
   }
 </script>
 
-<script src="../js/jquery-1.9.1.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/jquery.js"></script>
-<script src="../js/jquery.dataTables.min.js"></script>
-<script src="../js/DataTables.js"></script>
-
 <script>
-$(document).ready(function() {
-      $('#listOfStudent').dataTable();
-        alert("jQuery firing off!");
-    } );
+/*$('document').ready(function() {
+      $('#listofStudents').dataTable();
+    } ); */
+
+$(document).ready( function () {
+  $('#listofStudents').dataTable( {
+    "aaData" : [ assignmentID,
+        assignmentName,
+        assignmentDueDate,
+        assignmentInstructions,
+        assignmentClass,
+        assignmentType,
+        assignmentMaxAttempts,
+        SuccessesToPass
+    ],    
+    "aoColumns" : [
+     { "sTitle": "Assignments" },
+            { "sTitle": "Assignment ID" },
+            { "sTitle": "Assignment Name" },
+            { "sTitle": "Assignment Due Date", "sClass": "center" },
+            { "sTitle": "Assignment Instructions" },
+            { "sTitle": "Assignment Class" },
+            { "sTitle": "Assignment Type" },
+            { "sTitle": "Max Attempts" },
+            { "sTitle": "Successes To Pass" }
+    ]
+  } );
+} );
 </script>
+
+
 
 </html>
