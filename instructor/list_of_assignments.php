@@ -2,6 +2,7 @@
 require_once("../shared_php/databaseConnect.php");
 session_start();
 $_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
+error_reporting(E_ERROR);
 ?>
 
 
@@ -13,8 +14,10 @@ $_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
 <title>Account</title>
 <link rel="stylesheet" type="text/css" media="screen" href="../css/navbar.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="../css/acourses.css" />
+<!-- <link rel="stylesheet" type="text/css" media="screen" href="../css/acourses.css" /> -->
 <link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/jquery.dataTables.css">
+<link rel="stylesheet" href="../css/jquery-ui.css">
 <script type="text/javascript">
 
 function ValidateForm()
@@ -69,40 +72,71 @@ function ValidateForm()
 	<strong><a href="edit_assignment.php">Edit Assignment</a></strong>
 	<strong><a href="delete_assignment.php">Delete Assignment</a></strong>
 	<strong><a href="progression.php">Progression</a></strong>
-	<table id="listOfStudent" cellpadding="5px" cellspacing="0px">
+        <table id="listOfStudent" cellpadding="5px" cellspacing="0px">
 		<thead>
-	  		<td width="76">Assignment ID</td>
-			<td width="89">Assignment Name</td>
-			<td width="106">Assignment Due Date</td>
-			<td width="115">Assignment Instructions</td>
-			<td width="81">Assignment Class</td>
-			<td width="85">Assignment Type</td>
-			<td width="93">Maximum Attempts</td>
-			<td width="115">Successes to Pass</td>
-			<td width="68">Download File</td>
-		<td width="0"></thead>
+                    <tr>
+	  		<th>Assignment ID</th>
+			<th>Assignment Name</th>
+			<th>Assignment Due Date</th>
+			<th>Assignment Instructions</th>
+			<th>Assignment Class</th>
+			<th>Assignment Type</th>
+			<th>Maximum Attempts</th>
+			<th>Successes to Pass</th>
+			<th>Download File</th>
+                    </tr>
+		</thead>
 		<?php
 		$selectSQL="SELECT * FROM Assignment where AssignmentClass=" . $_REQUEST['AssignmentClass'];
 		$result=$mysqli->query($selectSQL);
+                
+                ?>
+                <tbody>
+                <?php /*/jQuery append to the tbody tag
+                //Create table
+                $doc = new DOMDocument();
 
-		if(mysqli_num_rows($result)>0)
+                $table = $doc->createElement('table');
+                $doc->appendChild($table);
+
+                $table->setAttribute('id', 'ax');
+                
+                
+                $tr = $doc->createElement('tr');
+                $table->appendChild($tr);
+
+                $col1 = $doc->createElement('td', $row['idAssignment']);
+                $table->appendChild($col1);
+
+                $col2 = $doc->createElement('td', $row['AssignmentName']);
+                $table->appendChild($col2);
+		*/
+
+                if(mysqli_num_rows($result)>0)
 		{
 		
 			while ($row = mysqli_fetch_assoc($result)) 
 			{
-		?>
-			<tr>
-			<td><?php echo $row['idAssignment']; ?> </td>
-			<td><?php echo $row['AssignmentName'] ; ?> </td>
-			<td><?php echo $row['AssignmentDueDate'] ; ?> </td>
-			<td><?php echo $row['AssignmentInstructions'] ; ?> </td>
-			<td><?php echo $row['AssignmentClass'] ; ?> </td>
-			<td><?php echo $row['AssignmentType'] ; ?> </td>
-			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
-			<td><?php echo $row['SuccessesToPass'] ; ?></td>
-			<!--<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td> -->
-			</tr>
-		<?php
+                        ?>
+
+                        <script>
+                        $('#listofStudent').append('<tr><td>' + 'dogbait' + '</td></tr>');</script>
+
+                        <?
+
+                     /*   echo "<tbody>"
+			."<tr>"
+                        ."<td>{$row['idAssignment']}</td>"
+			."<td>{$row['AssignmentName']}</td>"
+                        ."<td>{$row['AssignmentDueDate']}</td>"
+			."<td>{$row['AssignmentInstructions']}</td>"
+			."<td>{$row['AssignmentClass']}</td>"
+			."<td>{$row['AssignmentType']}</td>"
+			."<td>{$row['AssignmentMaxAttempts']}</td>"
+			."<td>{$row['SuccessesToPass']}</td>"
+                        ."<td></td>"
+                        ."</tr>"
+                        ."</tbody>";*/
 			}
 		}
 		else
@@ -118,7 +152,22 @@ function ValidateForm()
 </body>
 
 <script type="text/javascript">
-
-document.getElementById("divAssignmentDetail").style.display="none";
+if(document.getElementById("divAssignmentDetail")){
+  document.getElementById("divAssignmentDetail").style.display="none";
+  }
 </script>
+
+<script src="../js/jquery-1.9.1.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery.dataTables.min.js"></script>
+<script src="../js/DataTables.js"></script>
+
+<script>
+$(document).ready(function() {
+      $('#listOfStudent').dataTable();
+        alert("jQuery firing off!");
+    } );
+</script>
+
 </html>
