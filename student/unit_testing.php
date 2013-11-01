@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<head>
+<script src="../js/unit-test.js"></script>
+</head>
 <?php
 $title = "Unit Testing";        //enter title into the quotation marks
 include("../shared_php/header.php");
@@ -14,19 +18,6 @@ $query = "SELECT Classes.idClass, Classes.ClassName, Assignment.idAssignment, As
           WHERE Roster.StudentId = '$idmember'"; 
 $result = $mysqli->query($query);
 ?>
-
-<script type="text/javascript">
-function validate()
-{
-    var courses = document.getElementbyName("course");
-    if(document.getElementbyName("course").check)
-    {
-       alert("Please pick an assignment");
-       document.forms["courses"]["course"].focus();
-       return;
-    }
-}
-</script>
 
 <header id="top_header">
   <h1 style="text-align: center">Unit Test</h1>
@@ -74,7 +65,7 @@ if(!isset($_POST['courseSubmit']))
     }
     ?>
 
-    <input type="submit" id="courseSubmit" name="courseSubmit" value = "Submit" onsubmit="validate()">
+    <input type="submit" id="courseSubmit" name="courseSubmit" value = "Submit" onclick="validate()">
 
     </form>
 <?php
@@ -125,3 +116,4 @@ var showresponse = function(data)
 <?php
   include("../shared_php/footer.php");
 ?>
+</html>

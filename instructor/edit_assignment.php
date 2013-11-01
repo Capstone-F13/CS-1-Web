@@ -15,7 +15,7 @@ if (isset($_REQUEST['edit_assignment'])) {
 	 $r_txtCode = $mysqli->real_escape_string($_REQUEST['txtCode']);
 	 $r_cmbType = $mysqli->real_escape_string($_REQUEST['cmbType']);
 	 $r_cmbNoOfAttempts = $mysqli->real_escape_string($_REQUEST['cmbNoOfAttempts']);
-	 $r_successfulAttempts = $_REQUEST['NoOfSuccessfulAttempts'];
+	 $r_successfulAttempts = $_REQUEST['SuccessAttempts'];
 	
 	 $originalSQL = "SELECT * FROM Assignment WHERE AssignmentName='$r_assignmentName'";
 	 $result2 = $mysqli->query($originalSQL);
