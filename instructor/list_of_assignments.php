@@ -2,7 +2,7 @@
 require_once("../shared_php/databaseConnect.php");
 session_start();
 $_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
-error_reporting(E_ERROR);
+//error_reporting(E_ERROR);
 ?>
 
 
@@ -98,7 +98,15 @@ function ValidateForm()
 
         
     <script type="text/javascript">
-    var assignmentRow = ["<?php echo $row['idAssignment']; ?>", "<?php echo $row['AssignmentName']; ?>", "<?php echo $row['AssignmentDueDate']; ?>", "<?php echo $row['AssignmentInstructions']; ?>","<?php echo $row['AssignmentClass']; ?>","<?php echo $row['AssignmentType']; ?>","<?php echo $row['AssignmentMaxAttempts']; ?>","<?php echo $row['SuccessesToPass']; ?>"];
+    var assignmentRow = [];
+    assignmentRow.push("<?php echo $row['idAssignment']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentName']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentDueDate']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentInstructions']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentClass']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentType']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentMaxAttempts']; ?>");
+    assignmentRow.push("<?php echo $row['SuccessesToPass']; ?>");
     assignmentRows.push(assignmentRow);
     </script>
 
