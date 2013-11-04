@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-<script src="../js/unit-test.js"></script>
+  <script type="text/javascript" src="../js/unit-test.js"></script>
 </head>
 <?php
 $title = "Unit Testing";        //enter title into the quotation marks
@@ -32,11 +32,11 @@ $result = $mysqli->query($query);
   <!--Main Section where show code, upload and save -->
 <section id="main_section" >
 <?php
-if(!isset($_POST['courseSubmit']))
+if( (!isset($_POST['course'])) || (!isset($_POST['txtname'])) )
 {
 ?>
   <form action="unit_testing.php" id="courses" name="courses" method="POST">
-    <h1>Choose Class</h1>
+    <h1>Choose Assignment</h1>
     <?php
     while ($row = mysqli_fetch_array($result)) {
     ?>
@@ -52,7 +52,7 @@ if(!isset($_POST['courseSubmit']))
 
     <!-- Note data-fp-extensions must be separated by comma and NO space -->
     <input id="uploadedfile" onchange="updateCode();" data-fp-button-class="button" data-fp-button-text="Upload File" data-fp-services="COMPUTER,DROPBOX,GMAIL,FTP,GITHUB,GOOGLE_DRIVE,URL" data-fp-container="modal" data-fp-extensions=".cpp,.h,.py" data-fp-apikey="ANXgRAtRSvutC6rHIAY4Az" type="filepicker"> 
-
+    <script type="text/javascript" src="../js/unit-test.js"></script>
 
     <?php /*if (!empty($_FILES['uploadedfile']) && file_exists($_FILES['uploadedfile']['tmp_name'])) {
       echo htmlentities(file_get_contents($_FILES['uploadedfile']['tmp_name']) , ENT_QUOTES, 'UTF-8');
@@ -65,7 +65,7 @@ if(!isset($_POST['courseSubmit']))
     }
     ?>
 
-    <input type="submit" id="courseSubmit" name="courseSubmit" value = "Submit" onclick="validate()">
+    <input type="submit" id="courseSubmit" name="courseSubmit" value="Submit" onclick="validate();">
 
     </form>
 <?php

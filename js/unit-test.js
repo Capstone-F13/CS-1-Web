@@ -1,12 +1,11 @@
 function validate()
 {
+
     var check = "";
     var len = document.courses.course.length;
-    var i;
-    
-    alert("reaching the function");
+    var i = 0;
 
-    for(int i = 0; i < len; i++)
+    for(i; i < len; i++)
     {
         if(document.courses.course[i].checked)
         {
@@ -18,6 +17,14 @@ function validate()
     if(check == "")
     {
         alert("Please choose a class.");
+        return false;
+    }
+
+    var textarea = document.getElementById("txtname").value;
+
+    if(textarea == "" || textarea == null)
+    {
+        alert("Please enter code for the assignment.");
         return false;
     }
 
