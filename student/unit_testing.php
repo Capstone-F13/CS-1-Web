@@ -32,9 +32,13 @@ $result = $mysqli->query($query);
   <!--Main Section where show code, upload and save -->
 <section id="main_section" >
 <?php
-if( (!isset($_POST['course'])) || (!isset($_POST['txtname'])) )
+if( (!isset($_POST['course'])) || (!isset($_POST['txtarea'])) )
 {
-?>
+  
+    if(isset($_POST['txtarea']))
+      $_POST['txtarea'] = null;
+      
+?> 
   <form action="unit_testing.php" id="courses" name="courses" method="POST">
     <h1>Choose Assignment</h1>
     <?php
@@ -52,22 +56,24 @@ if( (!isset($_POST['course'])) || (!isset($_POST['txtname'])) )
 
     <!-- Note data-fp-extensions must be separated by comma and NO space -->
     <input id="uploadedfile" onchange="updateCode();" data-fp-button-class="button" data-fp-button-text="Upload File" data-fp-services="COMPUTER,DROPBOX,GMAIL,FTP,GITHUB,GOOGLE_DRIVE,URL" data-fp-container="modal" data-fp-extensions=".cpp,.h,.py" data-fp-apikey="ANXgRAtRSvutC6rHIAY4Az" type="filepicker"> 
-    <script type="text/javascript" src="../js/unit-test.js"></script>
+    
 
     <?php /*if (!empty($_FILES['uploadedfile']) && file_exists($_FILES['uploadedfile']['tmp_name'])) {
       echo htmlentities(file_get_contents($_FILES['uploadedfile']['tmp_name']) , ENT_QUOTES, 'UTF-8');
     }*/?>
     <?php
+    /*
     if (isset($_SESSION['AssignmentCode'])){
-      echo '<textarea name="txtname" id="txtname">' . $_SESSION['AssignmentCode'] . '</textarea>';
+      echo '<textarea name="txtarea1" id="txtarea1" >' . $_SESSION['AssignmentCode'] . '</textarea>';
     } else {
-      echo '<textarea name="txtname" id="txtname"></textarea>';
+      echo '<textarea name="txtarea2" id="txtarea2" ></textarea>';
     }
+    */
     ?>
-
-    <input type="submit" id="courseSubmit" name="courseSubmit" value="Submit" onclick="validate();">
-
     </form>
+
+    <textarea name="txtarea" id="txtarea" name="txtarea"></textarea>
+    <input type="submit" id="courseSubmit" name="courseSubmit" value="Submit" onclick="validate();">
 <?php
 }
 ?>
@@ -89,7 +95,7 @@ function updateCode()
         <script type="text/javascript">
 
 
-  var codeEditor = CodeMirror.fromTextArea(document.getElementById("txtname"), {
+  var codeEditor = CodeMirror.fromTextArea(document.getElementById("txtarea"), {
     mode: "text/x-csrc",
 	lineNumbers: true,
 	indentUnit: 4,
@@ -114,6 +120,7 @@ var showresponse = function(data)
   </section>
 
 <?php
+var_dump($_POST['txtarea']);
   include("../shared_php/footer.php");
 ?>
 </html>
