@@ -130,17 +130,22 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 
 
-CREATE  TABLE IF NOT EXISTS `UnitTest` (
+CREATE  TABLE IF NOT EXISTS `Unit Test` (
   `idUnitTest` INT NOT NULL AUTO_INCREMENT ,
   `UnitTestName` VARCHAR(45) NOT NULL ,
-  `UnitTestAssignmentId` INT NOT NULL ,
-  `UnitTestProgram` TEXT NOT NULL ,
+  `UnitTestDueDate` DATETIME NULL ,
+  `UnitTestInstructions` TEXT NULL ,
+  `UnitTestCode` TEXT NULL ,
+  `UnitTestClass` INT NOT NULL ,
+  `UnitTestType` BINARY NOT NULL COMMENT 'AssignmentType is 0 for C++ and 1 for Python' ,
+  `UnitTestMaxAttempts` INT NULL ,
+  `SuccessesToPass` INT NOT NULL DEFAULT '0', 
   PRIMARY KEY (`idUnitTest`) ,
-  INDEX `AssociatedAssignment_idx` (`UnitTestAssignmentId` ASC) ,
-  UNIQUE INDEX `idUnitTest_UNIQUE` (`idUnitTest` ASC) ,
-  CONSTRAINT `AssociatedAssignment`
-    FOREIGN KEY (`UnitTestAssignmentId` )
-    REFERENCES `Assignment` (`idAssignment` )
+  INDEX `ForClass_idx` (`UnitTestClass` ASC) ,
+  UNIQUE INDEX `idAssignment_UNIQUE` (`idUnitTest` ASC) ,
+  CONSTRAINT `AssignmentClassId`
+    FOREIGN KEY (`UnitTestClass` )
+    REFERENCES `Classes` (`idClass` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

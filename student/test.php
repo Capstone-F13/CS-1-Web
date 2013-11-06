@@ -17,6 +17,11 @@ $query = "SELECT Classes.idClass, Classes.ClassName, Assignment.idAssignment, As
           INNER JOIN Roster ON Classes.idClass = Roster.ClassId
           WHERE Roster.StudentId = '$idmember'"; 
 $result = $mysqli->query($query);
+
+if( (isset($_POST['course'])) && (isset($_POST['txtarea'])) )
+{
+    $query = "SELECT "
+}
 ?>
 
 <header id="top_header">
