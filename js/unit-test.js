@@ -1,6 +1,8 @@
-function validate()
+function validate(codeEditor)
 {
-    var textarea = document.getElementById("txtarea").value;
+    var textarea = codeEditor.getValue();
+    //var input = document.getElementById("input").value(textarea);
+    alert(textarea);
     var check = "";
     var len = document.courses.course.length;
     var i = 0;

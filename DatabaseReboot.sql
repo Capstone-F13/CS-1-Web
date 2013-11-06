@@ -246,6 +246,7 @@ INSERT INTO Assignment VALUES (2, 'Sample Test', NULL, 'Print Out Goodbye World'
 INSERT INTO Template VALUES (0001, 'Hello World', '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
 INSERT INTO Practice VALUES (0001, 'Hello World', 0002, '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
 INSERT INTO Notification VALUES (1, 'Testing Notifications', 1, "Hi Class, this is the notes system!");
+INSERT INTO UnitTest Values('1', 'Test', '0', 'Do stuff', '//Code', '1', '0', '7', '2', '0');
 
 -- -------------------------------------
 -- Member Population

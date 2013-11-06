@@ -10,10 +10,14 @@ require dirname(__FILE__) . '/../files/KLogger.php';
 $idmember = $_SESSION['idmember'];
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
 $log->logInfo('In Practice page',$_SESSION['uniqueID']);
-
-$query = "SELECT Classes.idClass, Classes.ClassName, Assignment.idAssignment, Assignment.AssignmentName, Assignment.AssignmentType
+if(isset($_POST['txtarea']))
+{
+  echo "txt area is set!";
+  var_dump($_POST['txtarea']);
+}
+$query = "SELECT Classes.idClass, Classes.ClassName, UnitTest.idUnitTest, UnitTest.UnitTestName, UnitTest.UnitTestType
           FROM Classes
-          INNER JOIN Assignment ON Classes.idClass = Assignment.AssignmentClass
+          INNER JOIN UnitTest ON Classes.idClass = UnitTest.UnitTestClass
           INNER JOIN Roster ON Classes.idClass = Roster.ClassId
           WHERE Roster.StudentId = '$idmember'"; 
 $result = $mysqli->query($query);
@@ -32,19 +36,16 @@ $result = $mysqli->query($query);
   <!--Main Section where show code, upload and save -->
 <section id="main_section" >
 <?php
-if( (!isset($_POST['course'])) || (!isset($_POST['txtarea'])) )
+if( (!isset($_POST['course'])) || (!isset($_POST['txtarea'])) || ($_POST['txtarea'] == "") )
 {
-  
-    if(isset($_POST['txtarea']))
-      $_POST['txtarea'] = null;
-      
+
 ?> 
   <form action="unit_testing.php" id="courses" name="courses" method="POST">
     <h1>Choose Assignment</h1>
     <?php
     while ($row = mysqli_fetch_array($result)) {
     ?>
-        <input type="radio" name="course" id="course" value="<?php echo $row['idAssignment']; ?>"> <?php echo $row['ClassName']." - ".$row['AssignmentName']; ?> <br />  
+        <input type="radio" name="course" id="course" value="<?php echo $row['idUnitTest']; ?>"> <?php echo $row['ClassName']." - ".$row['UnitTestName']; ?> <br />  
     <?php
     }
     ?> 
@@ -70,10 +71,13 @@ if( (!isset($_POST['course'])) || (!isset($_POST['txtarea'])) )
     }
     */
     ?>
+
+    <textarea name="txtarea" id="txtarea"></textarea>
+    <input type="hidden" id="input" name="input" />
+    <input type="submit" id="courseSubmit" name="courseSubmit" value="Submit" onclick="validate(codeEditor);">
     </form>
 
-    <textarea name="txtarea" id="txtarea" name="txtarea"></textarea>
-    <input type="submit" id="courseSubmit" name="courseSubmit" value="Submit" onclick="validate();">
+    
 <?php
 }
 ?>
@@ -104,10 +108,6 @@ function updateCode()
 	});
 codeEditor.setSize("40em", "20em");
 
-var inputEditor = CodeMirror.fromTextArea(document.getElementById("input"), {
-  smartIndent: false
-      });
-inputEditor.setSize("40em", "5em");
             
 var showresponse = function(data)
 {
@@ -120,7 +120,7 @@ var showresponse = function(data)
   </section>
 
 <?php
-var_dump($_POST['txtarea']);
+
   include("../shared_php/footer.php");
 ?>
 </html>

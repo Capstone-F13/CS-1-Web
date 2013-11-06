@@ -20,7 +20,7 @@ $result = $mysqli->query($query);
 
 if( (isset($_POST['course'])) && (isset($_POST['txtarea'])) )
 {
-    $query = "SELECT "
+    //$query = "SELECT "
 }
 ?>
 
@@ -58,7 +58,7 @@ if( (!isset($_POST['course'])) || (!isset($_POST['txtarea'])) || ($_POST['txtare
     <input type="file" name="file" id="file" onchange="loadfile(this)"><br />
     <textarea id="txtarea" name="txtarea" rows="10" cols="50"></textarea>
     <input type="submit" id="courseSubmit" name="courseSubmit" value="Submit" onclick="validate();">
-    </form>
+  </form>
     
 <?php
 }
