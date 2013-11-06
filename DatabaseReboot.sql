@@ -124,13 +124,12 @@ CREATE  TABLE IF NOT EXISTS `Submission` (
     
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `UnitTest`
 -- -----------------------------------------------------
 
 
-CREATE  TABLE IF NOT EXISTS `Unit Test` (
+CREATE  TABLE IF NOT EXISTS `UnitTest` (
   `idUnitTest` INT NOT NULL AUTO_INCREMENT ,
   `UnitTestName` VARCHAR(45) NOT NULL ,
   `UnitTestDueDate` DATETIME NULL ,
@@ -139,16 +138,16 @@ CREATE  TABLE IF NOT EXISTS `Unit Test` (
   `UnitTestClass` INT NOT NULL ,
   `UnitTestType` BINARY NOT NULL COMMENT 'AssignmentType is 0 for C++ and 1 for Python' ,
   `UnitTestMaxAttempts` INT NULL ,
-  `SuccessesToPass` INT NOT NULL DEFAULT '0', 
+  `SuccessesToPass` INT NOT NULL DEFAULT '0',
+  `UnitTestReveal` BINARY DEFAULT '0',
+
   PRIMARY KEY (`idUnitTest`) ,
-  INDEX `ForClass_idx` (`UnitTestClass` ASC) ,
-  UNIQUE INDEX `idAssignment_UNIQUE` (`idUnitTest` ASC) ,
-  CONSTRAINT `AssignmentClassId`
-    FOREIGN KEY (`UnitTestClass` )
-    REFERENCES `Classes` (`idClass` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  FOREIGN KEY (`UnitTestClass` )
+  REFERENCES `Classes` (`idClass` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -219,15 +218,15 @@ CREATE  TABLE IF NOT EXISTS `Grades` (
   PRIMARY KEY (`GradeID`) ,
   UNIQUE INDEX `GradeID_UNIQUE` (`GradeID` ASC) ,
   CONSTRAINT `StudentID` 
-	FOREIGN KEY (`StudentID`) 
-	REFERENCES `Member` (`idMember`) 
-	ON DELETE NO ACTION 
-	ON UPDATE NO ACTION ,
+  FOREIGN KEY (`StudentID`) 
+  REFERENCES `Member` (`idMember`) 
+  ON DELETE NO ACTION 
+  ON UPDATE NO ACTION ,
   CONSTRAINT `AssignmentID` 
-	FOREIGN KEY (`AssignmentID`) 
-	REFERENCES `Assignment` (`idAssignment`) 
-	ON DELETE NO ACTION 
-	ON UPDATE NO ACTION )
+  FOREIGN KEY (`AssignmentID`) 
+  REFERENCES `Assignment` (`idAssignment`) 
+  ON DELETE NO ACTION 
+  ON UPDATE NO ACTION )
 ENGINE = InnoDB;
 
 
@@ -245,7 +244,6 @@ INSERT INTO Roster VALUES (4, 0002, 0004);
 INSERT INTO Assignment VALUES (1, 'Practice Test', NULL, 'Print Out Hello World', '//This Is Code', 1, 0, 10,3);
 INSERT INTO Assignment VALUES (2, 'Sample Test', NULL, 'Print Out Goodbye World', '//This Is Code', 1, 0, 5,3);
 INSERT INTO Template VALUES (0001, 'Hello World', '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
-INSERT INTO UnitTest VALUES (0001, 'Hello Test', 0001, 'TRUE');
 INSERT INTO Practice VALUES (0001, 'Hello World', 0002, '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
 INSERT INTO Notification VALUES (1, 'Testing Notifications', 1, "Hi Class, this is the notes system!");
 
