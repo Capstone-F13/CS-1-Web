@@ -1,11 +1,13 @@
+<?php
+$_POST['txtarea']
+?>
+
 <!DOCTYPE html>
 <head>
   <script type="text/javascript" src="../js/unit-test.js"></script>
 </head>
 <?php
-$title = "Unit Testing";        //enter title into the quotation marks
-$id = $_SESSION['idUnitTest'] = $_GET['idUnitTest'];
-$name = $_SESSION['UnitTestName'] = $_GET['UnitTestName'];
+$title = "Unit Results";        //enter title into the quotation marks
 include("../shared_php/header.php");
 require dirname(__FILE__) . '/../files/KLogger.php';
 //$_SESSION['uniqueID']=uniqid ();
@@ -24,7 +26,7 @@ $result = $mysqli->query($query);
 ?>
 
 <header id="top_header">
-  <h1 style="text-align: center">Unit Test</h1>
+  <h1 style="text-align: center">Unit Results</h1>
   <style>
    <?php //Line below allows multiple submit buttons on same line ?>
     form { display: inline; }
@@ -35,8 +37,12 @@ $result = $mysqli->query($query);
 
   <!--Main Section where show code, upload and save -->
 <section id="main_section" >
+<?php
+    if(!isset($_POST['txtarea']) || $_POST['txtarea'] =="")
+    {
+    ?> 
     <h1> Unit Test - <?php echo $name ?> </h1>
-    <form action="unit_result.php" id="courses" name="courses" method="POST">
+    <form action="unit_testing.php" id="courses" name="courses" method="POST">
 
       <h1>Code:</h1>
       <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js">
@@ -50,6 +56,17 @@ $result = $mysqli->query($query);
       <input type="hidden" id="input" name="input" />
       <input type="submit" id="courseSubmit" name="courseSubmit" value="Submit" onclick="return validate(codeEditor);">
     </form>    
+<?php
+    }
+
+    else
+    {
+?>
+
+<?php 
+    }
+?>
+
 
 
   <!-- code to display link to textarea-->
