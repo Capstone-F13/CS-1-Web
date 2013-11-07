@@ -1,13 +1,15 @@
+<?php
+include("../shared_php/header.php");
+require dirname(__FILE__) . '/../files/KLogger.php';
+?>
 <!DOCTYPE html>
 <head>
   <script type="text/javascript" src="../js/unit-test.js"></script>
 </head>
 <?php
 $title = "Unit Testing";        //enter title into the quotation marks
-$id = $_SESSION['idUnitTest'] = $_GET['idUnitTest'];
-$name = $_SESSION['UnitTestName'] = $_GET['UnitTestName'];
-include("../shared_php/header.php");
-require dirname(__FILE__) . '/../files/KLogger.php';
+@$id = $_SESSION['idUnitTest'] = $_GET['idUnitTest'];
+@$name = $_SESSION['UnitTestName'] = $_GET['UnitTestName'];
 //$_SESSION['uniqueID']=uniqid ();
 $idmember = $_SESSION['idmember'];
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);

@@ -1,15 +1,42 @@
 <?php
-$_POST['txtarea']
+include("../shared_php/header.php");
+require dirname(__FILE__) . '/../files/KLogger.php';
+
+$unitTestId = $_SESSION['idUnitTest'];
+$name = $_SESSION['UnitTestName'];
+
+$query = "SELECT UnitTestType, UnitTestReveal, UnitTestCode 
+          FROM UnitTest
+          WHERE idUnitTest = '$unitTestId'";
+$queryResult = $mysqli->query($query);
+$queryRow = $queryResult->fetch_row();
+$type = $queryRow[0];
+$reveal = $queryRow[1];
+$code = $queryRow[2];
+
+$input = $_POST['txtarea'];
+$filepath = "../shared_php/tmp/";
+$filename = rand(0,1000000);
+
+if($type == 0)
+  $ext = ".c";
+else if($type == 1)
+  $ext = ".py";
+/*
+file_put_contents($filepath.$filename.$ext, $input);
+
+$output = shell_exec('gcc '.$filename.$ext.' -o '.$filename);
+echo $output;
+*/
 ?>
 
 <!DOCTYPE html>
 <head>
   <script type="text/javascript" src="../js/unit-test.js"></script>
+  <title>Unit Test Results</title>
 </head>
 <?php
-$title = "Unit Results";        //enter title into the quotation marks
-include("../shared_php/header.php");
-require dirname(__FILE__) . '/../files/KLogger.php';
+
 //$_SESSION['uniqueID']=uniqid ();
 $idmember = $_SESSION['idmember'];
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
@@ -34,38 +61,23 @@ $result = $mysqli->query($query);
 </header>
 
 
-
   <!--Main Section where show code, upload and save -->
 <section id="main_section" >
-<?php
-    if(!isset($_POST['txtarea']) || $_POST['txtarea'] =="")
-    {
-    ?> 
     <h1> Unit Test - <?php echo $name ?> </h1>
-    <form action="unit_testing.php" id="courses" name="courses" method="POST">
+    <h3>The correct answer is: <?php  ?></h3>
+    <h3>Your answer: <?php ?></h3>
+    <h3>Your Code:</h3>
+    <textarea name="txtarea" id="txtarea"><?php echo $_POST['txtarea']; ?></textarea><br /><br />
 
-      <h1>Code:</h1>
-      <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js">
-      filepicker.setKey('ANXgRAtRSvutC6rHIAY4Az');
-      </script>
-
-      <!-- Note data-fp-extensions must be separated by comma and NO space -->
-      <input id="uploadedfile" onchange="updateCode();" data-fp-button-class="button" data-fp-button-text="Upload File" data-fp-services="COMPUTER,DROPBOX,GMAIL,FTP,GITHUB,GOOGLE_DRIVE,URL" data-fp-container="modal" data-fp-extensions=".cpp,.h,.py" data-fp-apikey="ANXgRAtRSvutC6rHIAY4Az" type="filepicker"> 
-      
-      <textarea name="txtarea" id="txtarea"></textarea>
-      <input type="hidden" id="input" name="input" />
-      <input type="submit" id="courseSubmit" name="courseSubmit" value="Submit" onclick="return validate(codeEditor);">
-    </form>    
-<?php
-    }
-
-    else
+    <?php 
+    if($reveal == 1)
     {
-?>
-
-<?php 
+    ?>
+        <h3>Unit Test For This Assignment</h3>
+        <textarea name="txtarea2" id="txtarea2" cols="50"><?php echo $code; ?></textarea>
+    <?php
     }
-?>
+    ?>
 
 
 
@@ -92,6 +104,16 @@ function updateCode()
 	matchBrackets:true,
 	});
 codeEditor.setSize("40em", "20em");
+
+var codeEditor2 = CodeMirror.fromTextArea(document.getElementById("txtarea2"), {
+    mode: "text/x-csrc",
+  lineNumbers: true,
+  indentUnit: 4,
+  tabMode: "shift",
+  matchBrackets:true,
+  });
+codeEditor.setSize("40em", "20em");
+
 
             
 var showresponse = function(data)
