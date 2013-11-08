@@ -16,18 +16,20 @@ $code = $queryRow[2];
 
 $input = $_POST['txtarea'];
 $filepath = "../shared_php/tmp/";
+$root = "CS-1-Web/shared_php/tmp";
 $filename = rand(0,1000000);
-
 if($type == 0)
-  $ext = ".c";
+  $ext = ".cpp";
 else if($type == 1)
   $ext = ".py";
-/*
-file_put_contents($filepath.$filename.$ext, $input);
 
-$output = shell_exec('gcc '.$filename.$ext.' -o '.$filename);
+file_put_contents($filepath.$filename.$ext, $input);
+exec('g++ -o main /cygdrive/c/Users/Travis/Desktop/main.cpp');
+system('./main', $output);
 echo $output;
-*/
+
+var_dump($output);
+
 ?>
 
 <!DOCTYPE html>
