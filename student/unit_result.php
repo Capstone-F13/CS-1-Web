@@ -1,6 +1,7 @@
 <?php
 include("../shared_php/header.php");
 require dirname(__FILE__) . '/../files/KLogger.php';
+error_reporting(-1);
 
 $unitTestId = $_SESSION['idUnitTest'];
 $name = $_SESSION['UnitTestName'];
@@ -13,7 +14,6 @@ $queryRow = $queryResult->fetch_row();
 $type = $queryRow[0];
 $reveal = $queryRow[1];
 $code = $queryRow[2];
-
 $input = $_POST['txtarea'];
 $filepath = "../shared_php/tmp/";
 $root = "CS-1-Web/shared_php/tmp";
@@ -23,10 +23,16 @@ if($type == 0)
 else if($type == 1)
   $ext = ".py";
 
+
+$array1 = array();
 file_put_contents($filepath.$filename.$ext, $input);
-exec('g++ -o main /cygdrive/c/Users/Travis/Desktop/main.cpp');
-system('./main', $output);
-echo $output;
+echo exec("ping");
+echo $output = exec("echo . | C:\\MinGW\\bin\\g++ -o c:\\wamp\\www\\CS-1-Web\\shared_php\\tmp\\".$filename. " c:\\wamp\\www\\CS-1-Web\\shared_php\\tmp\\".$filename.$ext);
+echo system('c:/wamp/www/CS-1-Web/shared_php/tmp/./'.$filename, $output);
+echo 'g++ -o ../shared_php/tmp/'.$filename. ' ../shared_php/tmp/'.$filename.$ext;
+foreach ($array1 as $value) {
+    echo $value;
+}
 
 var_dump($output);
 
