@@ -58,9 +58,31 @@
 						<h3>Unit Tests</h3>
 					</div>
 				<p>Unit Tests are assignments in which an instructor can create a unit test for a particualr assignment and test it against the student's own
-					code to see if the assignment was completed correctly</p>
+					code to see if the assignment was completed correctly.</p>
+				</div>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="content">
+					<div class="header">
+						<h3>Instructor's Viewing Progress</h3>
+					</div>
+				<p>Instructors are able to see an up-to-date status on the their students and how they are doing on any assignment
+				in any class.  This allows for the instructor to easily see who is passing and who is struggling. </p>
+				</div>
+			</div>
+		</div>
+
+		<div class="row row-spacing-4">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="content">
+					<div class="header">
+						<h3>Code Mirror</h3>
+					</div>
+					<p>CodeMirror is a code-editor component that can be embedded in Web pages that allows for color coordinated code and 
+					proper indenting making inputing code in a text area less of a hassle.  </p>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+</html>
