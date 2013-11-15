@@ -1,47 +1,104 @@
-<?php
-session_start();
-//check for last activity, and kill session as needed
-if (isset($_SESSION['lastActivity'])) {
-    if ($_SESSION['stayLoggedIn'] == true) {
-        if (time() - $_SESSION['lastActivity'] > 2592000) {
-            session_unset();
-            session_destroy();
-            header("Location:../shared_php/session_expired.php");
-        }
-    } else if (time() - $_SESSION['lastActivity'] > 1800) {
-        session_unset();
-        session_destroy();
-        header("Location:../shared_php/session_expired.php");
-    }
-} else {
-    $_SESSION['lastActivity'] = time(); // update last activity time stamp
-}
-?>
-
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
     <head>
-        <title>Login Form</title>
-        <link rel="stylesheet" href="css/base.css">
-        <link rel="stylesheet" href="css/layout.css">
-        <link rel="stylesheet" href="css/main.css">
+    	<title>Home</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
     </head>
-    <body>
-        <div class="form-bg">
-            <form id="login" method="POST" action="login.php">
-                <h2>Login</h2>
-                <input type="text" placeholder="Email" name="username" id="username">
-                <br />
-                <input type="password" placeholder="Password" name="password" id="password">
-                <br />
-                <button type="submit" class="button" style="float:right;display:block;margin-right:40px">Login</button>
-                <div style="padding-left:20px">
-                    <input type="checkbox" id="remember" name="remember" value="remember" />
-                    <span>Keep me logged in</span>
-                    <br />
-                    <a href="shared_php/forget_pass.php">Forgot your password?</a>
-                </div>
-            </form>
-        </div>
-    </body>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+			
+			</div>
+			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+				<div class="user-info row-spacing-8">
+					<span id="login">
+						<a href="login-page.php"><button type="button" class="btn btn-default">Login</button></a>
+					</span>
+					<span id="signup">
+						<button type="button" class="btn btn-default">Signup</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row row-spacing-2">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="heading">
+					<h1>Home Page</h1>
+				</div>	
+			</div>	
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="features"> 
+					<h2>Features</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="row row-spacing-4">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="content">
+					<div class="header">
+						<h3>Standard Assignments</h3>
+					</div>
+					<p>These assignments the students will receive randomly generated code and the student must guess what the output of the 
+					code will be.  This is a great exercise for understanding and following code.</p>
+					<div class="images">
+						<p>Step1: Once logged in, select course you wish to give an assignment and click the list of assignments tab</p>
+						<img src="images/instructor-home.png" />
+					</div>
+					<div class="images">
+						<p>Step2: Next click the "Create New Assignment" link</p>
+						<img src="images/standard-assignment2.png" />
+					</div>
+					<div class="images">
+						<p>Step3: Finally enter the credentials you wish for the particular assignment </p>
+						<img src="images/standard-assignment3.png" />
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="content">
+					<div class="header">
+						<h3>Unit Tests</h3>
+					</div>
+					<p>unit Tests are assignments in which an instructor can create a unit test for a particualr assignment and test it against the student's own
+					code to see if the assignment was completed correctly.</p>
+				</div>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="content">
+					<div class="header">
+						<h3>Instructor's Viewing Progress</h3>
+					</div>
+					<p>Instructors are able to see an up-to-date status on the their students and how they are doing on any assignment
+					in any class.  This allows for the instructor to easily see who is passing and who is struggling. </p>
+					<div class="images">
+						<p>Step1: Once logged in, select course you wish to give an assignment and click the list of assignments tab</p>
+						<img src="images/instructor-home.png" />
+					</div>
+				</div>			
+			</div>
+		</div>
+
+		<div class="row row-spacing-4">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="content">
+					<div class="header">
+						<h3>Code Mirror</h3>
+					</div>
+					<p>CodeMirror is a code-editor component that can be embedded in Web pages that allows for color coordinated code and 
+					proper indenting making inputing code in a text area less of a hassle.  </p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

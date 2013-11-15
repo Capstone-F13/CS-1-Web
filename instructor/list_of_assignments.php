@@ -68,7 +68,8 @@ function ValidateForm()
 	<strong><a href="create_assignment.php?AssignmentClass=<?php echo $_REQUEST['AssignmentClass']; ?>">Create New Assignment</a></strong>
 	<strong><a href="edit_assignment.php">Edit Assignment</a></strong>
 	<strong><a href="delete_assignment.php">Delete Assignment</a></strong>
-	<strong><a href="progression.php">Progression</a></strong>
+	<strong><a href="progression.php">Progression by Assignment</a></strong><br />
+	<strong><a href="student_progression.php">Progression by Student</a></strong>
 	<table id="listOfStudent" cellpadding="5px" cellspacing="0px">
 		<thead>
 	  		<td width="76">Assignment ID</td>

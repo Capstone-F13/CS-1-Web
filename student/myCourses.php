@@ -48,7 +48,38 @@ while ($rosterQueryRow = mysqli_fetch_array($rosterQuery))
         echo "<a href='../student/submission.php?idAssignment=" . $assignmentQueryRow['idAssignment'] . "'>Start This Assignment</a><br />";
         echo "<br />";
     }
+
+    $UnitTestQueryString = "SELECT * FROM UnitTest WHERE UnitTestClass=" . $rosterQueryRow['ClassId'];
+    $UnitTestQuery = $mysqli->query($UnitTestQueryString);
+    //var_dump($UnitTestQuery);
+
+   
+
+    while($UnitTestQueryRow = mysqli_fetch_array($UnitTestQuery))
+    {
+        echo "<b>Unit Test Name:</b> " . $UnitTestQueryRow['UnitTestName'] . "<br />";
+        echo "<b>Due Date:</b> " . $UnitTestQueryRow['UnitTestDueDate'] . "<br />";
+        echo "<b>Instructions:</b> " . $UnitTestQueryRow['UnitTestInstructions'] . "<br />";
+        
+        //Will display different depending on what programming 
+        if ($UnitTestQueryRow['UnitTestType'] == 0) {
+            echo "<b>Unit Test Type:</b> C++<br />";
+        } else {
+            echo "<b>Unit Test Type:</b> Python<br />";
+        }
+
+        $id = $UnitTestQueryRow['idUnitTest'];
+        $name = $UnitTestQueryRow['UnitTestName'];
+        
+        //Displays link to assignment
+        echo "<a href='../student/unit_testing.php?idUnitTest=".$id."&UnitTestName=".$name."'>Start This Assignment</a><br />";
+        echo "<br />";
+    }
+
+
 }
 
 include("../shared_php/footer.php");
 ?>
+<a href="unit_testing.php">Unit</a>
+<a href="test.php">Test</a>

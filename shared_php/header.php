@@ -37,6 +37,7 @@ if (isset($_SESSION['lastActivity'])) {
          <link rel="stylesheet" href="../css/codemirror.css" />
         <link rel="stylesheet" href="../css/jquery-ui.css" />
         <link rel="stylesheet" href="../css/nav-bar.css" />
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
         <script language="JavaScript1.1" src="../js/createAssignment.js" type="text/javascript"></script>
         <script language="JavaScript1.1" src="../js/animatedcollapse.js" type="text/javascript"></script>
         <script language="JavaScript1.1" src="../js/jquery-1.9.1.min.js" type="text/javascript"></script>
@@ -44,6 +45,7 @@ if (isset($_SESSION['lastActivity'])) {
         <script language="JavaScript1.1" src="../js/myAccount.js" type="text/javascript"></script>
         <script language="JavaScript1.1" src="../js/datepicker.js" type="text/javascript"></script>
 		<script language="JavaScript1.1" src="../js/debugger.js" type="text/javascript"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
         <!-- includes for CodeMirror -->
         <script language="JavaScript" src="../js/codemirror.js"></script>

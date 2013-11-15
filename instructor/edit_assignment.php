@@ -15,7 +15,7 @@ if (isset($_REQUEST['edit_assignment'])) {
 	 $r_txtCode = $mysqli->real_escape_string($_REQUEST['txtCode']);
 	 $r_cmbType = $mysqli->real_escape_string($_REQUEST['cmbType']);
 	 $r_cmbNoOfAttempts = $mysqli->real_escape_string($_REQUEST['cmbNoOfAttempts']);
-	 $r_successfulAttempts = $_REQUEST['NoOfSuccessfulAttempts'];
+	 $r_successfulAttempts = $_REQUEST['SuccessAttempts'];
 	
 	 $originalSQL = "SELECT * FROM Assignment WHERE AssignmentName='$r_assignmentName'";
 	 $result2 = $mysqli->query($originalSQL);
@@ -49,7 +49,7 @@ if (isset($_REQUEST['edit_assignment'])) {
         <link rel="stylesheet" type="text/css" media="screen" href="css/acourses.css" />
         <link rel="stylesheet" href="../css/layout.css">
         <script>
-        function ValidateForm2()
+function ValidateForm2()
 {
     var x = document.forms["edit_assignment"]["txtAssignmentName"].value;
     if (x == null || x == "")
@@ -72,11 +72,31 @@ if (isset($_REQUEST['edit_assignment'])) {
         document.forms["edit_assignment"]["txtInstructions"].focus();
         return;
     }
-    
+    var x = document.forms["edit_assignment"]["txtCode"].value;
+    if (x == null || x == "")
+    {
+        alert("Please enter Code.");
+        document.forms["edit_assignment"]["txtCode"].focus();
+        return;
+    }
     var x = document.forms["edit_assignment"]["cmbNoOfAttempts"].value;
+    var y = document.forms["edit_assignment"]["SuccessAttempts"].value;
     if (x == null || x == "0")
     {
         alert("Please select No of Attempts.");
+        document.forms["edit_assignment"]["cmbNoOfAttempts"].focus();
+        return;
+    }
+    if (y == null || y == "0")
+    {
+        alert("Please select No of Successful Attempts.");
+        document.forms["edit_assignment"]["SuccessAttempts"].focus();
+        return;
+    }
+    if (x < y)
+    {
+        alert("Number of attempts can't be less than successful attempts.");
+        document.forms["edit_assignment"]["NoOfSuccessfulAttempts"].focus();
         return;
     }
     var x = document.forms["edit_assignment"]["cmbType"].value;
@@ -85,8 +105,11 @@ if (isset($_REQUEST['edit_assignment'])) {
         alert("Please select Assignment Type.");
         return;
     }
+    
     document.forms["edit_assignment"].submit();
 }
+
+
 </script>
     </head>
     <body>
@@ -142,7 +165,7 @@ if (isset($_REQUEST['edit_assignment'])) {
                 </tr>
                 <tr>
                 	<td><strong>Successes in a Row</strong></td>
-                    <td><select name="NoOfSuccessfulAttempts">
+                    <td><select name="SuccessAttempts">
                             <option value="0" selected="selected"> Select</option>
                             <option value="1"> 1</option>
                             <option value="2"> 2</option>

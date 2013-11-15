@@ -124,7 +124,6 @@ CREATE  TABLE IF NOT EXISTS `Submission` (
     
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
 -- Table `UnitTest`
 -- -----------------------------------------------------
@@ -133,17 +132,22 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `UnitTest` (
   `idUnitTest` INT NOT NULL AUTO_INCREMENT ,
   `UnitTestName` VARCHAR(45) NOT NULL ,
-  `UnitTestAssignmentId` INT NOT NULL ,
-  `UnitTestProgram` TEXT NOT NULL ,
+  `UnitTestDueDate` DATETIME NULL ,
+  `UnitTestInstructions` TEXT NULL ,
+  `UnitTestCode` TEXT NULL ,
+  `UnitTestClass` INT NOT NULL ,
+  `UnitTestType` BINARY NOT NULL COMMENT 'AssignmentType is 0 for C++ and 1 for Python' ,
+  `UnitTestMaxAttempts` INT NULL ,
+  `SuccessesToPass` INT NOT NULL DEFAULT '0',
+  `UnitTestReveal` BINARY DEFAULT '0',
+
   PRIMARY KEY (`idUnitTest`) ,
-  INDEX `AssociatedAssignment_idx` (`UnitTestAssignmentId` ASC) ,
-  UNIQUE INDEX `idUnitTest_UNIQUE` (`idUnitTest` ASC) ,
-  CONSTRAINT `AssociatedAssignment`
-    FOREIGN KEY (`UnitTestAssignmentId` )
-    REFERENCES `Assignment` (`idAssignment` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  FOREIGN KEY (`UnitTestClass` )
+  REFERENCES `Classes` (`idClass` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
@@ -214,15 +218,15 @@ CREATE  TABLE IF NOT EXISTS `Grades` (
   PRIMARY KEY (`GradeID`) ,
   UNIQUE INDEX `GradeID_UNIQUE` (`GradeID` ASC) ,
   CONSTRAINT `StudentID` 
-	FOREIGN KEY (`StudentID`) 
-	REFERENCES `Member` (`idMember`) 
-	ON DELETE NO ACTION 
-	ON UPDATE NO ACTION ,
+  FOREIGN KEY (`StudentID`) 
+  REFERENCES `Member` (`idMember`) 
+  ON DELETE NO ACTION 
+  ON UPDATE NO ACTION ,
   CONSTRAINT `AssignmentID` 
-	FOREIGN KEY (`AssignmentID`) 
-	REFERENCES `Assignment` (`idAssignment`) 
-	ON DELETE NO ACTION 
-	ON UPDATE NO ACTION )
+  FOREIGN KEY (`AssignmentID`) 
+  REFERENCES `Assignment` (`idAssignment`) 
+  ON DELETE NO ACTION 
+  ON UPDATE NO ACTION )
 ENGINE = InnoDB;
 
 
@@ -240,9 +244,9 @@ INSERT INTO Roster VALUES (4, 0002, 0004);
 INSERT INTO Assignment VALUES (1, 'Practice Test', NULL, 'Print Out Hello World', '//This Is Code', 1, 0, 10,3);
 INSERT INTO Assignment VALUES (2, 'Sample Test', NULL, 'Print Out Goodbye World', '//This Is Code', 1, 0, 5,3);
 INSERT INTO Template VALUES (0001, 'Hello World', '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
-INSERT INTO UnitTest VALUES (0001, 'Hello Test', 0001, 'TRUE');
 INSERT INTO Practice VALUES (0001, 'Hello World', 0002, '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
 INSERT INTO Notification VALUES (1, 'Testing Notifications', 1, "Hi Class, this is the notes system!");
+INSERT INTO UnitTest Values('1', 'Test', '0', 'Do stuff', '//Code', '1', '0', '7', '2', '0');
 
 -- -------------------------------------
 -- Member Population
