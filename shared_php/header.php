@@ -115,7 +115,11 @@ if (isset($_SESSION['lastActivity'])) {
                </li>
     </ul>
    
-
+   
+      <ul id='nav'>
+        <li><a href='../instructor/unitTest.php'>&nbsp; Unit Test &nbsp; |</a>        
+               </li>
+    </ul>
 
    
       <ul id='nav'>
