@@ -17,7 +17,7 @@
 			<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 				<div class="user-info row-spacing-8">
 					<span id="login">
-						<a href="login-page.php"><button type="button" class="btn btn-default">Login</button></a>
+						<a href="loginPage.php"><button type="button" class="btn btn-default">Login</button></a>
 					</span>
 					<span id="signup">
 						<button type="button" class="btn btn-default">Signup</button>
@@ -84,6 +84,10 @@
 						<p>Step1: Once logged in, select course you wish to give an assignment and click the list of assignments tab</p>
 						<img src="images/instructor-home.png" />
 					</div>
+                    <div class="images">
+                        <p>Step1: Once logged in, select course you wish to give an assignment and click the list of assignments tab</p>
+                        <img src="images/instructor-home.png" />
+                    </div>
 				</div>			
 			</div>
 		</div>
@@ -102,3 +106,5 @@
 	</div>
 </body>
 </html>
+
+         

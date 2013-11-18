@@ -24,7 +24,7 @@ else if($type == 1)
   $ext = ".py";
 
 
-system("touch C:/wamp/www/CS-1-Web/shared_php/tmp/test.exe");
+//system("touch C:/wamp/www/CS-1-Web/shared_php/tmp/test.exe");
 file_put_contents($filepath.$filename.$ext, $input);
 $output = "g++ -o -w C:/wamp/www/CS-1-Web/shared_php/tmp/".$filename. " c:/wamp/www/CS-1-Web/shared_php/tmp/".$filename.$ext. " >& c:/wamp/www/CS-1-Web/shared_php/tmp/error_file.txt";
 system("g++ -o -w C:/wamp/www/CS-1-Web/shared_php/tmp/".$filename. " c:/wamp/www/CS-1-Web/shared_php/tmp/".$filename.$ext. " >& c:/wamp/www/CS-1-Web/shared_php/tmp/error_file.txt", $output2);
