@@ -104,7 +104,7 @@ $log->logInfo('In Practice page',$_SESSION['uniqueID']);
   if (isset($_SESSION['AssignmentCode'])){
     echo '<textarea name="txtname" id="txtname">' . $_SESSION['AssignmentCode'] . '</textarea>';
   } else {
-    echo '<textarea name="txtname" id="txtname">AssignmentCode not found</textarea>';
+    echo '<textarea name="txtname" id="txtname"></textarea>';
   }
   ?>
 
