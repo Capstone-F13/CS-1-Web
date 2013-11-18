@@ -1,0 +1,135 @@
+<script language="php">
+require_once("../shared_php/databaseConnect.php");
+<<<<<<< HEAD
+</script>
+=======
+session_start();
+$_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
+?>
+>>>>>>> master
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="RapidWeaver" />
+<title>Account</title>
+<link rel="stylesheet" type="text/css" media="screen" href="../css/navbar.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="../css/acourses.css" />
+<link rel="stylesheet" href="../css/layout.css">
+<script type="text/javascript">
+
+function ValidateForm()
+{
+	var x=document.forms["create_assignment"]["txtAssignmentName"].value;
+	if (x==null || x=="")
+	{
+	 	alert("Please enter Assignment Name.");
+		document.forms["create_assignment"]["txtAssignmentName"].focus();
+	  	return;
+	}
+	var x=document.forms["create_assignment"]["txtDueDate"].value;
+	if (x==null || x=="")
+	{
+	 	alert("Please enter Due Date.");
+		document.forms["create_assignment"]["txtDueDate"].focus();
+	  	return;
+	}
+	var x=document.forms["create_assignment"]["txtInstructions"].value;
+	if (x==null || x=="")
+	{
+	 	alert("Please enter Instruction.");
+		document.forms["create_assignment"]["txtInstructions"].focus();
+	  	return;
+	}
+	var x=document.forms["create_assignment"]["cmbNoOfAttempts"].value;
+	if (x==null || x=="0")
+	{
+	 	alert("Please select No of Attempts.");
+	  	return;
+	}
+	var x=document.forms["create_assignment"]["cmbType"].value;
+	if (x==null || x=="-1")
+	{
+	 	alert("Please select Assignment Type.");
+	  	return;
+	}	
+	document.forms["create_assignment"].submit();
+}
+
+</script>
+</head>
+<body leftmargin="0px" topmargin="0px">
+	
+	<?php		
+		$selectSQL="SELECT * FROM Classes where idClass = " . $_REQUEST['AssignmentClass'];
+		$result=$mysqli->query($selectSQL);
+		$row = mysqli_fetch_assoc($result);			
+	?>
+	<strong>Course : <?php echo $row['ClassName']; 	?> </strong> <br />
+	<strong><a href="create_assignment.php?AssignmentClass=<?php echo $_REQUEST['AssignmentClass']; ?>">Create New Assignment</a></strong>
+	<strong><a href="edit_assignment.php">Edit Assignment</a></strong>
+	<strong><a href="delete_assignment.php">Delete Assignment</a></strong>
+	<strong><a href="progression.php">Progression</a></strong>
+	<table id="listOfStudent" cellpadding="5px" cellspacing="0px">
+		<thead>
+	  		<td width="76">Assignment ID</td>
+			<td width="89">Assignment Name</td>
+			<td width="106">Assignment Due Date</td>
+			<td width="115">Assignment Instructions</td>
+			<td width="81">Assignment Class</td>
+			<td width="85">Assignment Type</td>
+			<td width="93">Maximum Attempts</td>
+			<td width="115">Successes to Pass</td>
+			<td width="68">Download File</td>
+		<td width="0"></thead>
+		<?php
+		$selectSQL="SELECT * FROM Assignment where AssignmentClass=" . $_REQUEST['AssignmentClass'];
+		$result=$mysqli->query($selectSQL);
+
+		if(mysqli_num_rows($result)>0)
+		{
+		
+			while ($row = mysqli_fetch_assoc($result)) 
+			{
+		?>
+			<tr>
+			<td><?php echo $row['idAssignment']; ?> </td>
+			<td><?php echo $row['AssignmentName'] ; ?> </td>
+			<td><?php echo $row['AssignmentDueDate'] ; ?> </td>
+			<td><?php echo $row['AssignmentInstructions'] ; ?> </td>
+			<td><?php echo $row['AssignmentClass'] ; ?> </td>
+			<td><?php echo $row['AssignmentType'] ; ?> </td>
+			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+			<td><?php echo $row['SuccessesToPass'] ; ?></td>
+>>>>>>> 3fc3ddf2d4471d7589b7f454a35a9838c3ee6b0b
+			<!--<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td> -->
+>>>>>>> master
+			</tr>
+			<!-- <td><a href="upload/<?php //echo $row['FileName'] ; ?>"><?php //echo $row['FileName'] ; ?></a></td> -->
+		<?php
+			}
+		}
+		else
+			{
+		?>
+			<tr align="center">
+			<td colspan="8" style="color:#FF0000; font-weight:bold;">No Assignment found</td>
+			</tr>
+		<?php
+			}
+		?>
+	</table>
+</body>
+
+<script type="text/javascript">
+
+document.getElementById("divAssignmentDetail").style.display="none";
+</script>
+</html>

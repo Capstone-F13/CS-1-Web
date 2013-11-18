@@ -24,7 +24,7 @@ if(isset($_POST['txtname']))
 	</head>
   
 	<body>
-		<pre>Please, fill the follwing form to save the code: </pre>
+		<pre>Please, fill the following form to save the code: </pre>
 		<form action="saveForm_conf.php" method="post">
 			<span>file name:</span>
 			<input type="text" name="pName" required><br>

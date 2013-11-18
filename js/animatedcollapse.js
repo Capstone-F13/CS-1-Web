@@ -18,10 +18,6 @@ function LoadListOfAssignments(courseID)
     document.getElementById("myFrame").src = "../instructor/list_of_assignments.php?AssignmentClass="+courseID;
 }
 
-function LoadListOfAssignments(courseID)
-{
-    document.getElementById("myFrame").src = "../instructor/list_of_assignments.php?AssignmentClass="+courseID;
-}
 
 var animatedcollapse = {
     divholders: {}, //structure: {div.id, div.attrs, div.$divref, div.$togglerimage}
