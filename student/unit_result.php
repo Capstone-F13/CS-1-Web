@@ -24,9 +24,8 @@ if($type == 0)
 else if($type == 1)
   $ext = "py";
 
-init_compile_debug1();
-check_launch_compile1($ext);
-compile_prog1($ext);
+check_launch_compile($ext);
+compile_prog($ext);
 
 
 
