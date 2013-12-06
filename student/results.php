@@ -237,14 +237,11 @@ if ($studentAnswer == $correctOutput)
 else 
 {	
 	$length = strlen($overallPerformance) + 1;
-	echo "Level1";
 	if($length <= 5)
 	{
-		echo "Level2";
 		if($submissionArray != NULL)
 		{
             
-			echo "Level3";
 	    	$queryString = "UPDATE Submission
 		        			SET Attempts = '$submissionAttempts', DateSubmit = '$date', Performance = CONCAT('$overallPerformance', 'F')   			
 							WHERE SubmissionMemberId = '$idmember' AND SubmissionAssignmentId = '$currentAssignmentID'";
@@ -253,7 +250,6 @@ else
 		
 		else 
 		{
-			echo "Level 3 part 2";
 			$queryString = "INSERT INTO Submission
 							VALUES ('', '$idmember', '$currentAssignmentID', '$submissionAttempts', '$date', 'F', '')";
 			$query = $mysqli->query($queryString);
@@ -264,7 +260,6 @@ else
 
 	else
 	{	
-        echo "level 4";
 		$performanceArray = str_split($overallPerformance);
 		$performanceShift = array_shift($performanceArray);
 		$performance = array_push($performanceArray, 'P');	

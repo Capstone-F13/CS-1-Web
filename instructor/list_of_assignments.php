@@ -128,12 +128,12 @@ $(document).ready( function () {
   $('#listofStudents').dataTable( {
     "aaData" : assignmentRows,    
     "aoColumns" : [
-            { "sTitle": "Assignment ID" },
+            { "sTitle": "ID" },
             { "sTitle": "Assignment Name" },
-            { "sTitle": "Assignment Due Date", "sClass": "center" },
-            { "sTitle": "Assignment Instructions" },
+            { "sTitle": "Due Date", "sClass": "center" },
+            { "sTitle": "Instructions" },
             { "sTitle": "Assignment Class" },
-            { "sTitle": "Assignment Type" },
+            { "sTitle": "Type" },
             { "sTitle": "Max Attempts" },
             { "sTitle": "Successes To Pass" }
     ]
