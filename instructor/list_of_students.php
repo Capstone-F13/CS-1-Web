@@ -36,6 +36,7 @@ error_reporting(E_ERROR | E_PARSE);
     <!-- query all students and assignments in course -->
   <script type = "text/javascript">
   var CourseStudents = [];
+  var studentRows = [];
   </script>
   <?php
     $studentsSQL = "SELECT StudentId FROM roster WHERE ClassId = " . $classID;
@@ -45,8 +46,22 @@ error_reporting(E_ERROR | E_PARSE);
   ?>
         <script type = "text/javascript">
         CourseStudents.push("<?php echo $studentsRow['StudentId']; ?>");
+        
+        var studentRow = [];
+        studentRows.push(studentRow);
+        </script>
+        <?php
+    $studentGradesSQL = "SELECT Grade FROM submission WHERE SubmissionMemberId =" . $studentID;
+    $studentGradesResult = $mysqli->query($studentGradesSQL);
+        while($studentGradesRow = mysqli_fetch_assoc($studentGradesResult))
+        {
+          <script type = "text/javascript">
+          studentRow.push("<?php echo $studentGradesRow['Grade']; ?>");
+          </script>
+        }
         </script>
   <?php
+        while($)
       }
   ?>
     
@@ -69,44 +84,25 @@ error_reporting(E_ERROR | E_PARSE);
     
   <script type = "text/javascript">
   //Now construct the student records with their info and grades as a 2D array
-  var studentRows = [];
   </script>
 
   <?php
   //Need a loop to iterate through and find all grades for every student
-  $idx = 0;
-  $studentNumber = $_REQUEST['CourseStudents.length'];
   
   //One loop for iterating through students, one for iterating through grades
-  while($idx < $studentNumber)
   {
-    ?>
-    <script type = "text/javascript">
-    var studentRow = [];
-    </script>
-
-    <?php
     //$studentID = $_POST['CourseStudents[' . $idx . ']'];
-    $studentID = "2";
     
     $studentGradesSQL = "SELECT Grade FROM submission WHERE SubmissionMemberId =" . $studentID;
     $studentGradesResult = $mysqli->query($studentGradesSQL);
         while($studentGradesRow = mysqli_fetch_assoc($studentGradesResult))
         {
-    ?>
           <script type = "text/javascript">
           studentRow.push("<?php echo $studentGradesRow['Grade']; ?>");
           </script>
-    <?php 
         }
-    ?>
-    <script type = "text/javascript">
-    studentRows.push(studentRow);
-    </script>
-    <?php
-    $idx++;
   }
-  ?>
+    ?>
   <!-- End -->
     <table>
       <tr>
