@@ -81,9 +81,10 @@ CREATE  TABLE IF NOT EXISTS `Assignment` (
   `AssignmentInstructions` TEXT NULL ,
   `AssignmentCode` TEXT NULL ,
   `AssignmentClass` INT NOT NULL ,
-  `AssignmentType` BINARY NOT NULL COMMENT 'AssignmentType is 0 for C++ and 1 for Python' ,
+  `FileType` BINARY NOT NULL COMMENT 'AssignmentType is 0 for C++ and 1 for Python' ,
   `AssignmentMaxAttempts` INT NULL ,
-  `SuccessesToPass` INT NOT NULL DEFAULT '0', 
+  `SuccessesToPass` INT NOT NULL DEFAULT '0',
+  `AssignmentType` BINARY NOT NULL,
   PRIMARY KEY (`idAssignment`) ,
   INDEX `ForClass_idx` (`AssignmentClass` ASC) ,
   UNIQUE INDEX `idAssignment_UNIQUE` (`idAssignment` ASC) ,
@@ -129,23 +130,21 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 
 
-CREATE  TABLE IF NOT EXISTS `UnitTest` (
+CREATE TABLE IF NOT EXISTS `UnitTest` (
   `idUnitTest` INT NOT NULL AUTO_INCREMENT ,
   `UnitTestName` VARCHAR(45) NOT NULL ,
-  `UnitTestDueDate` DATETIME NULL ,
-  `UnitTestInstructions` TEXT NULL ,
-  `UnitTestCode` TEXT NULL ,
-  `UnitTestClass` INT NOT NULL ,
-  `UnitTestType` BINARY NOT NULL COMMENT 'AssignmentType is 0 for C++ and 1 for Python' ,
-  `UnitTestMaxAttempts` INT NULL ,
-  `SuccessesToPass` INT NOT NULL DEFAULT '0',
-  `UnitTestReveal` BINARY DEFAULT '0',
-
+  `UnitTestAssignmentId` INT NOT NULL ,
+  `UnitTestClassId` INT NOT NULL ,
+  `UnitTestProgram` TEXT NOT NULL ,
+  `isHidden` BINARY NOT NULL DEFAULT 0,
   PRIMARY KEY (`idUnitTest`) ,
-  FOREIGN KEY (`UnitTestClass` )
-  REFERENCES `Classes` (`idClass` )
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION)
+  INDEX `AssociatedAssignment_idx` (`UnitTestAssignmentId` ASC) ,
+  UNIQUE INDEX `idUnitTest_UNIQUE` (`idUnitTest` ASC) ,
+  CONSTRAINT `AssociatedAssignment`
+    FOREIGN KEY (`UnitTestAssignmentId` )
+    REFERENCES `Assignment` (`idAssignment` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -241,12 +240,15 @@ INSERT INTO Roster VALUES (1, 0001, 0002);
 INSERT INTO Roster VALUES (2, 0002, 0002);
 INSERT INTO Roster VALUES (3, 0001, 0004);
 INSERT INTO Roster VALUES (4, 0002, 0004);
-INSERT INTO Assignment VALUES (1, 'Practice Test', NULL, 'Print Out Hello World', '//This Is Code', 1, 0, 10,3);
-INSERT INTO Assignment VALUES (2, 'Sample Test', NULL, 'Print Out Goodbye World', '//This Is Code', 1, 0, 5,3);
+INSERT INTO Assignment VALUES (1, 'Practice Test', NULL, 'Print Out Hello World', '//This Is Code', 1, 0, 10, 3, 0);
+INSERT INTO Assignment VALUES (2, 'Unit Test', NULL, 'Unit', '//This Is Code', 1, 0, 10, 3, 1);
+INSERT INTO Assignment VALUES (3, 'Sample Test', NULL, 'Print Out Goodbye World', '//This Is Code', 1, 0, 5, 3, 0);
+INSERT INTO UnitTest VALUES (1, 'Name', 1, 1, 'Program', 0);
+INSERT INTO UnitTest VALUES (2, 'Name2', 1, 1, 'Program2', 1);
 INSERT INTO Template VALUES (0001, 'Hello World', '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
 INSERT INTO Practice VALUES (0001, 'Hello World', 0002, '#include <iostream>using namespace std;int main (){cout << "Hello World!";return 0;}');
 INSERT INTO Notification VALUES (1, 'Testing Notifications', 1, "Hi Class, this is the notes system!");
-INSERT INTO UnitTest Values('27', 'Test', '0', 'Do stuff', '//Code', '1', '0', '7', '2', '0');
+
 
 -- -------------------------------------
 -- Member Population
@@ -374,9 +376,10 @@ INSERT INTO Roster VALUES (NULL, 0010, 0016);
 -- -------------------------------------
 -- Assignment Population(idAssignment,AssignmentName,AssignmentDueDate,AssignmentInstructions,AssignmentCode,AssignmentClass,AssignmentType,AssignmentMaxAttempts, SuccessestoPass)
 -- -------------------------------------
-INSERT INTO Assignment VALUES (19, 'Practice Test 1', NULL, 'Print Out Hello World', '//This Is Code', 10, 0, 10,3);
-INSERT INTO Assignment VALUES (4, 'Sample Test 1', NULL, 'Print Out Goodbye World', '//This Is Code', 3, 0, 5,3);
-INSERT INTO Assignment VALUES (5, 'Practice Test 2', NULL, 'Print Out Hello World', '//This Is Code', 4, 1, 10,3);
+/*
+INSERT INTO Assignment VALUES (19, 'Practice Test 1', NULL, 'Print Out Hello World', '//This Is Code', 10, 0, 10,3,);
+INSERT INTO Assignment VALUES (4, 'Sample Test 1', NULL, 'Print Out Goodbye World', '//This Is Code', 3, 0, 5,3,);
+INSERT INTO Assignment VALUES (5, 'Practice Test 2', NULL, 'Print Out Hello World', '//This Is Code', 4, 1, 10,3,);
 INSERT INTO Assignment VALUES (6, 'Sample Test 2', NULL, 'Print Out Goodbye World', '//This Is Code', 5, 0, 5,3);
 INSERT INTO Assignment VALUES (7, 'Practice Test 3', NULL, 'Print Out Hello World', '//This Is Code', 6, 1, 10,3);
 INSERT INTO Assignment VALUES (8, 'Sample Test 3', NULL, 'Print Out Goodbye World', '//This Is Code', 7, 0, 5,3);
@@ -392,3 +395,4 @@ INSERT INTO Assignment VALUES (11, 'Practice Test 8', NULL, 'Print Out Hello Wor
 INSERT INTO Assignment VALUES (12, 'Sample Test 8', NULL, 'Print Out Goodbye World', '//This Is Code', 12, 0, 5,3);
 INSERT INTO Assignment VALUES (20, 'Sample Test 9', NULL, 'Print Out Goodbye World', '//This Is Code', 17, 1, 5,3);
 INSERT INTO Assignment VALUES (21, 'Practice Test 9', NULL, 'Print Out Hello World', '//This Is Code', 18, 1, 10,3);
+*/

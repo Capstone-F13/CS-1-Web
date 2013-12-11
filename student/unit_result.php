@@ -1,5 +1,6 @@
 <?php
 include("../shared_php/header.php");
+include("../shared_php/compile.php");
 require dirname(__FILE__) . '/../files/KLogger.php';
 error_reporting(-1);
 
@@ -19,24 +20,13 @@ $filepath = "../shared_php/tmp/";
 $root = "CS-1-Web/shared_php/tmp";
 $filename = rand(0,1000000);
 if($type == 0)
-  $ext = ".cpp";
+  $ext = "cpp";
 else if($type == 1)
-  $ext = ".py";
+  $ext = "py";
 
+check_launch_compile($ext);
+compile_prog($ext);
 
-//system("touch C:/wamp/www/CS-1-Web/shared_php/tmp/test.exe");
-file_put_contents($filepath.$filename.$ext, $input);
-$output = "g++ -o -w C:/wamp/www/CS-1-Web/shared_php/tmp/".$filename. " c:/wamp/www/CS-1-Web/shared_php/tmp/".$filename.$ext. " >& c:/wamp/www/CS-1-Web/shared_php/tmp/error_file.txt";
-system("g++ -o -w C:/wamp/www/CS-1-Web/shared_php/tmp/".$filename. " c:/wamp/www/CS-1-Web/shared_php/tmp/".$filename.$ext. " >& c:/wamp/www/CS-1-Web/shared_php/tmp/error_file.txt", $output2);
-
-echo $output2;
-echo $output;
-/*
-echo $output2 = system("C:/wamp/www/CS-1-Web/shared_php/tmp/".$filename. " <   >& 
-c:/wamp/www/CS-1-Web/shared_php/tmp/error_file.txt");
-*/
-//echo system('c:/wamp/www/CS-1-Web/shared_php/tmp/./'.$filename, $output);
-//echo 'g++ -o ../shared_php/tmp/'.$filename. ' ../shared_php/tmp/'.$filename.$ext;
 
 
 ?>

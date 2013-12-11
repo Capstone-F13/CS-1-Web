@@ -85,8 +85,12 @@
 						<img src="images/instructor-home.png" />
 					</div>
                     <div class="images">
-                        <p>Step1: Once logged in, select course you wish to give an assignment and click the list of assignments tab</p>
-                        <img src="images/instructor-home.png" />
+                        <p>Step2: On this page, click on the "progression by assignment" link </p>
+                        <img src="images/progression1.png" />
+                    </div>
+                    <div class="images">
+                        <p>Step3: Here you simply choose which assignment you which to see all student's grades. </p>
+                        <img src="images/progression2.png" />
                     </div>
 				</div>			
 			</div>
