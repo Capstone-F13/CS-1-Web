@@ -73,13 +73,14 @@ while ($rosterQueryRow = mysqli_fetch_array($rosterQuery))
         echo "<br />";
     }
 
-/*
+
+
     $UnitTestQueryString = "SELECT * FROM UnitTest WHERE UnitTestClass=" . $rosterQueryRow['ClassId'];
     $UnitTestQuery = $mysqli->query($UnitTestQueryString);
     //var_dump($UnitTestQuery);
 
    
-
+/*
     while($UnitTestQueryRow = mysqli_fetch_array($UnitTestQuery))
     {
         echo "<b>Unit Test Name:</b> " . $UnitTestQueryRow['UnitTestName'] . "<br />";
@@ -106,3 +107,5 @@ while ($rosterQueryRow = mysqli_fetch_array($rosterQuery))
 
 include("../shared_php/footer.php");
 ?>
+
+<a href="unit_testing.php">Unit Test</a>

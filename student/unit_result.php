@@ -3,14 +3,28 @@ include("../shared_php/header.php");
 include("../shared_php/compile.php");
 require dirname(__FILE__) . '/../files/KLogger.php';
 error_reporting(-1);
-
+/*
 $unitTestId = $_SESSION['idUnitTest'];
 $name = $_SESSION['UnitTestName'];
+
+$title = "Unit Testing"; //enter title into the quotation marks
+@$id = $_SESSION['idUnitTest'] = $_GET['idUnitTest'];
+@$name = $_SESSION['UnitTestName'] = $_GET['UnitTestName'];
+//$_SESSION['uniqueID']=uniqid ();
+$idmember = $_SESSION['idmember'];
 
 $query = "SELECT UnitTestType, UnitTestReveal, UnitTestCode 
           FROM UnitTest
           WHERE idUnitTest = '$unitTestId'";
+        
+$query = "SELECT Classes.idClass, Classes.ClassName, UnitTest.idUnitTest, UnitTest.UnitTestName, UnitTest.UnitTestType
+FROM Classes
+INNER JOIN UnitTest ON Classes.idClass = UnitTest.UnitTestClass
+INNER JOIN Roster ON Classes.idClass = Roster.ClassId
+WHERE Roster.StudentId = '$idmember'";
 $queryResult = $mysqli->query($query);
+
+
 $queryRow = $queryResult->fetch_row();
 $type = $queryRow[0];
 $reveal = $queryRow[1];
@@ -26,8 +40,9 @@ else if($type == 1)
 
 check_launch_compile($ext);
 compile_prog($ext);
+*/
 
-
+$reveal = 1;
 
 ?>
 
@@ -43,14 +58,6 @@ $idmember = $_SESSION['idmember'];
 $log   = KLogger::instance(dirname(__FILE__) . '/../files/log'.$_SESSION['uniqueID'], KLogger::INFO);
 $log->logInfo('In Practice page',$_SESSION['uniqueID']);
 
-/*
-$query = "SELECT Classes.idClass, Classes.ClassName, UnitTest.idUnitTest, UnitTest.UnitTestName, UnitTest.UnitTestType
-          FROM Classes
-          INNER JOIN UnitTest ON Classes.idClass = UnitTest.UnitTestClass
-          INNER JOIN Roster ON Classes.idClass = Roster.ClassId
-          WHERE Roster.StudentId = '$idmember'"; 
-$result = $mysqli->query($query);
-*/
 ?>
 
 <header id="top_header">
@@ -64,7 +71,7 @@ $result = $mysqli->query($query);
 
   <!--Main Section where show code, upload and save -->
 <section id="main_section" >
-    <h1> Unit Test - <?php echo $name ?> </h1>
+    <h1> Unit Test - Test Name <?php //echo $name ?> </h1>
     <h3>The correct answer is: <?php  ?></h3>
     <h3>Your answer: <?php ?></h3>
     <h3>Your Code:</h3>
@@ -75,7 +82,7 @@ $result = $mysqli->query($query);
     {
     ?>
         <h3>Unit Test For This Assignment</h3>
-        <textarea name="txtarea2" id="txtarea2" cols="50"><?php echo $code; ?></textarea>
+        <textarea name="txtarea2" id="txtarea2" cols="50"><?php echo '//unit test'; //$code; ?></textarea>
     <?php
     }
     ?>
