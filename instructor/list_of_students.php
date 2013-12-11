@@ -55,14 +55,14 @@ error_reporting(E_ERROR | E_PARSE);
     $studentGradesResult = $mysqli->query($studentGradesSQL);
         while($studentGradesRow = mysqli_fetch_assoc($studentGradesResult))
         {
+        ?>
           <script type = "text/javascript">
           studentRow.push("<?php echo $studentGradesRow['Grade']; ?>");
           </script>
+    <?php
         }
-        </script>
-  <?php
-        while($)
-      }
+       // while($)
+     }
   ?>
     
   <script type = "text/javascript">
@@ -97,9 +97,9 @@ error_reporting(E_ERROR | E_PARSE);
     $studentGradesResult = $mysqli->query($studentGradesSQL);
         while($studentGradesRow = mysqli_fetch_assoc($studentGradesResult))
         {
-          <script type = "text/javascript">
+          /*<script type = "text/javascript">
           studentRow.push("<?php echo $studentGradesRow['Grade']; ?>");
-          </script>
+          </script>*/
         }
   }
     ?>
