@@ -2,6 +2,7 @@
 require_once("../shared_php/databaseConnect.php");
 session_start();
 $_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
+//error_reporting(E_ERROR);
 ?>
 
 
@@ -13,8 +14,10 @@ $_SESSION['AssignmentClass'] = $_REQUEST['AssignmentClass'];
 <title>Account</title>
 <link rel="stylesheet" type="text/css" media="screen" href="../css/navbar.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="../css/main.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="../css/acourses.css" />
+<!-- <link rel="stylesheet" type="text/css" media="screen" href="../css/acourses.css" /> -->
 <link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/jquery.dataTables.css">
+<link rel="stylesheet" href="../css/jquery-ui.css">
 <script type="text/javascript">
 
 function ValidateForm()
@@ -58,6 +61,11 @@ function ValidateForm()
 </script>
 </head>
 <body leftmargin="0px" topmargin="0px">
+<script src="../js/jquery-1.9.1.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery.dataTables.min.js"></script>
+<script src="../js/DataTables.js"></script>
 	
 	<?php		
 		$selectSQL="SELECT * FROM Classes where idClass = " . $_REQUEST['AssignmentClass'];
@@ -70,56 +78,70 @@ function ValidateForm()
 	<strong><a href="delete_assignment.php">Delete Assignment</a></strong>
 	<strong><a href="progression.php">Progression by Assignment</a></strong><br />
 	<strong><a href="student_progression.php">Progression by Student</a></strong>
-	<table id="listOfStudent" cellpadding="5px" cellspacing="0px">
-		<thead>
-	  		<td width="76">Assignment ID</td>
-			<td width="89">Assignment Name</td>
-			<td width="106">Assignment Due Date</td>
-			<td width="115">Assignment Instructions</td>
-			<td width="81">Assignment Class</td>
-			<td width="85">Assignment Type</td>
-			<td width="93">Maximum Attempts</td>
-			<td width="115">Successes to Pass</td>
-			<td width="68">Download File</td>
-		<td width="0"></thead>
+        <script type="text/javascript">
+        var assignmentRows = [];
+        </script>
+        <table id="listofStudents" cellpadding="5px" cellspacing="0px">
+                
+
 		<?php
 		$selectSQL="SELECT * FROM Assignment where AssignmentClass=" . $_REQUEST['AssignmentClass'];
 		$result=$mysqli->query($selectSQL);
+                
 
-		if(mysqli_num_rows($result)>0)
+                $num_of_rows = mysqli_num_rows($result);
+                if($num_of_rows>0)
 		{
 		
-			while ($row = mysqli_fetch_assoc($result)) 
-			{
-		?>
-			<tr>
-			<td><?php echo $row['idAssignment']; ?> </td>
-			<td><?php echo $row['AssignmentName'] ; ?> </td>
-			<td><?php echo $row['AssignmentDueDate'] ; ?> </td>
-			<td><?php echo $row['AssignmentInstructions'] ; ?> </td>
-			<td><?php echo $row['AssignmentClass'] ; ?> </td>
-			<td><?php echo $row['AssignmentType'] ; ?> </td>
-			<td><?php echo $row['AssignmentMaxAttempts'] ; ?> </td>
-			<td><?php echo $row['SuccessesToPass'] ; ?></td>
-			<!--<td><a href="upload/<?php echo $row['FileName'] ; ?>"><?php echo $row['FileName'] ; ?></a></td> -->
-			</tr>
-		<?php
+                        while($row = mysqli_fetch_assoc($result))
+                        {
+    ?>
+
+        
+    <script type="text/javascript">
+    var assignmentRow = [];
+    assignmentRow.push("<?php echo $row['idAssignment']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentName']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentDueDate']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentInstructions']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentClass']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentType']; ?>");
+    assignmentRow.push("<?php echo $row['AssignmentMaxAttempts']; ?>");
+    assignmentRow.push("<?php echo $row['SuccessesToPass']; ?>");
+    assignmentRows.push(assignmentRow);
+    </script>
+
+                   <?php
 			}
 		}
-		else
-			{
-		?>
-			<tr align="center">
-			<td colspan="8" style="color:#FF0000; font-weight:bold;">No Assignment found</td>
-			</tr>
-		<?php
-			}
 		?>
 	</table>
 </body>
 
 <script type="text/javascript">
-
-document.getElementById("divAssignmentDetail").style.display="none";
+if(document.getElementById("divAssignmentDetail")){
+  document.getElementById("divAssignmentDetail").style.display="none";
+  }
 </script>
+
+<script>
+$(document).ready( function () {
+  $('#listofStudents').dataTable( {
+    "aaData" : assignmentRows,    
+    "aoColumns" : [
+            { "sTitle": "ID" },
+            { "sTitle": "Assignment Name" },
+            { "sTitle": "Due Date", "sClass": "center" },
+            { "sTitle": "Instructions" },
+            { "sTitle": "Assignment Class" },
+            { "sTitle": "Type" },
+            { "sTitle": "Max Attempts" },
+            { "sTitle": "Successes To Pass" }
+    ]
+  } );
+} );
+</script>
+
+
+
 </html>
